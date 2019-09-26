@@ -1,0 +1,39 @@
+/* not needed; loaded from the options database */
+:root {
+	--header-font: arial, helvetica, sans-serif;
+	--header-font-weight: 700;
+	--text-font: arial, helvetica, sans-serif;
+	--text-font-weight: 400;
+	--text-font-size: 13px;
+	--border-color: #d7d7d7;
+	--section-padding: 30px 0;
+	--header-large-margin: 30px 0 20px 0;
+	--header-medium-margin: 25px 0 15px 0;
+	--header-small-margin: 10px 0;
+	--paragraph-margin: 20px 0;
+	--appnav-icon-width: 50px;
+	--appnav-line-height: 25px;
+	--appnav-column-width: 220px;
+	--primary-color: #660033;
+	--primary-color-highlight: #b20046;
+	--primary-color-highlight2: #93003a;
+	--primary-color-highlight3: #df0059;
+	--primary-color-darken: #400020;
+	--secondary-color: #112a40;
+	--secondary-color-highlight: #08477e;
+	--message-info-font-color: #728c33;
+	--message-info-background-color: #ecf2db;
+	--message-warn-font-color: #f97c00;
+	--message-warn-background-color: #fff4d5;
+	--message-alert-font-color: #ff1744;
+	--message-alert-background-color: #fbe9e7;
+	--text-font-color-1: #333333;
+	--text-font-color-2: #686868;
+	--background-colors-1: #ffffff;
+	--background-colors-2: #f2f2f2;
+	--background-colors-3: #e4e4e4;
+	--background-colors-4: #d7d7d7;
+	--background-colors-5: #aaaaaa;
+	--background-colors-6: #666666;
+	--background-colors-7: #333333;
+}

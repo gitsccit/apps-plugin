@@ -1,0 +1,139 @@
+/*
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+}
+
+.wrapper > * {
+    flex: 1 100%;
+}
+*/
+/*@media all and (min-width: 600px) {
+    /* We tell both sidebars to share a row */
+/*  .aside {
+      flex: 1 auto;
+      justify-content: flex-end;
+
+  }
+}
+
+@media all and (min-width: 800px) {
+  /* We invert order of first sidebar and main
+   * And tell the main element to take twice as much width as the other two sidebars
+   */
+/*.main {
+    flex: 2 0px;
+}
+
+.aside-1 {
+    order: 1;
+    margin: 10px;
+    justify-content: flex-end;
+
+}
+.aside-2 {
+    order: 3;
+}
+
+}
+.header{
+display: flex;
+justify-content: space-between;
+align-content: center;
+
+
+}
+.table-title{
+font-size: 20px;
+}
+button {
+background-color: #660033;
+border: none;
+color: white;
+text-decoration: none;
+margin: 4px 2px;
+cursor: pointer;
+width: auto;
+height: 30px;
+display: block;
+min-width: 100px;
+}
+input+label {
+margin-left: 0px !important;
+}
+
+ */
+.strong-li {
+    background-color: #B1B1B1;
+    padding: 12px 10px 10px 15px;
+    color: white;
+    list-style: none;
+    height: 40px;
+    width: 200px;
+    display: block;
+    margin-left: 28px;
+
+}
+
+.strong-child-li {
+    padding: 12px 10px 10px 15px;
+    background-color: #D7D7D7;
+    margin: 10px 10px 10px 100px;
+    width: 200px;
+    display: -webkit-inline-box;
+    height: 40px;
+
+}
+
+.node > span {
+    display: block;
+}
+
+.child-li {
+    background-color: #D7D7D7;
+    padding: 5px;
+    color: black;
+    margin: 10px 10px 10px 100px;
+    list-style: none;
+    display: block;
+    width: 200px;
+    height: 40px;
+}
+
+.navigation-page-ul {
+    list-style: none;
+    height: 100%;
+}
+
+.child-navigation-page-ul {
+    margin-left: 50px;
+}
+
+.navigation-page-ul > li ul {
+    list-style: none;
+    height: 100%;
+}
+
+.navigation-page-li {
+    list-style: none;
+    height: 25px;
+    width: 225px;
+    margin-bottom: 15px;
+}
+
+.shade {
+    margin: 1px;
+    background-color: #E9E9E9;
+    padding: 15px;
+    display: block;
+}
+
+
+.navigation-page-ul > li {
+    cursor: move;
+}
+
+checkbox {
+    margin-right: 5px;
+}

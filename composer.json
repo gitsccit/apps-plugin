@@ -1,0 +1,24 @@
+{
+    "name": "gitsccit/apps",
+    "description": "Apps plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "require": {
+        "cakephp/cakephp": "^3.8",
+        "gitsccit/web-skeleton": "^0.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Apps\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Apps\\Test\\": "tests/",
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+        }
+    }
+}
