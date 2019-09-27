@@ -43,24 +43,23 @@ class AppController extends \Skeleton\Controller\AppController
     {
         parent::initialize();
 
-        $this->loadComponent('ConfigureFromDatabase');
-
+        $this->loadComponent('Apps.ConfigureFromDatabase');
 
         // MSGraph Service
-        $this->loadComponent('MSGraph');
+        $this->loadComponent('Apps.MSGraph');
 
         // login component using MSGraph
         $this->loadComponent('Auth', [
-            'authorize' => "Controller",
+            'authorize' => 'Controller',
             'loginAction' => [
-                'controller' => "Session",
-                'action' => "login",
-                'plugin' => null,
+                'controller' => 'Session',
+                'action' => 'login',
+                'plugin' => 'Apps',
             ],
             'logoutRedirect' => [
                 'controller' => 'Session',
                 'action' => 'end',
-                'plugin' => null,
+                'plugin' => 'Apps',
             ]
         ]);
     }

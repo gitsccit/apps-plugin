@@ -161,7 +161,7 @@ class MSGraphAuthComponent extends Component
     private function getSyncUser($msgraph_user)
     {
 
-        $users = TableRegistry::getTableLocator()->get('Users');
+        $users = TableRegistry::getTableLocator()->get('Apps.Users');
         $query = $users->find('all', ['contain' => 'TimeZones'])->where(['ldapid' => $msgraph_user['id']]);
         $user = $query->first();
 

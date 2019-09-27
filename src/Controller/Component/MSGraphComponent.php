@@ -89,7 +89,8 @@ class MSGraphComponent extends Component
                 $host = empty($_SERVER['HTTP_HOST']) ? "" : $_SERVER['HTTP_HOST'];
                 $this->controller->Flash->error("MSGraph service account is not logged in. An administrator must log in <a href=\"https://" . $host . Router::url([
                         'controller' => "Session",
-                        'action' => "msgraphauthcode"
+                        'action' => "msgraphauthcode",
+                        'plugin' => 'Apps'
                     ]) . "\">here</a> using the webmsgraph user.", ['escape' => false]);
             } else {
                 // use the refresh token to get a fresh access token

@@ -38,7 +38,7 @@ class SessionController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('MSGraphAuth');
+        $this->loadComponent('Apps.MSGraphAuth');
     }
 
     public function beforeFilter(Event $event)

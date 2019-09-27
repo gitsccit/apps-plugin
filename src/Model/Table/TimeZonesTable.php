@@ -66,4 +66,14 @@ class TimeZonesTable extends Table
 
         return $validator;
     }
+
+    /**
+     * Returns the database connection name to use by default.
+     *
+     * @return string
+     */
+    public static function defaultConnectionName()
+    {
+        return 'apps';
+    }
 }

@@ -100,4 +100,14 @@ class AppsTable extends Table
 
         return $temp;
     }
+
+    /**
+     * Returns the database connection name to use by default.
+     *
+     * @return string
+     */
+    public static function defaultConnectionName()
+    {
+        return 'apps';
+    }
 }
