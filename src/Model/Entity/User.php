@@ -106,7 +106,7 @@ class User extends Entity
 
     public function hasPermission($permission)
     {
-        $permissionsTable = TableRegistry::getTableLocator()->get('Permissions');
+        $permissionsTable = TableRegistry::getTableLocator()->get('Apps.Permissions');
         $permission = strtolower($permission);
         $permissions = [$permission];
 

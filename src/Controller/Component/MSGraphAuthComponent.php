@@ -65,7 +65,7 @@ class MSGraphAuthComponent extends Component
 
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('default_master');
+            $conn = ConnectionManager::get('apps_master');
             $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
                 [$state, $redirect]);
             $redirect = $this->config['redirect_alt_uri'];
@@ -197,7 +197,7 @@ class MSGraphAuthComponent extends Component
     private function userLogins($user)
     {
 
-        $user_logins = TableRegistry::getTableLocator()->get('UserLogins');
+        $user_logins = TableRegistry::getTableLocator()->get('Apps.UserLogins');
         $user_login = $user_logins->newEntity();
         $user_login->user_id = $user['id'];
         $user_login->ip_address = $_SERVER['REMOTE_ADDR'];

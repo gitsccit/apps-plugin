@@ -51,7 +51,7 @@ return [
             'api_url' => 'https://graph.microsoft.com/v1.0/',
             'tenant' => 'ad7d388d-6dd1-42fc-a564-2995ef86cf2b', // Azure AD GUI
             'response_type' => 'code',
-            'redirect_uri' => ['controller' => 'Session', 'action' => 'start'],
+            'redirect_uri' => ['controller' => 'Session', 'action' => 'start', 'plugin' => 'Apps'],
             'response_mode' => 'query',
             'redirect_alt_uri' => 'https://' . ($_SERVER['HTTP_HOST'] ?? '') . '/oauthfwd',
         ],

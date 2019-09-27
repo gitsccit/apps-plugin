@@ -35,8 +35,8 @@ class StoreDivisionsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('StoreDivisions') ? [] : ['className' => StoreDivisionsTable::class];
-        $this->StoreDivisions = TableRegistry::getTableLocator()->get('StoreDivisions', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.StoreDivisions') ? [] : ['className' => StoreDivisionsTable::class];
+        $this->StoreDivisions = TableRegistry::getTableLocator()->get('Apps.StoreDivisions', $config);
     }
 
     /**

@@ -35,8 +35,8 @@ class StoreSortFieldsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('StoreSortFields') ? [] : ['className' => StoreSortFieldsTable::class];
-        $this->StoreSortFields = TableRegistry::getTableLocator()->get('StoreSortFields', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.Apps.StoreSortFields') ? [] : ['className' => StoreSortFieldsTable::class];
+        $this->StoreSortFields = TableRegistry::getTableLocator()->get('Apps.StoreSortFields', $config);
     }
 
     /**

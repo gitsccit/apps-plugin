@@ -37,8 +37,8 @@ class FilesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Files') ? [] : ['className' => FilesTable::class];
-        $this->Files = TableRegistry::getTableLocator()->get('Files', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.Files') ? [] : ['className' => FilesTable::class];
+        $this->Files = TableRegistry::getTableLocator()->get('Apps.Files', $config);
     }
 
     /**

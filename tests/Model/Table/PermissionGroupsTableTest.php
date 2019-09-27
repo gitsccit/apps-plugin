@@ -35,8 +35,8 @@ class PermissionGroupsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('PermissionGroups') ? [] : ['className' => PermissionGroupsTable::class];
-        $this->PermissionGroups = TableRegistry::getTableLocator()->get('PermissionGroups', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.PermissionGroups') ? [] : ['className' => PermissionGroupsTable::class];
+        $this->PermissionGroups = TableRegistry::getTableLocator()->get('Apps.PermissionGroups', $config);
     }
 
     /**

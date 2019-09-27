@@ -36,8 +36,8 @@ class TimeZonesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('TimeZones') ? [] : ['className' => TimeZonesTable::class];
-        $this->TimeZones = TableRegistry::getTableLocator()->get('TimeZones', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.TimeZones') ? [] : ['className' => TimeZonesTable::class];
+        $this->TimeZones = TableRegistry::getTableLocator()->get('Apps.TimeZones', $config);
     }
 
     /**

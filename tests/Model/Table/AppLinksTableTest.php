@@ -37,8 +37,8 @@ class AppLinksTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('AppLinks') ? [] : ['className' => AppLinksTable::class];
-        $this->AppLinks = TableRegistry::getTableLocator()->get('AppLinks', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.AppLinks') ? [] : ['className' => AppLinksTable::class];
+        $this->AppLinks = TableRegistry::getTableLocator()->get('Apps.AppLinks', $config);
     }
 
     /**

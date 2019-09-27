@@ -14,6 +14,7 @@
  * function updateUsersDelta() looks for changes and updates only users that have changed since the last call of updateUsersDelta
  * function updateUsers() updates/syncs ALL users. note that this can take longer than 30 seconds
  */
+
 namespace Apps\Controller\Component;
 
 use Cake\Cache\Cache;
@@ -118,7 +119,7 @@ class MSGraphComponent extends Component
         $host = $this->controller->request->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('default_master');
+            $conn = ConnectionManager::get('apps_master');
             $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
                 [$state, $redirect]);
             $redirect = $this->config['redirect_alt_uri'];
@@ -293,7 +294,7 @@ class MSGraphComponent extends Component
             return false;
         }
 
-        $users = TableRegistry::getTableLocator()->get('Users');
+        $users = TableRegistry::getTableLocator()->get('Apps.Users');
 
         $query = $users->find('all')->where(['ldapid' => $msgraph_user['id']]);
         $user = $query->first();
@@ -331,7 +332,7 @@ class MSGraphComponent extends Component
 
         // attempt to determine the time_zone using the location
         if (true || $locationChange) {
-            $conn = ConnectionManager::get('default');
+            $conn = ConnectionManager::get('apps');
             $stmt = $conn->prepare("SELECT t.id
 FROM location_time_zones l 
 INNER JOIN time_zones t ON t.id = l.time_zone_id 
@@ -443,7 +444,7 @@ LIMIT 1", [$user->location . "%"]);
             $user_contacts[] = ['Mobile', $v];
         }
 
-        $contacts = TableRegistry::getTableLocator()->get('UserContacts');
+        $contacts = TableRegistry::getTableLocator()->get('Apps.UserContacts');
 
         $query = $contacts->find('all')->where(['user_id' => $user['id']]);
         foreach ($query as $item) {
@@ -748,7 +749,7 @@ LIMIT 1", [$user->location . "%"]);
             // check if this theme has a default profile image. if found use it instead
             if ($theme = Configure::read("store.layout")) {
                 if ($profileimage = Configure::read($theme . ".profile-image")) {
-                    $files = TableRegistry::getTableLocator()->get('Files');
+                    $files = TableRegistry::getTableLocator()->get('Apps.Files');
                     $file = $files->get($profileimage, ['contain' => 'MimeTypes']);
                     $result = $this->getFile($file->path);
                     $result['mimetype'] = $file->mime_type->name;

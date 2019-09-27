@@ -154,7 +154,7 @@ class FilesController extends AppController
     private function fetch($id = null, $download = true, $width = false, $height = false)
     {
         $response = $this->response;
-        $files = TableRegistry::getTableLocator()->get('Files');
+        $files = TableRegistry::getTableLocator()->get('Apps.Files');
         $file = $files->get($id, ['contain' => ['MimeType']]);
 
         // update the date_accessed
@@ -353,7 +353,7 @@ class FilesController extends AppController
             }
         }
 
-        $this->MimeTypes = TableRegistry::getTableLocator()->get('MimeTypes');
+        $this->MimeTypes = TableRegistry::getTableLocator()->get('Apps.MimeTypes');
         $mime_type = $this->MimeTypes->find('all', ['conditions' => ['MimeTypes.name LIKE' => $mime]])->first();
         if (!$mime_type) {
             die("File type " . $mime . " is not whitelisted for upload.");

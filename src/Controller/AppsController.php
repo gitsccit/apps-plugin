@@ -84,7 +84,7 @@ class AppsController extends AppController
             $data = $this->request->getData();
             $app = $this->Apps->patchEntity($app, $data);
 
-            $this->AppLinks = TableRegistry::getTableLocator()->get('AppLinks');
+            $this->AppLinks = TableRegistry::getTableLocator()->get('Apps.AppLinks');
 
             if ($this->Apps->save($app)) {
                 $this->Flash->success(__('The app has been saved.'));

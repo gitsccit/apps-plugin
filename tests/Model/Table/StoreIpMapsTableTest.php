@@ -36,8 +36,8 @@ class StoreIpMapsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('StoreIpMaps') ? [] : ['className' => StoreIpMapsTable::class];
-        $this->StoreIpMaps = TableRegistry::getTableLocator()->get('StoreIpMaps', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.StoreIpMaps') ? [] : ['className' => StoreIpMapsTable::class];
+        $this->StoreIpMaps = TableRegistry::getTableLocator()->get('Apps.StoreIpMaps', $config);
     }
 
     /**

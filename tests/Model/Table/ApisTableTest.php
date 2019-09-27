@@ -34,8 +34,8 @@ class ApisTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Apis') ? [] : ['className' => ApisTable::class];
-        $this->Apis = TableRegistry::getTableLocator()->get('Apis', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.Apis') ? [] : ['className' => ApisTable::class];
+        $this->Apis = TableRegistry::getTableLocator()->get('Apps.Apis', $config);
     }
 
     /**

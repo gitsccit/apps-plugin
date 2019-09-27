@@ -35,8 +35,8 @@ class AppsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Apps') ? [] : ['className' => AppsTable::class];
-        $this->Apps = TableRegistry::getTableLocator()->get('Apps', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.Apps') ? [] : ['className' => AppsTable::class];
+        $this->Apps = TableRegistry::getTableLocator()->get('Apps.Apps', $config);
     }
 
     /**

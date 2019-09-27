@@ -35,8 +35,8 @@ class MimeTypesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('MimeTypes') ? [] : ['className' => MimeTypesTable::class];
-        $this->MimeTypes = TableRegistry::getTableLocator()->get('MimeTypes', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.MimeTypes') ? [] : ['className' => MimeTypesTable::class];
+        $this->MimeTypes = TableRegistry::getTableLocator()->get('Apps.MimeTypes', $config);
     }
 
     /**

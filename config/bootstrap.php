@@ -1,5 +1,6 @@
 <?php
 
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 
 /*
@@ -14,4 +15,8 @@ try {
     Configure::load('Apps.app', 'default', true);
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
+}
+
+if ($cache = Configure::consume('Cache')) {
+    Cache::setConfig($cache);
 }

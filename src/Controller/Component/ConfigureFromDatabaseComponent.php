@@ -13,6 +13,7 @@ use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Cake\Http\Exception\ServiceUnavailableException;
+use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 
 class ConfigureFromDatabaseComponent extends Component
@@ -36,7 +37,7 @@ class ConfigureFromDatabaseComponent extends Component
             $port = "443";
         }
 
-        $this->db = ConnectionManager::get('default');
+        $this->db = ConnectionManager::get('apps');
         $result = $this->db->execute("SELECT s.id,s.name,s.active,i.environment_id,e.name AS environment,e.path
 FROM store_ip_maps i
 INNER JOIN stores s ON s.id = i.store_id

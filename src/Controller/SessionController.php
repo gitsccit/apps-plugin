@@ -73,7 +73,7 @@ class SessionController extends AppController
      */
     public function loginAs($id)
     {
-        $users = TableRegistry::getTableLocator()->get('Users');
+        $users = TableRegistry::getTableLocator()->get('Apps.Users');
         $user = $users->get($id);
 
         if ($user) {
@@ -91,7 +91,7 @@ class SessionController extends AppController
      */
     public function kill($id)
     {
-        $users = TableRegistry::getTableLocator()->get('Users');
+        $users = TableRegistry::getTableLocator()->get('Apps.Users');
         $user = $users->get($id);
 
         // build a list of session files to inspect

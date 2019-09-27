@@ -37,8 +37,8 @@ class OptionStoresTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('OptionStores') ? [] : ['className' => OptionStoresTable::class];
-        $this->OptionStores = TableRegistry::getTableLocator()->get('OptionStores', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.OptionStores') ? [] : ['className' => OptionStoresTable::class];
+        $this->OptionStores = TableRegistry::getTableLocator()->get('Apps.OptionStores', $config);
     }
 
     /**

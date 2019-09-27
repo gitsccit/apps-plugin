@@ -36,8 +36,8 @@ class PermissionsRolesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('PermissionsRoles') ? [] : ['className' => PermissionsRolesTable::class];
-        $this->PermissionsRoles = TableRegistry::getTableLocator()->get('PermissionsRoles', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.PermissionsRoles') ? [] : ['className' => PermissionsRolesTable::class];
+        $this->PermissionsRoles = TableRegistry::getTableLocator()->get('Apps.PermissionsRoles', $config);
     }
 
     /**

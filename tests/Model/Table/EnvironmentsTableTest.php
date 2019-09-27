@@ -37,8 +37,8 @@ class EnvironmentsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Environments') ? [] : ['className' => EnvironmentsTable::class];
-        $this->Environments = TableRegistry::getTableLocator()->get('Environments', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.Environments') ? [] : ['className' => EnvironmentsTable::class];
+        $this->Environments = TableRegistry::getTableLocator()->get('Apps.Environments', $config);
     }
 
     /**

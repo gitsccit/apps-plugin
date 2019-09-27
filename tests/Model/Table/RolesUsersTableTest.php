@@ -36,8 +36,8 @@ class RolesUsersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('RolesUsers') ? [] : ['className' => RolesUsersTable::class];
-        $this->RolesUsers = TableRegistry::getTableLocator()->get('RolesUsers', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.RolesUsers') ? [] : ['className' => RolesUsersTable::class];
+        $this->RolesUsers = TableRegistry::getTableLocator()->get('Apps.RolesUsers', $config);
     }
 
     /**

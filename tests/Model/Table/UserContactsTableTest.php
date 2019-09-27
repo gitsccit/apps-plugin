@@ -35,8 +35,8 @@ class UserContactsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('UserContacts') ? [] : ['className' => UserContactsTable::class];
-        $this->UserContacts = TableRegistry::getTableLocator()->get('UserContacts', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.UserContacts') ? [] : ['className' => UserContactsTable::class];
+        $this->UserContacts = TableRegistry::getTableLocator()->get('Apps.UserContacts', $config);
     }
 
     /**

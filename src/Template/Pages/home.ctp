@@ -133,7 +133,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <h4>Database</h4>
         <?php
         try {
-            $connection = ConnectionManager::get('default');
+            $connection = ConnectionManager::get('apps');
             $connected = $connection->connect();
         } catch (Exception $connectionError) {
             $connected = false;

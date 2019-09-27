@@ -35,8 +35,8 @@ class StoreReturnsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('StoreReturns') ? [] : ['className' => StoreReturnsTable::class];
-        $this->StoreReturns = TableRegistry::getTableLocator()->get('StoreReturns', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.StoreReturns') ? [] : ['className' => StoreReturnsTable::class];
+        $this->StoreReturns = TableRegistry::getTableLocator()->get('Apps.StoreReturns', $config);
     }
 
     /**

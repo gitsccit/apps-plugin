@@ -39,8 +39,8 @@ class StoresTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Stores') ? [] : ['className' => StoresTable::class];
-        $this->Stores = TableRegistry::getTableLocator()->get('Stores', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.Stores') ? [] : ['className' => StoresTable::class];
+        $this->Stores = TableRegistry::getTableLocator()->get('Apps.Stores', $config);
     }
 
     /**

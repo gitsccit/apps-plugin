@@ -35,8 +35,8 @@ class UserLoginsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('UserLogins') ? [] : ['className' => UserLoginsTable::class];
-        $this->UserLogins = TableRegistry::getTableLocator()->get('UserLogins', $config);
+        $config = TableRegistry::getTableLocator()->exists('Apps.UserLogins') ? [] : ['className' => UserLoginsTable::class];
+        $this->UserLogins = TableRegistry::getTableLocator()->get('Apps.UserLogins', $config);
     }
 
     /**

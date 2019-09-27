@@ -98,7 +98,7 @@ class OptionsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $valid = true;
-            $this->OptionStores = TableRegistry::getTableLocator()->get('OptionStores');
+            $this->OptionStores = TableRegistry::getTableLocator()->get('Apps.OptionStores');
 
             // validate primary data
             $data = $this->request->getData();
@@ -160,9 +160,9 @@ class OptionsController extends AppController
             }
         }
 
-        $stores = TableRegistry::getTableLocator()->get('Stores')->find('all')
+        $stores = TableRegistry::getTableLocator()->get('Apps.Stores')->find('all')
             ->where(['Stores.active =' => 'yes'])->order(['Stores.name' => 'ASC'])->all();
-        $environments = TableRegistry::getTableLocator()->get('Environments')
+        $environments = TableRegistry::getTableLocator()->get('Apps.Environments')
             ->find('all')->order(['Environments.id' => 'ASC'])->all();
         $typeOptions = $this->Options->getEnumOptions('type');
         $this->set(compact('stores', 'environments', 'option', 'typeOptions'));
