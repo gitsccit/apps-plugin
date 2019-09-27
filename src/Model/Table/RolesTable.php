@@ -37,11 +37,13 @@ class RolesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsToMany('Permissions', [
+            'className' => 'Apps.Permissions',
             'foreignKey' => 'role_id',
             'targetForeignKey' => 'permission_id',
             'joinTable' => 'permissions_roles'
         ]);
         $this->belongsToMany('Users', [
+            'className' => 'Apps.Users',
             'foreignKey' => 'role_id',
             'targetForeignKey' => 'user_id',
             'joinTable' => 'roles_users'

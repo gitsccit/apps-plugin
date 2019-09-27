@@ -41,10 +41,11 @@ class MimeTypesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Thumbnail', [
-            'className' => 'Files',
+            'className' => 'Apps.Files',
             'foreignKey' => 'file_id'
         ]);
         $this->hasMany('Files', [
+            'className' => 'Apps.Files',
             'foreignKey' => 'mime_type_id'
         ]);
     }

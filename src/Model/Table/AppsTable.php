@@ -36,6 +36,7 @@ class AppsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->hasMany('AppLinks', [
+            'className' => 'Apps.AppLinks',
             'foreignKey' => 'app_id',
             'conditions' => ['AppLinks.app_link_id IS' => null],
             'sort' => ['AppLinks.sort' => 'ASC', 'AppLinks.title' => 'ASC']

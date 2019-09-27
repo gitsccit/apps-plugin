@@ -37,6 +37,7 @@ class UserLoginsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Users', [
+            'className' => 'Apps.Users',
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);

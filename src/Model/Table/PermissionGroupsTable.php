@@ -38,6 +38,7 @@ class PermissionGroupsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->hasMany('Permissions', [
+            'className' => 'Apps.Permissions',
             'foreignKey' => 'permission_group_id'
         ]);
     }

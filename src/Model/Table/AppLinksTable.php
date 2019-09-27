@@ -42,21 +42,24 @@ class AppLinksTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Apps', [
+            'className' => 'Apps.Apps',
             'foreignKey' => 'app_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('ParentLinks', [
-            'className' => 'AppLinks',
+            'className' => 'Apps.AppLinks',
             'foreignKey' => 'app_link_id'
         ]);
         $this->belongsTo('Permissions', [
+            'className' => 'Apps.Permissions',
             'foreignKey' => 'permission_id'
         ]);
         $this->belongsTo('Files', [
+            'className' => 'Apps.Files',
             'foreignKey' => 'file_id'
         ]);
         $this->hasMany('ChildLinks', [
-            'className' => 'AppLinks',
+            'className' => 'Apps.AppLinks',
             'foreignKey' => 'app_link_id'
         ]);
     }

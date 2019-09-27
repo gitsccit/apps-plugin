@@ -38,6 +38,7 @@ class LocationTimeZonesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('TimeZones', [
+            'className' => 'Apps.TimeZones',
             'foreignKey' => 'time_zone_id',
             'joinType' => 'INNER'
         ]);

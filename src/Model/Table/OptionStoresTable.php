@@ -39,14 +39,17 @@ class OptionStoresTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Options', [
+            'className' => 'Apps.Options',
             'foreignKey' => 'option_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Stores', [
+            'className' => 'Apps.Stores',
             'foreignKey' => 'store_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Environments', [
+            'className' => 'Apps.Environments',
             'foreignKey' => 'environment_id',
             'joinType' => 'INNER'
         ]);

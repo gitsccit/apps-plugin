@@ -40,6 +40,7 @@ class OptionsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->hasMany('OptionStores', [
+            'className' => 'Apps.OptionStores',
             'foreignKey' => 'option_id'
         ]);
     }

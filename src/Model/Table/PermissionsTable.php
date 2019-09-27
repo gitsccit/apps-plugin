@@ -42,15 +42,19 @@ class PermissionsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('PermissionGroups', [
+            'className' => 'Apps.PermissionGroups',
             'foreignKey' => 'permission_group_id'
         ]);
         $this->hasMany('AppLinks', [
+            'className' => 'Apps.AppLinks',
             'foreignKey' => 'permission_id'
         ]);
         $this->hasMany('Environments', [
+            'className' => 'Apps.Environments',
             'foreignKey' => 'permission_id'
         ]);
         $this->belongsToMany('Roles', [
+            'className' => 'Apps.Roles',
             'foreignKey' => 'permission_id',
             'targetForeignKey' => 'role_id',
             'joinTable' => 'permissions_roles'

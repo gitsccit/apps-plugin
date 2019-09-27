@@ -43,16 +43,19 @@ class FilesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('MimeType', [
-            'className' => 'MimeTypes',
+            'className' => 'Apps.MimeTypes',
             'foreignKey' => 'mime_type_id'
         ]);
         $this->belongsTo('Users', [
+            'className' => 'Apps.Users',
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('AppLinks', [
+            'className' => 'Apps.AppLinks',
             'foreignKey' => 'file_id'
         ]);
         $this->hasMany('MimeTypes', [
+            'className' => 'Apps.MimeTypes',
             'foreignKey' => 'file_id'
         ]);
     }

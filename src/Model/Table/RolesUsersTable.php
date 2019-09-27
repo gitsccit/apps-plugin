@@ -38,10 +38,12 @@ class RolesUsersTable extends Table
         $this->setPrimaryKey(['role_id', 'user_id']);
 
         $this->belongsTo('Roles', [
+            'className' => 'Apps.Roles',
             'foreignKey' => 'role_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
+            'className' => 'Apps.Users',
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);

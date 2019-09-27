@@ -40,12 +40,15 @@ class EnvironmentsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Permissions', [
+            'className' => 'Apps.Permissions',
             'foreignKey' => 'permission_id'
         ]);
         $this->hasMany('OptionStores', [
+            'className' => 'Apps.OptionStores',
             'foreignKey' => 'environment_id'
         ]);
         $this->hasMany('StoreIpMaps', [
+            'className' => 'Apps.StoreIpMaps',
             'foreignKey' => 'environment_id'
         ]);
     }

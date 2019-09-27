@@ -37,6 +37,7 @@ class StoreDivisionsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Stores', [
+            'className' => 'Apps.Stores',
             'foreignKey' => 'store_id'
         ]);
     }

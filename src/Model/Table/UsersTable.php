@@ -45,22 +45,27 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('TimeZones', [
+            'className' => 'Apps.TimeZones',
             'foreignKey' => 'time_zone_id'
         ]);
         $this->belongsTo('Managers', [
-            'className' => 'Users',
+            'className' => 'Apps.Users',
             'foreignKey' => 'manager_id',
         ]);
         $this->hasMany('Files', [
+            'className' => 'Apps.Files',
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('UserContacts', [
+            'className' => 'Apps.UserContacts',
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('UserLogins', [
+            'className' => 'Apps.UserLogins',
             'foreignKey' => 'user_id'
         ]);
         $this->belongsToMany('Roles', [
+            'className' => 'Apps.Roles',
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'role_id',
             'joinTable' => 'roles_users'
