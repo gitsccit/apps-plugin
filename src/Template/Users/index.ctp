@@ -16,7 +16,7 @@ if ($canSynchronizeLDAP) {
     $links[] = $this->Html->link('Synchronize Active Directory', ['action' => 'synchronizeLdap'],
         ['class' => 'button']);
 }
-echo $this->element('table_filter', ['links' => $links]);
+echo $this->element('Apps.table_filter', ['links' => $links]);
 
 $header = $this->Html->tableHeaders([
     $this->Paginator->sort('username', 'Alias'),
@@ -77,6 +77,4 @@ foreach ($users as $user) {
     array_push($collection, $row);
 }
 
-echo $this->element('table', ['header' => $header, 'collection' => $collection, 'priority' => $priority]);
-
-
+echo $this->element('Skeleton.table', ['thead' => $header, 'tbody' => $collection, 'priority' => $priority]);

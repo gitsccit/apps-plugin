@@ -6,20 +6,20 @@
 $timezone = $this->request->getSession()->read('Auth.User.time_zone.name');
 
 $this->Breadcrumbs->add('Apps');
-$this->Breadcrumbs->add('Files',['action' => 'index']);
+$this->Breadcrumbs->add('Files', ['action' => 'index']);
 $this->Breadcrumbs->add($file->name);
 
 echo "<div class=\"links-top-right\">";
 echo $this->Form->postLink(
     __('Delete'),
     ['action' => 'delete', $file->id],
-    ['class' => 'button black','confirm' => __('Are you sure you want to delete # {0}?', $file->id)]
+    ['class' => 'button black', 'confirm' => __('Are you sure you want to delete # {0}?', $file->id)]
 );
 echo "</div>";
 
-echo "<h1>Uploaded File #".$file->id."</h1>\n";
+echo "<h1>Uploaded File #" . $file->id . "</h1>\n";
 
-$image = $this->Url->build(['action' => 'resize',$file->id,500,500]);
+$image = $this->Url->build(['action' => 'resize', $file->id, 500, 500]);
 $title = $file->name;
 
 $data = [
@@ -30,14 +30,19 @@ $data = [
         ['Height', $file->height],
     ],
     [
-        ['Uploaded By', (empty($file->user->display_name) ? "" : $this->Html->link($file->user->display_name,['controller' => 'users','action' => 'view',$file->user->id]))],
-        ['Date Uploaded', $file->date_created->setTimezone($timezone)],
-        ['Date Accessed', $file->date_accessed->setTimezone($timezone)],
+        [
+            'Uploaded By',
+            (empty($file->user->display_name) ? "" : $this->Html->link($file->user->display_name,
+                ['controller' => 'users', 'action' => 'view', $file->user->id]))
+        ],
+        ['Uploaded At', $file->created_at->setTimezone($timezone)],
+        ['Accessed At', $file->accessed_at->setTimezone($timezone)],
     ],
 ];
-foreach($data as $key => $value)
-    foreach($value as $k => $v)
-        $data[$key][$k][0] = "<label>".$data[$key][$k][0].":</label>";
+foreach ($data as $key => $value) {
+    foreach ($value as $k => $v) {
+        $data[$key][$k][0] = "<label>" . $data[$key][$k][0] . ":</label>";
+    }
+}
 
-echo $this->element('profile',['image' => $image,'title' => $title,'data' => $data]);
-?>
+echo $this->element('Apps.profile', ['image' => $image, 'title' => $title, 'data' => $data]);

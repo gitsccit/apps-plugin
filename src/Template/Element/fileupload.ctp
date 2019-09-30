@@ -11,7 +11,7 @@ $this->Html->script('fileupload', ['block' => true, 'once' => true]);
 <div class="file-upload"
      data-readonly="<?= (!isset($readonly) || $readonly === true ? "true" : "false") ?>"
      data-target="<?= $target ?>"
-     data-upload-url="<?= $this->Url->build(['controller' => 'files', 'action' => 'upload', 'plugin' => null]) ?>"
+     data-upload-url="<?= $this->Url->build(['controller' => 'files', 'action' => 'upload', 'plugin' => 'Apps']) ?>"
      data-csrf="<?= $this->request->getParam('_csrfToken') ?>"
      ondrop="fileUploadDragDrop(event,this)">
     <div ondragover="this.classList.add('active')" ondragexit="this.classList.remove('active')">
@@ -22,7 +22,7 @@ $this->Html->script('fileupload', ['block' => true, 'once' => true]);
             <a class="button" onclick="fileUploadLightbox(this,'<?= $this->Url->build([
                 'controller' => 'files',
                 'action' => 'browse',
-                'plugin' => null
+                'plugin' => 'Apps'
             ]) ?>')"><span class="icon-cloud"></span>Browse uploaded files</a>
         <?php endif; ?>
         <?php if (!empty($clear)): ?>

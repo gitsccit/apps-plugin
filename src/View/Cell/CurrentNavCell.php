@@ -3,12 +3,11 @@
 namespace Apps\View\Cell;
 
 use Cake\View\Cell;
-use function Couchbase\defaultDecoder;
 
 /**
  * CurrentNav cell
  * @property \Apps\Model\Table\AppLinksTable $AppLinks
- * @property \Apps\Model\Table\Apps $Apps
+ * @property \Apps\Model\Table\AppsTable $Apps
  */
 class CurrentNavCell extends Cell
 {
@@ -28,9 +27,8 @@ class CurrentNavCell extends Cell
      */
     public function initialize()
     {
-
-        $this->loadModel('Apps');
-        $this->loadModel('AppLinks');
+        $this->loadModel('Apps.Apps');
+        $this->loadModel('Apps.AppLinks');
     }
 
     /**
@@ -49,20 +47,21 @@ class CurrentNavCell extends Cell
          * $this->set(compact('title', 'links'));
          **/
         // get the name of the current active plugin
-        $plugin = $this->request->getParam('plugin');
-        $name = "Admin";
+        $name = $this->request->getParam('plugin') === 'Apps' ? 'Admin' : basename(ROOT);
         $appId = 1; // use appId 1 as the fallback
         $app = $this->Apps->find('all', [
-            'conditions' => ['name =' => $plugin],
+            'conditions' => ['name' => $name],
             'order' => ['sort' => 'ASC', 'name' => 'ASC'],
         ])->first();
-        if (!empty($app->id)) {
+
+        if ($app) {
             $appId = $app->id;
             $name = $app->name;
         }
+
         $this->set([
             'title' => $name,
-            'plugin' => (empty($app->cake_plugin) ? null : $app->cake_plugin),
+            'plugin' => empty($app->cake_plugin) ? null : $app->cake_plugin,
             'links' => $this->AppLinks->getLinks($appId)->where(['app_link_id IS NULL']),
         ]);
     }

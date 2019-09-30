@@ -102,7 +102,7 @@ class RolesController extends AppController
             }
             $this->Flash->error(__('The role could not be updated. Please, try again.'));
         }
-        $this->loadModel('PermissionGroups');
+        $this->loadModel('Apps.PermissionGroups');
         $permissionGroups = $this->PermissionGroups->find('all', [
             'contain' => 'permissions'
         ])->toArray();

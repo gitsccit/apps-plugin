@@ -95,7 +95,6 @@ class OptionsTable extends Table
         return $rules;
     }
 
-
     public function getStoreEnvironmentValues(int $id)
     {
         $results = $this->find()

@@ -14,7 +14,7 @@ $this->Breadcrumbs->add('Admin');
 $this->Breadcrumbs->add('Files', ['action' => 'index']);
 $this->Breadcrumbs->add('List', ['action' => 'index']);
 
-echo $this->element('table_filter', [
+echo $this->element('Apps.table_filter', [
     'links' => [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
 ]);
 
@@ -25,9 +25,9 @@ $header = $this->Html->tableHeaders([
     $this->Paginator->sort('size'),
     $this->Paginator->sort('width'),
     $this->Paginator->sort('height'),
-    $this->Paginator->sort('date_created'),
+    $this->Paginator->sort('created_at'),
     $this->Paginator->sort('Users.name', 'Uploaded By'),
-    $this->Paginator->sort('date_accessed'),
+    $this->Paginator->sort('accessed_at'),
 ]);
 
 // priority 0 always shows
@@ -38,9 +38,9 @@ $priority = [
     2, // size
     6, // width
     7, // height
-    3, // date_created
+    3, // created_at
     8, // uploaded by
-    5, // date_accessed
+    5, // accessed_at
 ];
 
 $collection = [];
@@ -54,12 +54,12 @@ foreach ($files as $file) {
         Number::toReadableSize($file->size),
         h($file->width),
         h($file->height),
-        h($file->date_created->setTimezone($timezone)),
+        h($file->created_at->setTimezone($timezone)),
         (empty($file->user->display_name) ? "" : h($file->user->display_name)),
-        h($file->date_accessed->setTimezone($timezone))
+        h($file->accessed_at->setTimezone($timezone))
     ]);
     array_push($collection, $row);
 
 }
 
-echo $this->element('table', ['header' => $header, 'collection' => $collection, 'priority' => $priority]);
+echo $this->element('Skeleton.table', ['thead' => $header, 'tbody' => $collection, 'priority' => $priority]);

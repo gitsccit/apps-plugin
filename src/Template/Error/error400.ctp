@@ -22,7 +22,7 @@ if (Configure::read('debug')) :
         <strong>SQL Query Params: </strong>
         <?php Debugger::dump($error->params) ?>
 <?php endif; ?>
-<?= $this->element('auto_table_warning') ?>
+<?= $this->element('Apps.auto_table_warning') ?>
 <?php
 if (extension_loaded('xdebug')) :
     xdebug_print_function_stack();

@@ -124,17 +124,17 @@ DROP TABLE IF EXISTS `files`;
 SET character_set_client = utf8mb4;
 CREATE TABLE `files`
 (
-    `id`            int(10) unsigned                   NOT NULL AUTO_INCREMENT,
-    `src`           enum ('google','onedrive','local') NOT NULL,
-    `path`          varchar(200)                       NOT NULL,
-    `mime_type_id`  int(10) unsigned                            DEFAULT NULL,
-    `name`          varchar(200)                       NOT NULL,
-    `size`          int(10) unsigned                   NOT NULL,
-    `width`         int(10) unsigned                            DEFAULT NULL,
-    `height`        int(10) unsigned                            DEFAULT NULL,
-    `user_id`       int(10) unsigned                            DEFAULT NULL,
-    `date_created`  timestamp                          NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_accessed` timestamp                          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `id`           int(10) unsigned                   NOT NULL AUTO_INCREMENT,
+    `src`          enum ('google','onedrive','local') NOT NULL,
+    `path`         varchar(200)                       NOT NULL,
+    `mime_type_id` int(10) unsigned                            DEFAULT NULL,
+    `name`         varchar(200)                       NOT NULL,
+    `size`         int(10) unsigned                   NOT NULL,
+    `width`        int(10) unsigned                            DEFAULT NULL,
+    `height`       int(10) unsigned                            DEFAULT NULL,
+    `user_id`      int(10) unsigned                            DEFAULT NULL,
+    `created_at`   timestamp                          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `accessed_at`  timestamp                          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     KEY `FK_files_users` (`user_id`),
     KEY `FK_files_mime_types` (`mime_type_id`),
@@ -142,6 +142,26 @@ CREATE TABLE `files`
     CONSTRAINT `FK_files_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 82
+  DEFAULT CHARSET = utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `files_stores`
+--
+
+DROP TABLE IF EXISTS `files_stores`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `files_stores`
+(
+    `file_id`  int(10) unsigned NOT NULL,
+    `store_id` int(10) unsigned NOT NULL,
+    PRIMARY KEY (`file_id`, `store_id`),
+    KEY `FK_files_stores_file_id` (`file_id`),
+    KEY `FK_files_stores_store_id` (`store_id`),
+    CONSTRAINT `FK_files_stores_file_id` FOREIGN KEY (`file_id`) REFERENCES `files` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `FK_files_stores_store_id` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

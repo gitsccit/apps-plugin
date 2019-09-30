@@ -20,7 +20,7 @@ $this->Breadcrumbs->add('Add');
     echo $this->Form->control('name');
     echo $this->Form->control('type',['options' => $typeOptions,'label' => 'Type']);
     echo $this->Form->control('value');
-    echo "<div id=\"option-value-file\" style=\"display:none\">".$this->element('fileupload', ['target' => 'value', 'multi' => false, 'clear' => true])."</div>";
+    echo "<div id=\"option-value-file\" style=\"display:none\">".$this->element('Apps.fileupload', ['target' => 'value', 'multi' => false, 'clear' => true])."</div>";
     ?>
 </fieldset>
 <div class="margin-50">

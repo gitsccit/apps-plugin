@@ -6,7 +6,7 @@
 
 use Cake\Utility\Inflector;
 
-$this->Breadcrumbs->add('Admin');
+$this->Breadcrumbs->add($this->getPlugin() ?? Inflector::humanize(basename(ROOT)));
 $this->Breadcrumbs->add($title, ['action' => 'index']);
 $this->Breadcrumbs->add($entity->$displayField, ['action' => 'view', $entity->id]);
 
@@ -25,7 +25,7 @@ $data = array_map(function ($fieldChunk) use ($entity) {
     }, $fieldChunk);
 }, array_chunk(array_keys($entity->toArray()), 4));
 
-echo $this->element('profile', ['title' => $entity->$displayField, 'data' => $data]);
+echo $this->element('Apps.profile', ['title' => $entity->$displayField, 'data' => $data]);
 
 #### Display related properties as tabs ####
 
@@ -36,8 +36,7 @@ if (!isset($associations)) {
 $tabs = [];
 foreach ($associations as $association => $resultSet) {
     $association = Inflector::camelize($association);
-    $entities = $resultSet->isEmpty() ? $association : $resultSet;
-    $tabs[Inflector::humanize(Inflector::underscore($association))] = $this->Utils->createTable($entities);
+    $tabs[Inflector::humanize(Inflector::underscore($association))] = $this->Utils->createTable($resultSet);
 }
 
-echo $this->element('tabs', ['tabs' => $tabs]);
+echo $this->element('Apps.tabs', ['tabs' => $tabs]);

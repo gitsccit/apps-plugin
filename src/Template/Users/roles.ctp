@@ -63,7 +63,7 @@ foreach ($data as $key => $value) {
     }
 }
 
-echo $this->element('profile', ['image' => $image, 'title' => $title, 'subtitle' => $subtitle, 'data' => $data]);
+echo $this->element('Apps.profile', ['image' => $image, 'title' => $title, 'subtitle' => $subtitle, 'data' => $data]);
 
 echo $this->Form->create($user);
 echo '<div class="flex-column margin-5 ">';

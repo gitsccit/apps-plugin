@@ -74,7 +74,7 @@ foreach ($data as $key => $value) {
     }
 }
 
-echo $this->element('profile', ['image' => $image, 'title' => $title, 'subtitle' => $subtitle, 'data' => $data]);
+echo $this->element('Apps.profile', ['image' => $image, 'title' => $title, 'subtitle' => $subtitle, 'data' => $data]);
 
 // view block for contacts
 $this->start('contacts');
@@ -90,7 +90,7 @@ foreach ($user->user_contacts as $contact) {
         h($c),
     ]);
 }
-echo $this->element('table-list', ['header' => $header, 'collection' => $collection]);
+echo $this->element('Apps.table-list', ['header' => $header, 'collection' => $collection]);
 $this->end();
 
 // view block for roles
@@ -102,11 +102,11 @@ foreach ($user->roles as $role) {
         h($role->name),
     ]);
 }
-echo $this->element('table-list', ['header' => $header, 'collection' => $collection]);
+echo $this->element('Apps.table-list', ['header' => $header, 'collection' => $collection]);
 $this->end();
 
 $tabs = [
     'Contacts' => $this->fetch('contacts'),
     'Roles' => $this->fetch('roles'),
 ];
-echo $this->element('tabs', ['tabs' => $tabs]);
+echo $this->element('Apps.tabs', ['tabs' => $tabs]);

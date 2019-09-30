@@ -17,8 +17,8 @@ use Cake\ORM\Entity;
  * @property int|null $width
  * @property int|null $height
  * @property int|null $user_id
- * @property \Cake\I18n\FrozenTime $date_created
- * @property \Cake\I18n\FrozenTime $date_accessed
+ * @property \Cake\I18n\FrozenTime $created_at
+ * @property \Cake\I18n\FrozenTime $accessed_at
  *
  * @property \Apps\Model\Entity\MimeType $mime_type
  * @property \Apps\Model\Entity\MimeType[] $mime_types
@@ -48,8 +48,8 @@ class File extends Entity
         'width' => true,
         'height' => true,
         'user_id' => true,
-        'date_created' => true,
-        'date_accessed' => true,
+        'created_at' => true,
+        'accessed_at' => true,
         'mime_types' => true,
         'user' => true,
         'app_links' => true
@@ -104,7 +104,7 @@ class File extends Entity
         }
 
         // cloud drive; check local cache for the file
-        $cachekey = $this->src . "_" . $this->path . "_" . strtotime($this->date_created) . "_" . $this->generateHash();
+        $cachekey = $this->src . "_" . $this->path . "_" . strtotime($this->created_at) . "_" . $this->generateHash();
         if ($width === false && $height === false) {
             $cachecfg = "files";
         } else {

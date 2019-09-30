@@ -25,7 +25,7 @@ $title = $option->name;
 $data = [
     [
         ['Type', $option->type],
-        ['Value', $this->element('option-value',['type' => $option->type,'value' => $option->value])],
+        ['Value', $this->element('Apps.option-value',['type' => $option->type,'value' => $option->value])],
         ['Timestamp', $option->timestamp->setTimezone($timezone)],
     ],
 ];
@@ -33,7 +33,7 @@ foreach($data as $key => $value)
     foreach($value as $k => $v)
         $data[$key][$k][0] = "<label>".$data[$key][$k][0].":</label>";
 
-echo $this->element('profile',['title' => $title,'data' => $data]);
+echo $this->element('Apps.profile',['title' => $title,'data' => $data]);
 ?>
 
 <hr>
@@ -48,12 +48,12 @@ else {
         $collection[] = $this->Html->tableCells([
             $os['store']->name,
             $os['environment']->name,
-            $this->element('option-value',['type' => $option->type,'value' => $os->value]),
+            $this->element('Apps.option-value',['type' => $option->type,'value' => $os->value]),
             $os->timestamp->setTimezone($timezone),
         ]);
     }
 
-    echo $this->element('table-list',['header' => $header,'collection' => $collection]);
+    echo $this->element('Apps.table-list',['header' => $header,'collection' => $collection]);
 }
 
 ?>

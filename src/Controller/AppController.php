@@ -110,7 +110,7 @@ class AppController extends \Skeleton\Controller\AppController
      */
     public function isAuthorized($user = null)
     {
-        $plugin = $this->getPlugin() ?? 'Admin';
+        $plugin = $this->getPlugin() === 'Apps' ? 'Admin' : basename(ROOT);
         $controller = $this->getName();
         $action = $this->getRequest()->getParam('action');
 

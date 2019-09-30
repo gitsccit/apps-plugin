@@ -15,9 +15,9 @@ $history = $session->read('BrowsingHistory');
     </div>
     <div id="apps-navcolumn-2">
         <div class="appnav">
-            <?= $this->cell('AppNav::active',[1]) ?>
-            <?= $this->cell('AppNav::history',[2,$history]) ?>
-            <?= $this->cell('AppNav::apps',[3]) ?>
+            <?= $this->cell('Apps.AppNav::active', [1]) ?>
+            <?= $this->cell('Apps.AppNav::history', [2, $history]) ?>
+            <?= $this->cell('Apps.AppNav::apps', [3]) ?>
         </div>
     </div>
 </div>

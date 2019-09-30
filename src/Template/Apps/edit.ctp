@@ -26,7 +26,7 @@ $this->Breadcrumbs->add('Edit');
 
     <hr>
 
-    <?= $this->element('navmenu-edit',['title' => 'Nav Menu','description' => 'Use the up and down arrow keys to sort, left and right arrow keys to set parent/child relationships.','applinks' => $app->app_links,'margin' => 40]) ?>
+    <?= $this->element('Apps.navmenu-edit',['title' => 'Nav Menu','description' => 'Use the up and down arrow keys to sort, left and right arrow keys to set parent/child relationships.','applinks' => $app->app_links,'margin' => 40]) ?>
 
     <div class="margin-50">
         <?= $this->Form->button(__('Update'),['class' => 'button']) ?>

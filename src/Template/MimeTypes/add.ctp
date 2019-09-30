@@ -21,7 +21,7 @@ $this->Breadcrumbs->add('Add');
         </div>
         <?= $this->Form->control('file_id', ['type' => 'text', 'label' => "Thumbnail Image"]) ?>
         <div id="mimetype-value-file">
-            <?= $this->element('fileupload', ['target' => 'file_id', 'multi' => false, 'clear' => true]) ?>
+            <?= $this->element('Apps.fileupload', ['target' => 'file_id', 'multi' => false, 'clear' => true]) ?>
         </div>
     </fieldset>
     <div class="margin-50">

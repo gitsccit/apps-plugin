@@ -20,7 +20,7 @@ $this->Breadcrumbs->add('Edit');
         <?= $this->Form->control('name') ?>
         <?= $this->Form->control('type',['options' => $typeOptions,'label' => 'Type']) ?>
         <?= $this->Form->control('value') ?>
-        <div style="display:none"><?= $this->element('fileupload', ['target' => 'value', 'multi' => false, 'clear' => true,'readonly' => false]) ?></div>
+        <div style="display:none"><?= $this->element('Apps.fileupload', ['target' => 'value', 'multi' => false, 'clear' => true,'readonly' => false]) ?></div>
     </fieldset>
 
     <?php
@@ -38,16 +38,16 @@ $this->Breadcrumbs->add('Edit');
                 }
             }
 
-            $tiles[] = $this->element('form-tile',[
+            $tiles[] = $this->element('Apps.form-tile',[
                     'title' => $store->name,
                     'inputs' => $this->Form->control($id,['label' => $environment->name,'value' => $value]).
-                        '<div style="display:none">'.$this->element('fileupload', ['target' => $id, 'multi' => false, 'clear' => true,'readonly' => false]).'</div>'
+                        '<div style="display:none">'.$this->element('Apps.fileupload', ['target' => $id, 'multi' => false, 'clear' => true,'readonly' => false]).'</div>'
             ]);
 
         }
     }
     ?>
-    <?= $this->element('form-tiles',['tiles' => $tiles]) ?>
+    <?= $this->element('Apps.form-tiles',['tiles' => $tiles]) ?>
 
     <div class="margin-50">
         <?= $this->Form->button(__('Update'),['class' => 'button']) ?>

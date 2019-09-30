@@ -117,6 +117,7 @@ class AppLinksTable extends Table
 
         return $rules;
     }
+
     /**
      * @param $parent_id
      * @return Query
@@ -130,6 +131,7 @@ class AppLinksTable extends Table
 
         return $links;
     }
+
     /**
      * @param string $parent_id id of the parent link
      * returns array of child links

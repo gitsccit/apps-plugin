@@ -1,4 +1,5 @@
 <?php
+
 namespace Apps\View\Cell;
 
 use Cake\View\Cell;
@@ -23,8 +24,8 @@ class NavCell extends Cell
      */
     public function initialize()
     {
-        $this->loadModel('Apps');
-        $this->loadModel('Users');
+        $this->loadModel('Apps.Apps');
+        $this->loadModel('Apps.Users');
     }
 
     /**
@@ -34,8 +35,7 @@ class NavCell extends Cell
      */
     public function display()
     {
-        $apps = $this->Apps->find('all');
-     // var_dump($apps);
-        $this->set('apps', $apps);
+        $apps = $this->Apps->find();
+        $this->set(compact('apps'));
     }
 }

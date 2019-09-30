@@ -84,7 +84,7 @@ class UsersController extends AppController
         }
         $user = $this->Users->get($id, ['contain' => ['Managers', 'Roles', 'UserContacts', 'UserLogins']]);
         $this->set('user', $user);
-        $this->loadModel('Roles');
+        $this->loadModel('Apps.Roles');
         $roles = $this->Roles->find('all');
         $this->set(compact('roles'));
         $this->set('isAdmin', $this->Auth->user()->hasPermission('admin'));
@@ -163,9 +163,9 @@ class UsersController extends AppController
     public function profileImage($id = null)
     {
         // check etag and lastmodified; we don't actually know but if they exist lets assume they're current
-        $response = $this->response;
-        $modified = $this->request->getHeader('If-Modified-Since');
-        $match = $this->request->getHeader('If-None-Match');
+        $response = $this->getResponse();
+        $modified = $this->getRequest()->getHeader('If-Modified-Since');
+        $match = $this->getRequest()->getHeader('If-None-Match');
 
         if (!empty($modified[0]) && !empty($match[0])) {
             $response = $response->withCache('-1 minute', '+2 days');

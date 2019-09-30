@@ -17,7 +17,7 @@ foreach($applinks as $applink) {
     echo '</div>';
     // increase indent and recursively call this element if there are children
     if(!empty($applink['child_links']) && sizeof($applink['child_links']))
-        echo $this->element('navmenu-edit-items',['applinks' => $applink['child_links'],'indent' => $indent+1,'margin' => $margin]);
+        echo $this->element('Apps.navmenu-edit-items',['applinks' => $applink['child_links'],'indent' => $indent+1,'margin' => $margin]);
 }
 ?>
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Apps\Model\Entity;
 
 use Cake\ORM\Entity;

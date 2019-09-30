@@ -137,14 +137,17 @@ AND IFNULL(os.value,o.value) LIKE ?", [$this->storeid, $this->environmentid, $na
     {
 
         $layout = Configure::read("store.layout");
+
         if (empty($layout)) {
             return false;
         }
 
+        list(, $layout) = pluginSplit($layout);
+
         $results = $this->db->execute("SELECT o.name,o.type,IFNULL(os.value,o.value) AS value
 FROM options o 
 LEFT JOIN option_stores os ON os.option_id = o.id AND os.store_id = ? AND os.environment_id = ?
-WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, $layout . ".%"])->fetchAll('assoc');
+WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, "$layout.%"])->fetchAll('assoc');
 
         $length = strlen($layout) + 1;
 

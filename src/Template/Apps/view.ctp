@@ -33,7 +33,7 @@ foreach($data as $key => $value)
     foreach($value as $k => $v)
         $data[$key][$k][0] = "<label>".$data[$key][$k][0].":</label>";
 
-echo $this->element('profile',['title' => $title,'data' => $data]);
+echo $this->element('Apps.profile',['title' => $title,'data' => $data]);
 ?>
 
 <hr>
@@ -59,4 +59,4 @@ foreach($app->app_links as $applink) {
     ]);
 }
 ?>
-<?= $this->element('table-list',['header' => $header,'collection' => $collection]) ?>
+<?= $this->element('Apps.table-list',['header' => $header,'collection' => $collection]) ?>

@@ -24,8 +24,8 @@ class LinksCell extends Cell
      */
     public function initialize()
     {
-        $this->loadModel('AppLinks');
-        $this->loadModel('Users');
+        $this->loadModel('Apps.AppLinks');
+        $this->loadModel('Apps.Users');
     }
 
     /**

@@ -27,7 +27,7 @@ if (Configure::read('debug')) :
         <?= sprintf('%s, line %s', str_replace(ROOT, 'ROOT', $error->getFile()), $error->getLine()) ?>
 <?php endif; ?>
 <?php
-    echo $this->element('auto_table_warning');
+    echo $this->element('Apps.auto_table_warning');
 
     if (extension_loaded('xdebug')) :
         xdebug_print_function_stack();

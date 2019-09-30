@@ -2,6 +2,7 @@
 
 namespace Apps\Controller;
 
+use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\I18n\Time;
@@ -34,7 +35,7 @@ class FilesController extends AppController
     {
         $this->paginate = [
             'contain' => ['MimeType', 'Users'],
-            'order' => ['Files.date_created' => 'DESC'],
+            'order' => ['Files.created_at' => 'DESC'],
         ];
         $files = $this->paginate($this->Files);
 
@@ -48,7 +49,7 @@ class FilesController extends AppController
 
         $this->paginate = [
             'contain' => ['MimeType', 'Users'],
-            'order' => ['Files.date_created' => 'DESC'],
+            'order' => ['Files.created_at' => 'DESC'],
             'limit' => 5
         ];
         $files = $this->paginate($this->Files);
@@ -79,8 +80,8 @@ class FilesController extends AppController
     public function add()
     {
         $file = $this->Files->newEntity();
-        if ($this->request->is('post')) {
-            $file = $this->Files->patchEntity($file, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $file = $this->Files->patchEntity($file, $this->getRequest()->getData());
             if ($this->Files->save($file)) {
                 $this->Flash->success(__('The file has been saved.'));
 
@@ -105,8 +106,8 @@ class FilesController extends AppController
         $file = $this->Files->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $file = $this->Files->patchEntity($file, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $file = $this->Files->patchEntity($file, $this->getRequest()->getData());
             if ($this->Files->save($file)) {
                 $this->Flash->success(__('The file has been saved.'));
 
@@ -128,7 +129,7 @@ class FilesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $file = $this->Files->get($id);
 
         // TODO ideally we should verify that the file is not in use anywhere
@@ -153,19 +154,19 @@ class FilesController extends AppController
 
     private function fetch($id = null, $download = true, $width = false, $height = false)
     {
-        $response = $this->response;
+        $response = $this->getResponse();
         $files = TableRegistry::getTableLocator()->get('Apps.Files');
         $file = $files->get($id, ['contain' => ['MimeType']]);
 
-        // update the date_accessed
-        $file->date_accessed = Time::now();
+        // update the accessed_at
+        $file->accessed_at = Time::now();
         $files->save($file);
 
         // set etag and lastmodified headers
         $response = $response->withCache('-1 minute', '+5 days');
         $response = $response->withEtag($file->generateHash());
-        $response = $response->withModified($file->date_created);
-        if ($response->checkNotModified($this->request)) {
+        $response = $response->withModified($file->created_at);
+        if ($response->checkNotModified($this->getRequest())) {
             return $response;
         }
 
@@ -237,7 +238,7 @@ class FilesController extends AppController
 
     public function css(...$sheets)
     {
-        $response = $this->response;
+        $response = $this->getResponse();
         $content = [];
         $size = 0;
         $modified = [];
@@ -250,10 +251,11 @@ class FilesController extends AppController
         // qualify each filename
         $files = [];
         foreach ($sheets as $sheet) {
-            if (strtolower(substr($sheet, -4)) != ".css") {
-                $sheet .= ".css";
+            if (!endsWith(strtolower($sheet), '.css')) {
+                $sheet .= '.css';
             }
-            $sheet = "css/" . $sheet;
+            App::path('', []);
+            $sheet = "css/$sheet";
             if (file_exists($sheet) && is_readable($sheet)) {
                 $files[] = $sheet;
             }
@@ -272,7 +274,7 @@ class FilesController extends AppController
             $response = $response->withCache('-1 minute', '+5 days');
             $response = $response->withEtag(md5($size . implode($sheets)));
             $response = $response->withModified($modified[0]);
-            if ($response->checkNotModified($this->request)) {
+            if ($response->checkNotModified($this->getRequest())) {
                 return $response;
             }
         }
@@ -288,14 +290,14 @@ class FilesController extends AppController
         }
 
         $response = $response->withStringBody(implode("\n", $content));
-        $response = $response->withType("css");
+        $response = $response->withType('css');
 
         return $response;
     }
 
     function upload()
     {
-        $filename = rawurldecode($this->request->getHeaderLine('X-File-Name'));
+        $filename = rawurldecode($this->getRequest()->getHeaderLine('X-File-Name'));
         $content = file_get_contents("php://input");
 
         if (empty($filename)) {
@@ -408,7 +410,7 @@ class FilesController extends AppController
 
     public function trackHistory()
     {
-        $action = $this->request->getParam('action');
+        $action = $this->getRequest()->getParam('action');
         if (array_search($action, ['index', 'view', 'add', 'edit']) !== false) {
             return true;
         }

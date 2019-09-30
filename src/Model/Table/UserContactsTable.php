@@ -1,4 +1,5 @@
 <?php
+
 namespace Apps\Model\Table;
 
 use Cake\ORM\RulesChecker;

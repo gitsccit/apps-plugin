@@ -6,7 +6,7 @@ use Cake\View\Cell;
 
 /**
  * CurrentNav cell
- * @property \Apps\Model\Table\Apps $Apps
+ * @property \Apps\Model\Table\AppsTable $Apps
  */
 class AppNavCell extends Cell
 {
@@ -26,51 +26,42 @@ class AppNavCell extends Cell
      */
     public function initialize()
     {
-
-        $this->loadModel('Apps');
-        //$this->loadModel('AppLinks');
+        $this->loadModel('Apps.Apps');
     }
 
     public function active($sequence)
     {
-
         // get the name of the current active plugin
-        $plugin = $this->request->getParam('plugin');
+        $name = $this->request->getParam('plugin') === 'Apps' ? 'Admin' : basename(ROOT);
 
         $app = $this->Apps->find('all', [
-            'conditions' => ['Apps.cake_plugin =' => (string)$plugin],
-            'contain' => ['AppLinks' => ['ChildLinks','Permissions','Files']],
+            'conditions' => ['Apps.name' => $name],
+            'contain' => ['AppLinks' => ['ChildLinks', 'Permissions', 'Files']],
             'order' => ['sort' => 'ASC', 'name' => 'ASC'],
         ])->first();
 
         $this->set([
             'sequence' => $sequence,
             'title' => $app->name,
-            'plugin' => (empty($app->cake_plugin) ? null : $app->cake_plugin),
+            'plugin' => $app ? $app->cake_plugin : null,
             'links' => $app->app_links,
         ]);
-
     }
 
-    public function history($sequence,$history)
+    public function history($sequence, $history)
     {
-
         $this->set([
             'sequence' => $sequence,
             'links' => $history,
         ]);
-
     }
 
     public function apps($sequence)
     {
-
         $apps = $this->Apps->find('all')->all();
         $this->set([
             'sequence' => $sequence,
             'links' => $apps,
         ]);
-
     }
-
 }

@@ -10,7 +10,7 @@ $this->Breadcrumbs->add('Admin');
 $this->Breadcrumbs->add('Options', ['action' => 'index']);
 $this->Breadcrumbs->add('List', ['action' => 'index']);
 
-echo $this->element('table_filter', [
+echo $this->element('Apps.table_filter', [
     'links' => [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
 ]);
 
@@ -37,7 +37,7 @@ foreach ($options as $option) {
     $row = $this->Html->tableCells([
         $this->Html->link(__($option->name), ['action' => 'view', $option->id]),
         h($option->type),
-        $this->element('option-value', ['type' => $option->type, 'value' => $option->value]),
+        $this->element('Apps.option-value', ['type' => $option->type, 'value' => $option->value]),
         h($option->timestamp),
         $this->Html->link(__('Edit'), ['action' => 'edit', $option->id]),
     ]);
@@ -45,5 +45,4 @@ foreach ($options as $option) {
 
 }
 
-echo $this->element('table', ['header' => $header, 'collection' => $collection, 'priority' => $priority]);
-?>
+echo $this->element('Skeleton.table', ['thead' => $header, 'tbody' => $collection, 'priority' => $priority]);
