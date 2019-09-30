@@ -4,6 +4,7 @@ namespace Apps\Controller;
 
 use Cake\Core\App;
 use Cake\Core\Configure;
+use Cake\Core\Plugin;
 use Cake\Event\Event;
 use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
@@ -254,8 +255,13 @@ class FilesController extends AppController
             if (!endsWith(strtolower($sheet), '.css')) {
                 $sheet .= '.css';
             }
-            App::path('', []);
-            $sheet = "css/$sheet";
+            list($plugin, $name) = pluginSplit($sheet);
+            $basePath = WWW_ROOT;
+            if (Plugin::isLoaded($plugin)) {
+                $basePath = Plugin::path($plugin) . 'webroot' . DS;
+                $sheet = $name;
+            }
+            $sheet = $basePath . 'css' . DS . $sheet;
             if (file_exists($sheet) && is_readable($sheet)) {
                 $files[] = $sheet;
             }
