@@ -56,8 +56,8 @@ class RolesController extends AppController
     public function add()
     {
         $role = $this->Roles->newEntity();
-        if ($this->request->is('post')) {
-            $role = $this->Roles->patchEntity($role, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $role = $this->Roles->patchEntity($role, $this->getRequest()->getData());
             if ($this->Roles->save($role)) {
                 $this->Flash->success(__('The role has been saved.'));
 
@@ -82,8 +82,8 @@ class RolesController extends AppController
         $role = $this->Roles->get($id, [
             'contain' => ['Permissions', 'Users']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $data = $this->request->getData();
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $data = $this->getRequest()->getData();
             $new_permissions = $data['permission'];
             $new_permissions = array_map(function ($p) {
                 return (int)$p;
@@ -121,7 +121,7 @@ class RolesController extends AppController
      */
     /*  public function delete($id = null)
       {
-          $this->request->allowMethod(['post', 'delete']);
+          $this->getRequest()->allowMethod(['post', 'delete']);
           $role = $this->Roles->get($id);
           if ($this->Roles->delete($role)) {
               $this->Flash->success(__('The role has been deleted.'));

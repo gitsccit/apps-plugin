@@ -57,8 +57,8 @@ class MimeTypesController extends AppController
     public function add()
     {
         $mimeType = $this->MimeTypes->newEntity();
-        if ($this->request->is('post')) {
-            $mimeType = $this->MimeTypes->patchEntity($mimeType, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $mimeType = $this->MimeTypes->patchEntity($mimeType, $this->getRequest()->getData());
             if ($this->MimeTypes->save($mimeType)) {
                 $this->Flash->success(__('The mime type has been saved.'));
 
@@ -85,8 +85,8 @@ class MimeTypesController extends AppController
         $mimeType = $this->MimeTypes->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $mimeType = $this->MimeTypes->patchEntity($mimeType, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $mimeType = $this->MimeTypes->patchEntity($mimeType, $this->getRequest()->getData());
             if ($this->MimeTypes->save($mimeType)) {
                 $this->Flash->success(__('The mime type has been saved.'));
 
@@ -110,7 +110,7 @@ class MimeTypesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $mimeType = $this->MimeTypes->get($id);
         if ($this->MimeTypes->delete($mimeType)) {
             $this->Flash->success(__('The mime type has been deleted.'));

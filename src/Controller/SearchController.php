@@ -14,12 +14,11 @@ class SearchController extends AppController
      */
     public function query()
     {
-
         // TODO dns needs to be added for dev-thinkapi
         // TODO move the URL (dev-thinkapi) to app.php configuration
         // TODO move the token to app.php configuration
 
-        $q = $this->request->getQuery('q');
+        $q = $this->getRequest()->getQuery('q');
 
         $http = new Client();
         $response = $http->get('https://10.32.2.23/search.json', // dev-thinkapi.sccit.local
@@ -43,11 +42,6 @@ class SearchController extends AppController
             }
         }
 
-        $this->viewBuilder()->setClassName('Json');
-        $this->set([
-            'results' => $results,
-            '_serialize' => ['results'],
-        ]);
-
+        $this->Crud->serialize(compact('results'));
     }
 }

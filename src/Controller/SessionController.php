@@ -167,7 +167,7 @@ class SessionController extends AppController
     // require intranet.admin to access the loginAs action
     public function isAuthorized($user = null)
     {
-        $action = $this->request->getParam('action');
+        $action = $this->getRequest()->getParam('action');
         if ($action == "loginAs") {
             return $this->Auth->user()->hasPermission('admin');
         }

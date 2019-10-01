@@ -53,8 +53,8 @@ class TimeZonesController extends AppController
     public function add()
     {
         $timeZone = $this->TimeZones->newEntity();
-        if ($this->request->is('post')) {
-            $timeZone = $this->TimeZones->patchEntity($timeZone, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $timeZone = $this->TimeZones->patchEntity($timeZone, $this->getRequest()->getData());
             if ($this->TimeZones->save($timeZone)) {
                 $this->Flash->success(__('The time zone has been saved.'));
 
@@ -77,8 +77,8 @@ class TimeZonesController extends AppController
         $timeZone = $this->TimeZones->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $timeZone = $this->TimeZones->patchEntity($timeZone, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $timeZone = $this->TimeZones->patchEntity($timeZone, $this->getRequest()->getData());
             if ($this->TimeZones->save($timeZone)) {
                 $this->Flash->success(__('The time zone has been saved.'));
 
@@ -98,7 +98,7 @@ class TimeZonesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $timeZone = $this->TimeZones->get($id);
         if ($this->TimeZones->delete($timeZone)) {
             $this->Flash->success(__('The time zone has been deleted.'));

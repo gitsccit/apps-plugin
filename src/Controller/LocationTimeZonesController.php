@@ -56,8 +56,8 @@ class LocationTimeZonesController extends AppController
     public function add()
     {
         $locationTimeZone = $this->LocationTimeZones->newEntity();
-        if ($this->request->is('post')) {
-            $locationTimeZone = $this->LocationTimeZones->patchEntity($locationTimeZone, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $locationTimeZone = $this->LocationTimeZones->patchEntity($locationTimeZone, $this->getRequest()->getData());
             if ($this->LocationTimeZones->save($locationTimeZone)) {
                 $this->Flash->success(__('The location time zone has been saved.'));
 
@@ -81,8 +81,8 @@ class LocationTimeZonesController extends AppController
         $locationTimeZone = $this->LocationTimeZones->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $locationTimeZone = $this->LocationTimeZones->patchEntity($locationTimeZone, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $locationTimeZone = $this->LocationTimeZones->patchEntity($locationTimeZone, $this->getRequest()->getData());
             if ($this->LocationTimeZones->save($locationTimeZone)) {
                 $this->Flash->success(__('The location time zone has been saved.'));
 
@@ -103,7 +103,7 @@ class LocationTimeZonesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $locationTimeZone = $this->LocationTimeZones->get($id);
         if ($this->LocationTimeZones->delete($locationTimeZone)) {
             $this->Flash->success(__('The location time zone has been deleted.'));

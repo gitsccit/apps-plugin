@@ -65,8 +65,8 @@ class StoresController extends AppController
     public function add()
     {
         $store = $this->Stores->newEntity();
-        if ($this->request->is('post')) {
-            $store = $this->Stores->patchEntity($store, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $store = $this->Stores->patchEntity($store, $this->getRequest()->getData());
             if ($this->Stores->save($store)) {
                 $this->Flash->success(__('The store has been saved.'));
 
@@ -90,8 +90,8 @@ class StoresController extends AppController
         $store = $this->Stores->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $store = $this->Stores->patchEntity($store, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $store = $this->Stores->patchEntity($store, $this->getRequest()->getData());
             if ($this->Stores->save($store)) {
                 $this->Flash->success(__('The store has been saved.'));
 
@@ -113,7 +113,7 @@ class StoresController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $store = $this->Stores->get($id);
         if ($this->Stores->delete($store)) {
             $this->Flash->success(__('The store has been deleted.'));

@@ -56,8 +56,8 @@ class AppsController extends AppController
     public function add()
     {
         $app = $this->Apps->newEntity();
-        if ($this->request->is('post')) {
-            $app = $this->Apps->patchEntity($app, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $app = $this->Apps->patchEntity($app, $this->getRequest()->getData());
             if ($this->Apps->save($app)) {
                 $this->Flash->success(__('The app has been saved.'));
 
@@ -79,9 +79,9 @@ class AppsController extends AppController
     {
         $app = $this->Apps->get($id, ['contain' => ['AppLinks' => ['ChildLinks']]]);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
 
-            $data = $this->request->getData();
+            $data = $this->getRequest()->getData();
             $app = $this->Apps->patchEntity($app, $data);
 
             $this->AppLinks = TableRegistry::getTableLocator()->get('Apps.AppLinks');
@@ -167,7 +167,7 @@ class AppsController extends AppController
      */
     /*  public function delete($id = null)
       {
-          $this->request->allowMethod(['post', 'delete']);
+          $this->getRequest()->allowMethod(['post', 'delete']);
           $app = $this->Apps->get($id);
           if ($this->Apps->delete($app)) {
               $this->Flash->success(__('The app has been deleted.'));

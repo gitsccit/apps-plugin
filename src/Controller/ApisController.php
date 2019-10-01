@@ -56,8 +56,8 @@ class ApisController extends AppController
     public function add()
     {
         $api = $this->Apis->newEntity();
-        if ($this->request->is('post')) {
-            $api = $this->Apis->patchEntity($api, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $api = $this->Apis->patchEntity($api, $this->getRequest()->getData());
             if ($this->Apis->save($api)) {
                 $this->Flash->success(__('The api has been saved.'));
 
@@ -82,8 +82,8 @@ class ApisController extends AppController
         $api = $this->Apis->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $api = $this->Apis->patchEntity($api, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $api = $this->Apis->patchEntity($api, $this->getRequest()->getData());
             if ($this->Apis->save($api)) {
                 $this->Flash->success(__('The api has been saved.'));
 
@@ -103,7 +103,7 @@ class ApisController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $api = $this->Apis->get($id);
         if ($this->Apis->delete($api)) {
             $this->Flash->success(__('The api has been deleted.'));

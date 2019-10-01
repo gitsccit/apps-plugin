@@ -56,8 +56,8 @@ class StoreSortFieldsController extends AppController
     public function add()
     {
         $storeSortField = $this->StoreSortFields->newEntity();
-        if ($this->request->is('post')) {
-            $storeSortField = $this->StoreSortFields->patchEntity($storeSortField, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $storeSortField = $this->StoreSortFields->patchEntity($storeSortField, $this->getRequest()->getData());
             if ($this->StoreSortFields->save($storeSortField)) {
                 $this->Flash->success(__('The store sort field has been saved.'));
 
@@ -81,8 +81,8 @@ class StoreSortFieldsController extends AppController
         $storeSortField = $this->StoreSortFields->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $storeSortField = $this->StoreSortFields->patchEntity($storeSortField, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $storeSortField = $this->StoreSortFields->patchEntity($storeSortField, $this->getRequest()->getData());
             if ($this->StoreSortFields->save($storeSortField)) {
                 $this->Flash->success(__('The store sort field has been saved.'));
 
@@ -103,7 +103,7 @@ class StoreSortFieldsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $storeSortField = $this->StoreSortFields->get($id);
         if ($this->StoreSortFields->delete($storeSortField)) {
             $this->Flash->success(__('The store sort field has been deleted.'));

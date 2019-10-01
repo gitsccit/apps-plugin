@@ -4,7 +4,7 @@
  * @var \Apps\Model\Entity\App $app
  */
 
-$this->Html->script('navmenuedit',['block' => true]);
+$this->Html->script('Apps.navmenuedit',['block' => true]);
 
 $this->Breadcrumbs->add('Admin');
 $this->Breadcrumbs->add('Apps',['action' => 'index']);

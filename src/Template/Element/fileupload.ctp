@@ -6,7 +6,7 @@
  * @var clear is a boolean; setting true lets the user blank the related target
  */
 
-$this->Html->script('fileupload', ['block' => true, 'once' => true]);
+$this->Html->script('Apps.fileupload', ['block' => true, 'once' => true]);
 ?>
 <div class="file-upload"
      data-readonly="<?= (!isset($readonly) || $readonly === true ? "true" : "false") ?>"

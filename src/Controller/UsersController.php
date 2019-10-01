@@ -43,7 +43,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $id = ($id !== null) ? $id : $this->request->getSession()->read('Auth.User.id');
+        $id = ($id !== null) ? $id : $this->getRequest()->getSession()->read('Auth.User.id');
         $user = $this->Users->get($id, ['contain' => ['Managers', 'Roles', 'UserContacts', 'UserLogins', 'TimeZones']]);
 
         $this->set(compact('user'));
@@ -63,10 +63,10 @@ class UsersController extends AppController
      */
     public function roles($id = null)
     {
-        $id = ($id !== null) ? $id : $this->request->getSession()->read('Auth.User.id');
+        $id = ($id !== null) ? $id : $this->getRequest()->getSession()->read('Auth.User.id');
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $data = $this->request->getData();
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $data = $this->getRequest()->getData();
             $new_roles = $data['role'];
             $new_roles = array_map(function ($role) {
                 return (int)$role;
@@ -98,8 +98,8 @@ class UsersController extends AppController
     /* public function add()
     {
         $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -124,8 +124,8 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['TimeZones']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -148,7 +148,7 @@ class UsersController extends AppController
     /*
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('The user has been deleted.'));
@@ -222,7 +222,7 @@ class UsersController extends AppController
 
     public function trackHistory()
     {
-        $action = $this->request->getParam('action');
+        $action = $this->getRequest()->getParam('action');
         if (array_search($action, ['profileImage', 'refresh']) !== false) {
             return false;
         }

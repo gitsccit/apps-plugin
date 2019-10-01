@@ -57,8 +57,8 @@ class AppLinksController extends AppController
     public function add()
     {
         $appLink = $this->AppLinks->newEntity();
-        if ($this->request->is('post')) {
-            $appLink = $this->AppLinks->patchEntity($appLink, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $appLink = $this->AppLinks->patchEntity($appLink, $this->getRequest()->getData());
             if ($this->AppLinks->save($appLink)) {
                 $this->Flash->success(__('The app link has been saved.'));
 
@@ -85,8 +85,8 @@ class AppLinksController extends AppController
         $appLink = $this->AppLinks->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $appLink = $this->AppLinks->patchEntity($appLink, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $appLink = $this->AppLinks->patchEntity($appLink, $this->getRequest()->getData());
             if ($this->AppLinks->save($appLink)) {
                 $this->Flash->success(__('The app link has been saved.'));
 
@@ -110,7 +110,7 @@ class AppLinksController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $appLink = $this->AppLinks->get($id);
         if ($this->AppLinks->delete($appLink)) {
             $this->Flash->success(__('The app link has been deleted.'));

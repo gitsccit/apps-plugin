@@ -57,8 +57,8 @@ class EnvironmentsController extends AppController
     public function add()
     {
         $environment = $this->Environments->newEntity();
-        if ($this->request->is('post')) {
-            $environment = $this->Environments->patchEntity($environment, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $environment = $this->Environments->patchEntity($environment, $this->getRequest()->getData());
             if ($this->Environments->save($environment)) {
                 $this->Flash->success(__('The environment has been saved.'));
 
@@ -82,8 +82,8 @@ class EnvironmentsController extends AppController
         $environment = $this->Environments->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $environment = $this->Environments->patchEntity($environment, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $environment = $this->Environments->patchEntity($environment, $this->getRequest()->getData());
             if ($this->Environments->save($environment)) {
                 $this->Flash->success(__('The environment has been saved.'));
 
@@ -104,7 +104,7 @@ class EnvironmentsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $environment = $this->Environments->get($id);
         if ($this->Environments->delete($environment)) {
             $this->Flash->success(__('The environment has been deleted.'));

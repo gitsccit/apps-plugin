@@ -60,8 +60,8 @@ class OptionsController extends AppController
     public function add()
     {
         $option = $this->Options->newEntity();
-        if ($this->request->is('post')) {
-            $data = $this->request->getData();
+        if ($this->getRequest()->is('post')) {
+            $data = $this->getRequest()->getData();
             if ($this->validate($data['type'], $data['value'])) {
                 $option = $this->Options->patchEntity($option, $data);
                 if ($this->Options->save($option)) {
@@ -96,12 +96,12 @@ class OptionsController extends AppController
             ]
         ]);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $valid = true;
             $this->OptionStores = TableRegistry::getTableLocator()->get('Apps.OptionStores');
 
             // validate primary data
-            $data = $this->request->getData();
+            $data = $this->getRequest()->getData();
             if ($this->validate($data['type'], $data['value']) === false) {
                 $valid = false;
             }
@@ -234,7 +234,7 @@ class OptionsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
 
         $option = $this->Options->get($id);
         if ($this->Options->delete($option)) {

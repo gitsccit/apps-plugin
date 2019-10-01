@@ -57,8 +57,8 @@ class StoreDivisionsController extends AppController
     public function add()
     {
         $storeDivision = $this->StoreDivisions->newEntity();
-        if ($this->request->is('post')) {
-            $storeDivision = $this->StoreDivisions->patchEntity($storeDivision, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $storeDivision = $this->StoreDivisions->patchEntity($storeDivision, $this->getRequest()->getData());
             if ($this->StoreDivisions->save($storeDivision)) {
                 $this->Flash->success(__('The store division has been saved.'));
 
@@ -82,8 +82,8 @@ class StoreDivisionsController extends AppController
         $storeDivision = $this->StoreDivisions->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $storeDivision = $this->StoreDivisions->patchEntity($storeDivision, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $storeDivision = $this->StoreDivisions->patchEntity($storeDivision, $this->getRequest()->getData());
             if ($this->StoreDivisions->save($storeDivision)) {
                 $this->Flash->success(__('The store division has been saved.'));
 
@@ -104,7 +104,7 @@ class StoreDivisionsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $storeDivision = $this->StoreDivisions->get($id);
         if ($this->StoreDivisions->delete($storeDivision)) {
             $this->Flash->success(__('The store division has been deleted.'));

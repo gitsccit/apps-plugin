@@ -53,8 +53,8 @@ class PermissionGroupsController extends AppController
     public function add()
     {
         $permissionGroup = $this->PermissionGroups->newEntity();
-        if ($this->request->is('post')) {
-            $permissionGroup = $this->PermissionGroups->patchEntity($permissionGroup, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $permissionGroup = $this->PermissionGroups->patchEntity($permissionGroup, $this->getRequest()->getData());
             if ($this->PermissionGroups->save($permissionGroup)) {
                 $this->Flash->success(__('The permission group has been saved.'));
 
@@ -77,8 +77,8 @@ class PermissionGroupsController extends AppController
         $permissionGroup = $this->PermissionGroups->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $permissionGroup = $this->PermissionGroups->patchEntity($permissionGroup, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $permissionGroup = $this->PermissionGroups->patchEntity($permissionGroup, $this->getRequest()->getData());
             if ($this->PermissionGroups->save($permissionGroup)) {
                 $this->Flash->success(__('The permission group has been saved.'));
 
@@ -98,7 +98,7 @@ class PermissionGroupsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $permissionGroup = $this->PermissionGroups->get($id);
         if ($this->PermissionGroups->delete($permissionGroup)) {
             $this->Flash->success(__('The permission group has been deleted.'));

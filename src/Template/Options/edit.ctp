@@ -4,7 +4,7 @@
  * @var \Apps\Model\Entity\Option $option
  */
 
-$this->Html->script('options',['block' => true]);
+$this->Html->script('Apps.options',['block' => true]);
 
 $this->Breadcrumbs->add('Admin');
 $this->Breadcrumbs->add('Options',['action' => 'index']);

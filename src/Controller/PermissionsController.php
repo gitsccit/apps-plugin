@@ -57,8 +57,8 @@ class PermissionsController extends AppController
     public function add()
     {
         $permission = $this->Permissions->newEntity();
-        if ($this->request->is('post')) {
-            $permission = $this->Permissions->patchEntity($permission, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $permission = $this->Permissions->patchEntity($permission, $this->getRequest()->getData());
             if ($this->Permissions->save($permission)) {
                 $this->Flash->success(__('The permission has been saved.'));
 
@@ -83,8 +83,8 @@ class PermissionsController extends AppController
         $permission = $this->Permissions->get($id, [
             'contain' => ['Roles']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $permission = $this->Permissions->patchEntity($permission, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $permission = $this->Permissions->patchEntity($permission, $this->getRequest()->getData());
             if ($this->Permissions->save($permission)) {
                 $this->Flash->success(__('The permission has been saved.'));
 
@@ -106,7 +106,7 @@ class PermissionsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $permission = $this->Permissions->get($id);
         if ($this->Permissions->delete($permission)) {
             $this->Flash->success(__('The permission has been deleted.'));

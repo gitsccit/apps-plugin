@@ -56,8 +56,8 @@ class StoreReturnsController extends AppController
     public function add()
     {
         $storeReturn = $this->StoreReturns->newEntity();
-        if ($this->request->is('post')) {
-            $storeReturn = $this->StoreReturns->patchEntity($storeReturn, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $storeReturn = $this->StoreReturns->patchEntity($storeReturn, $this->getRequest()->getData());
             if ($this->StoreReturns->save($storeReturn)) {
                 $this->Flash->success(__('The store return has been saved.'));
 
@@ -81,8 +81,8 @@ class StoreReturnsController extends AppController
         $storeReturn = $this->StoreReturns->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $storeReturn = $this->StoreReturns->patchEntity($storeReturn, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $storeReturn = $this->StoreReturns->patchEntity($storeReturn, $this->getRequest()->getData());
             if ($this->StoreReturns->save($storeReturn)) {
                 $this->Flash->success(__('The store return has been saved.'));
 
@@ -103,7 +103,7 @@ class StoreReturnsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $storeReturn = $this->StoreReturns->get($id);
         if ($this->StoreReturns->delete($storeReturn)) {
             $this->Flash->success(__('The store return has been deleted.'));

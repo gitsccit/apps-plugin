@@ -3,7 +3,7 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\News[]|\Cake\Collection\CollectionInterface $news
  */
-$this->Html->css('scc-form.css', ['block' => 'scc-form']);
+$this->Html->css('Apps.scc-form.css', ['block' => 'scc-form']);
 ?>
 <section class="width-1200">
     <?php if ($this->fetch('title')): ?>

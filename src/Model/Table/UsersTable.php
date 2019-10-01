@@ -41,7 +41,7 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('users');
-        $this->setDisplayField('title');
+        $this->setDisplayField('display_name');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('TimeZones', [

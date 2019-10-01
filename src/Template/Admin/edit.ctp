@@ -6,7 +6,7 @@
 
 use Cake\Utility\Inflector;
 
-$this->Html->script('options', ['block' => true]);
+$this->Html->script('Apps.options', ['block' => true]);
 $this->Breadcrumbs->add($this->getPlugin() ?? Inflector::humanize(basename(ROOT)));
 $this->Breadcrumbs->add($title, ['action' => 'index']);
 $this->Breadcrumbs->add($entity->$displayField, ['action' => 'view', $entity->id]);

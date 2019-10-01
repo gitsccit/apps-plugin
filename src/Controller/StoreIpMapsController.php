@@ -56,8 +56,8 @@ class StoreIpMapsController extends AppController
     public function add()
     {
         $storeIpMap = $this->StoreIpMaps->newEntity();
-        if ($this->request->is('post')) {
-            $storeIpMap = $this->StoreIpMaps->patchEntity($storeIpMap, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $storeIpMap = $this->StoreIpMaps->patchEntity($storeIpMap, $this->getRequest()->getData());
             if ($this->StoreIpMaps->save($storeIpMap)) {
                 $this->Flash->success(__('The store ip map has been saved.'));
 
@@ -82,8 +82,8 @@ class StoreIpMapsController extends AppController
         $storeIpMap = $this->StoreIpMaps->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $storeIpMap = $this->StoreIpMaps->patchEntity($storeIpMap, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $storeIpMap = $this->StoreIpMaps->patchEntity($storeIpMap, $this->getRequest()->getData());
             if ($this->StoreIpMaps->save($storeIpMap)) {
                 $this->Flash->success(__('The store ip map has been saved.'));
 
@@ -105,7 +105,7 @@ class StoreIpMapsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $storeIpMap = $this->StoreIpMaps->get($id);
         if ($this->StoreIpMaps->delete($storeIpMap)) {
             $this->Flash->success(__('The store ip map has been deleted.'));
