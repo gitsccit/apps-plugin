@@ -60,12 +60,12 @@ class MSGraphAuthComponent extends Component
         $state = uniqid();
         $this->session->write('MSGraph.state', $state);
         $referer = $this->controller->referer();
-        $host = $this->controller->request->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
+        $host = $this->controller->getRequest()->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
         $this->session->write('MSGraph.redirect', $this->controller->Auth->redirectUrl());
 
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('apps_master');
+            $conn = ConnectionManager::get('apps');
             $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
                 [$state, $redirect]);
             $redirect = $this->config['redirect_alt_uri'];
@@ -91,8 +91,8 @@ class MSGraphAuthComponent extends Component
 
         // step 1 verify that this is the correct component for this oauth2 response
         $state_orig = $this->session->read('MSGraph.state');
-        $state = $this->controller->request->getQuery('state');
-        $code = $this->controller->request->getQuery('code');
+        $state = $this->controller->getRequest()->getQuery('state');
+        $code = $this->controller->getRequest()->getQuery('code');
 
         if (empty($code) || $state_orig === false || $state_orig !== $state) {
             return false;
@@ -117,7 +117,7 @@ class MSGraphAuthComponent extends Component
         $type = ($refresh ? "refresh_token" : "code");
         $http = new Client();
 
-        $host = $this->controller->request->getEnv('HTTP_HOST');
+        $host = $this->controller->getRequest()->getEnv('HTTP_HOST');
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
             $redirect = $this->config['redirect_alt_uri'];

@@ -27,8 +27,8 @@ class ConfigureFromDatabaseComponent extends Component
     {
 
         $controller = $this->_registry->getController();
-        $ip = $controller->request->getEnv('SERVER_ADDR');
-        $port = $controller->request->getEnv('SERVER_PORT');
+        $ip = $controller->getRequest()->getEnv('SERVER_ADDR');
+        $port = $controller->getRequest()->getEnv('SERVER_PORT');
 
         // if running from the command line set the app server's ip and port
         // bake won't work without this
@@ -37,7 +37,7 @@ class ConfigureFromDatabaseComponent extends Component
             $port = "443";
         }
 
-        $this->db = ConnectionManager::get('apps');
+        $this->db = ConnectionManager::get('apps_replica');
         $result = $this->db->execute("SELECT s.id,s.name,s.active,i.environment_id,e.name AS environment,e.path
 FROM store_ip_maps i
 INNER JOIN stores s ON s.id = i.store_id

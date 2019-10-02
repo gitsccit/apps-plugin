@@ -116,10 +116,10 @@ class MSGraphComponent extends Component
         Cache::write('MSGraphState', $state, 'MSGraph');
         Cache::write('MSGraphRedirect', $this->controller->referer(), 'MSGraph');
 
-        $host = $this->controller->request->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
+        $host = $this->controller->getRequest()->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('apps_master');
+            $conn = ConnectionManager::get('apps');
             $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
                 [$state, $redirect]);
             $redirect = $this->config['redirect_alt_uri'];
@@ -144,8 +144,8 @@ class MSGraphComponent extends Component
 
         // step 1 verify that this is the correct component for this oauth2 response
         $state_orig = Cache::read('MSGraphState', 'MSGraph');
-        $state = $this->controller->request->getQuery('state');
-        $code = $this->controller->request->getQuery('code');
+        $state = $this->controller->getRequest()->getQuery('state');
+        $code = $this->controller->getRequest()->getQuery('code');
 
         if (empty($code) || $state_orig === false || $state_orig !== $state) {
             return false;
@@ -170,7 +170,7 @@ class MSGraphComponent extends Component
         $type = ($refresh ? "refresh_token" : "code");
         $http = new Client();
 
-        $host = $this->controller->request->getEnv('HTTP_HOST');
+        $host = $this->controller->getRequest()->getEnv('HTTP_HOST');
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
             $redirect = $this->config['redirect_alt_uri'];
@@ -332,7 +332,7 @@ class MSGraphComponent extends Component
 
         // attempt to determine the time_zone using the location
         if (true || $locationChange) {
-            $conn = ConnectionManager::get('apps');
+            $conn = ConnectionManager::get('apps_replica');
             $stmt = $conn->prepare("SELECT t.id
 FROM location_time_zones l 
 INNER JOIN time_zones t ON t.id = l.time_zone_id 
