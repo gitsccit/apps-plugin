@@ -5,11 +5,6 @@
  */
 
 $this->Html->script('Apps.navmenuedit',['block' => true]);
-
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Apps',['action' => 'index']);
-$this->Breadcrumbs->add($app->name,['action' => 'view',$app->id]);
-$this->Breadcrumbs->add('Edit');
 ?>
 <h1><span class="icon-plus green"></span> Edit App #<?= $app->id ?></h1>
 

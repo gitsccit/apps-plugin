@@ -5,9 +5,6 @@
  * @var \Apps\Model\Entity\PermissionGroup $permissionGroups
  */
 
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Permissions', ['action' => 'index']);
-$this->Breadcrumbs->add('Add');
 echo "<h1>Admin Permissions </h1>";
 ?>
 <p>

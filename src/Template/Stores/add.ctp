@@ -3,9 +3,6 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\Store $store
  */
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Stores', ['action' => 'index']);
-$this->Breadcrumbs->add('Add');
 ?>
 <h1><span class="icon-plus green"></span> Add Stores</h1>
 <section class="form-basic">

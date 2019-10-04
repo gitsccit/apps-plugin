@@ -3,9 +3,6 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\Permission $permission
  */
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Permissions', ['action' => 'index']);
-$this->Breadcrumbs->add('Edit');
 echo "<h1>Admin Permissions </h1>";
 ?>
 <p>

@@ -3,18 +3,13 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\Api $api
  */
-
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('API Access',['action' => 'index']);
-$this->Breadcrumbs->add($api->name,['action' => 'view',$api->id]);
-$this->Breadcrumbs->add('Edit');
 ?>
 <h1><span class="icon-plus green"></span> Edit API Access #<?= $api->id ?></h1>
 
 <section class="form-basic">
     <?= $this->Form->create($api) ?>
     <fieldset>
-        <legend><?= __('Edit API Access') ?></legend>
+        <legend><?= __('Edit API') ?></legend>
         <?php
         echo $this->Form->control('name');
         echo $this->Form->control('ip_address');

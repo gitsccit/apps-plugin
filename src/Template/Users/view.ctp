@@ -1,17 +1,12 @@
 <?php
 /**
- * @var AppView $this
- * @var User $user
+ * @var \Apps\View\AppView $this
+ * @var \Apps\Model\Entity\User $user
  * @var boolean $canEditRoles
  * @var boolean $canSynchronizeLDAP
  * @var boolean $canLoginAs
  */
 $this->assign('title', $user->display_name);
-
-$this->Breadcrumbs->add('Apps');
-$this->Breadcrumbs->add('Users', ['action' => 'index']);
-$this->Breadcrumbs->add('View');
-$this->Breadcrumbs->add($user->display_name, ['action' => 'view', $user->id]);
 
 echo "<div class=\"links-top-right\">";
 echo $this->Html->link('Edit Time Zone', ['action' => 'edit', $user->id], ['class' => 'button']);

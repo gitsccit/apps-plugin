@@ -6,10 +6,6 @@
  * @var \Apps\Model\Entity\Option[]|\Cake\Collection\CollectionInterface $options
  */
 
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Options', ['action' => 'index']);
-$this->Breadcrumbs->add('List', ['action' => 'index']);
-
 echo $this->element('Apps.table_filter', [
     'links' => [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
 ]);

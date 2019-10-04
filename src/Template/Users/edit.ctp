@@ -3,10 +3,6 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\User $user
  */
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Users', ['action' => 'index']);
-$this->Breadcrumbs->add($user->name, ['action' => 'view', $user->id]);
-$this->Breadcrumbs->add('Edit');
 ?>
 
 <h1><span class="icon-plus green"></span> Edit User <?= $user->display_name ?></h1>

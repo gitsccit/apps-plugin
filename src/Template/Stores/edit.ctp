@@ -3,10 +3,6 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\Store $store
  */
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Stores', ['action' => 'index']);
-$this->Breadcrumbs->add($store->name, ['action' => 'view', $store->id]);
-$this->Breadcrumbs->add('Edit');
 ?>
 
 

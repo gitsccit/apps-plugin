@@ -6,10 +6,6 @@
 
 use Cake\Utility\Inflector;
 
-$this->Breadcrumbs->add($this->getPlugin() ?? Inflector::humanize(basename(ROOT)));
-$this->Breadcrumbs->add($title, ['action' => 'index']);
-$this->Breadcrumbs->add($entity->$displayField, ['action' => 'view', $entity->id]);
-
 echo "<div class=\"links-top-right\">";
 echo $this->Html->link('Edit', ['action' => 'edit', $entity->id], ['class' => 'button']);
 echo $this->Form->postLink(__('Delete'), ['action' => 'delete', $entity->id],

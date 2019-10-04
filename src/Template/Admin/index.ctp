@@ -4,11 +4,6 @@
  * @var \Cake\Collection\CollectionInterface $entities
  */
 
-use Cake\Utility\Inflector;
-
-$this->Breadcrumbs->add($this->getPlugin() ?? Inflector::humanize(basename(ROOT)));
-$this->Breadcrumbs->add($title, ['action' => 'index']);
-
 echo "<h1>Admin : $title</h1><hr>";
 
 echo $this->element('Apps.table_filter', [

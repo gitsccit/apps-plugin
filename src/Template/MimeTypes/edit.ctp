@@ -3,11 +3,6 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\MimeType $mimeType
  */
-
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Mime Types', ['action' => 'index']);
-$this->Breadcrumbs->add($mimeType->name, ['action' => 'view', $mimeType->id]);
-$this->Breadcrumbs->add('Edit');
 ?>
 <h1><span class="icon-plus green"></span> Edit Mime Type #<?= $mimeType->id ?></h1>
 

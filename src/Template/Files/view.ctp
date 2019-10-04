@@ -5,10 +5,6 @@
  */
 $timezone = $this->request->getSession()->read('Auth.User.time_zone.name');
 
-$this->Breadcrumbs->add('Apps');
-$this->Breadcrumbs->add('Files', ['action' => 'index']);
-$this->Breadcrumbs->add($file->name);
-
 echo "<div class=\"links-top-right\">";
 echo $this->Form->postLink(
     __('Delete'),

@@ -37,8 +37,7 @@
     <div id="apps-maincolumn">
         <!--todo header element containing the nav bar cell -->
         <?= $this->element('Apps.header') ?>
-        <?= $this->Breadcrumbs->render(['class' => 'breadcrumbs-trail'],
-            ['separator' => '<span class="icon-right-open"></span>']) ?>
+        <?= $this->element('Apps.breadcrumb') ?>
         <?= $this->Flash->render() ?>
         <div id="main-content">
             <?= $this->fetch('content') ?>

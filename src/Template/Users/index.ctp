@@ -7,10 +7,6 @@
  * @var boolean $canSynchronizeLDAP
  */
 
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Users', ['action' => 'index']);
-$this->Breadcrumbs->add('List', ['action' => 'index']);
-
 $links = [];
 if ($canSynchronizeLDAP) {
     $links[] = $this->Html->link('Synchronize Active Directory', ['action' => 'synchronizeLdap'],

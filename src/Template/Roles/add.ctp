@@ -3,9 +3,6 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\Role $role
  */
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Roles', ['action' => 'index']);
-$this->Breadcrumbs->add('Add');
 ?>
 <h1><span class="icon-plus green"></span> Add Role</h1>
 <section class="form-basic">

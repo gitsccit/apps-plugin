@@ -5,10 +5,6 @@
  */
 $timezone = $this->request->getSession()->read('Auth.User.time_zone.name');
 
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Apps',['action' => 'index']);
-$this->Breadcrumbs->add($app->name);
-
 echo "<div class=\"links-top-right\">";
 echo $this->Html->link('Edit',['action' => 'edit',$app->id],['class' => 'button']);
 echo $this->Form->postLink(

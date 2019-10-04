@@ -6,10 +6,6 @@
  */
 
 $this->assign('title', $role->name);
-$this->Breadcrumbs->add('Apps');
-$this->Breadcrumbs->add('Roles', ['action' => 'index']);
-$this->Breadcrumbs->add('Manage Role');
-$this->Breadcrumbs->add($role->name, ['action' => 'view', $role->id]);
 echo "<h1>Admin Role : " . $role->name . "</h1>";
 
 ?>

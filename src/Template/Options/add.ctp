@@ -5,10 +5,6 @@
  */
 
 $this->Html->script('Apps.options',['block' => true]);
-
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Options',['action' => 'index']);
-$this->Breadcrumbs->add('Add');
 ?>
 <h1><span class="icon-plus green"></span> Add Option</h1>
 

@@ -19,11 +19,6 @@
 
 $this->assign('title', $user->display_name);
 
-$this->Breadcrumbs->add('Apps');
-$this->Breadcrumbs->add('Users', ['action' => 'index']);
-$this->Breadcrumbs->add('Manage User Roles');
-$this->Breadcrumbs->add($user->display_name, ['action' => 'view', $user->id]);
-
 echo "<h1>Manage Roles for  " . $user->username . "</h1>\n";
 
 // load direct, mobile, and ext fields from the user contacts

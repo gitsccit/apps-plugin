@@ -10,10 +10,6 @@ use Cake\I18n\Number;
 
 $timezone = $this->request->getSession()->read('Auth.User.time_zone.name');
 
-$this->Breadcrumbs->add('Admin');
-$this->Breadcrumbs->add('Files', ['action' => 'index']);
-$this->Breadcrumbs->add('List', ['action' => 'index']);
-
 echo $this->element('Apps.table_filter', [
     'links' => [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
 ]);
