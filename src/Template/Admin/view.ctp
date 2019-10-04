@@ -13,11 +13,11 @@ echo $this->Form->postLink(__('Delete'), ['action' => 'delete', $entity->id],
 );
 echo "</div>";
 
-echo "<h1>" . Inflector::classify($title) . " #$entity->id</h1>\n";
+echo "<h1>" . Inflector::singularize($title) . " #$entity->id</h1>\n";
 
 $data = array_map(function ($fieldChunk) use ($entity) {
     return array_map(function ($field) use ($entity) {
-        return ['<label>' . Inflector::humanize($field) . ':</label>', $this->Utils->display($entity->$field)];
+        return ['<label>' . humanize($field) . ':</label>', $this->Utils->display($entity->$field)];
     }, $fieldChunk);
 }, array_chunk(array_keys($entity->toArray()), 4));
 
@@ -31,8 +31,7 @@ if (!isset($associations)) {
 
 $tabs = [];
 foreach ($associations as $association => $resultSet) {
-    $association = Inflector::camelize($association);
-    $tabs[Inflector::humanize(Inflector::underscore($association))] = $this->Utils->createTable($resultSet);
+    $tabs[humanize($association)] = $this->Utils->createTable($resultSet);
 }
 
 echo $this->element('Apps.tabs', ['tabs' => $tabs]);

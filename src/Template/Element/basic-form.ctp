@@ -9,8 +9,8 @@
 <section class="form-basic">
     <?= $this->Form->create($entity) ?>
     <fieldset>
-        <?php foreach ($accessibleFields as $accessibleField): ?>
-            <?= $this->Form->control($accessibleField); ?>
+        <?php foreach ($accessibleFields as $accessibleField => $option): ?>
+            <?= $this->Form->control($accessibleField, $option); ?>
         <?php endforeach; ?>
     </fieldset>
     <?= $this->Form->button(__('Save'), ['class' => 'button']) ?>

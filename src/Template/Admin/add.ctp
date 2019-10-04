@@ -6,7 +6,7 @@
 
 use Cake\Utility\Inflector;
 
-$title = Inflector::classify($title);
+$title = Inflector::singularize($title);
 echo "<h1><span class=\"icon-plus green\"></span> Add $title</h1><hr>";
-echo $form = $this->fetch('form') ? $form :
+echo ($form = $this->fetch('form')) ? $form :
     $this->element('Apps.basic-form', compact('entity', 'accessibleFields'));
