@@ -4,14 +4,18 @@
  * @var \Cake\Collection\CollectionInterface $entities
  */
 
-echo "<h1>Admin : $title</h1><hr>";
-
-echo $this->element('Apps.table_filter', [
-    'links' => [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
-]);
-
 if ($entities->count() === 0) {
     $plugin = $this->getPlugin();
-    $entities = is_null($plugin) ? $className : "$plugin.$className";
+    $controller = $this->getName();
+    $entities = is_null($plugin) ? $controller : "$plugin.$controller";
 }
-echo $this->Utils->createTable($entities);
+?>
+
+<h1>Admin : <?= $title ?></h1>
+<hr>
+
+<?= $this->element('Apps.table_filter', [
+    'links' => [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
+]) ?>
+
+<?= $this->Utils->createTable($entities) ?>

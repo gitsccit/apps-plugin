@@ -4,11 +4,6 @@
  * @var \Cake\ORM\Entity $entity
  */
 
-use Cake\Utility\Inflector;
-
 $this->Html->script('Apps.options', ['block' => true]);
 
-$title = Inflector::singularize($title);
-echo "<h1><span class=\"icon-plus green\"></span> Edit $title</h1><hr>";
-echo ($form = $this->fetch('form')) ? $form :
-    $this->element('Apps.basic-form', compact('entity', 'accessibleFields'));
+$this->extend('add');
