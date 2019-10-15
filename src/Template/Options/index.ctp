@@ -1,4 +1,4 @@
-<h1>Admin : Options</h1>
+<h1>Options</h1>
 <hr>
 <?php
 /**

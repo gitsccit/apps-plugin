@@ -1,4 +1,4 @@
-<h1>Admin : Files</h1>
+<h1>Files</h1>
 <hr>
 <?php
 /**
