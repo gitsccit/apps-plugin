@@ -12,7 +12,7 @@
 
 <div class="navmenu-edit" data-margin="<?= $margin ?>">
     <div class="navmenu-items">
-    <?= $this->element('Apps.navmenu-edit-items',['applinks' => $applinks,'indent' => 0,'margin' => $margin]) ?>
+    <?= $this->element('Apps.navmenu_edit_items',['applinks' => $applinks,'indent' => 0,'margin' => $margin]) ?>
     </div>
     <div class="navmenu-fields">
         <div style="display:none">

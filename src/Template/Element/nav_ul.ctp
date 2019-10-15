@@ -18,7 +18,7 @@ $id = ($id == 'parent-list') ? 'parent-list' : 'child-list';
                     ?></span>
                     <?php if (is_array($link['children']) && count($link['children']) > 0): ?>
                         <div>
-                            <?php echo $this->element('Apps.nav-ul', ['menus' => $link['children'], 'type' => 'child', 'id' => 'child-list']); ?>
+                            <?php echo $this->element('Apps.nav_ul', ['menus' => $link['children'], 'type' => 'child', 'id' => 'child-list']); ?>
                         </div>
                     <?php endif; ?>
                 </li>

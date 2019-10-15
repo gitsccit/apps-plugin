@@ -10,7 +10,7 @@
         <p>Paragraph</p>
         <form style="padding: 15px;">
             <div class="shade">
-                <?php echo $this->element('Apps.nav-ul', ['menus' => $links, 'type' => 'parent', 'id' => 'parent-list']); ?>
+                <?php echo $this->element('Apps.nav_ul', ['menus' => $links, 'type' => 'parent', 'id' => 'parent-list']); ?>
             </div>
             <div>
                 <?php

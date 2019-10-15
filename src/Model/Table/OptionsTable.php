@@ -95,31 +95,6 @@ class OptionsTable extends Table
         return $rules;
     }
 
-    public function getStoreEnvironmentValues(int $id)
-    {
-        $results = $this->find()
-            ->select([
-                'id',
-                'option_stores.value',
-                'timestamp',
-                'stores.id',
-                'stores.name',
-                'environments.id',
-                'environments.name'
-            ])
-            ->join(['stores', 'environments'])
-            ->leftJoin('option_stores', [
-                'stores.id = option_stores.store_id',
-                'environments.id = option_stores.environment_id',
-                'option_stores.option_id = Options.id'
-            ])
-            ->where(['Options.id' => $id])
-            ->order('stores.name ASC,environments.id ASC')
-            ->all();
-
-        return $results;
-    }
-
     /**
      * Returns the database connection name to use by default.
      *

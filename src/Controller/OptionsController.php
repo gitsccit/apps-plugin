@@ -42,17 +42,18 @@ class OptionsController extends AppController
      */
     public function view($id = null)
     {
-        $option = $this->Options->get($id, [
+        $query = $this->Options->find('all', [
             'contain' => [
                 'OptionStores' => [
                     'Stores',
                     'Environments',
                 ]
-            ]
+            ],
+            'conditions' => ['Options.id' => $id]
         ]);
-        $values = $this->Options->getStoreEnvironmentValues($id);
 
-        $this->set(compact('option', 'values'));
+        $results = $this->Crud->paginateAssociations($query);
+        $this->set($results);
     }
 
     /**

@@ -33,7 +33,7 @@ $this->Html->script('Apps.options',['block' => true]);
                 }
             }
 
-            $tiles[] = $this->element('Apps.form-tile',[
+            $tiles[] = $this->element('Apps.form_tile',[
                     'title' => $store->name,
                     'inputs' => $this->Form->control($id,['label' => $environment->name,'value' => $value]).
                         '<div style="display:none">'.$this->element('Apps.fileupload', ['target' => $id, 'multi' => false, 'clear' => true,'readonly' => false]).'</div>'
@@ -42,7 +42,7 @@ $this->Html->script('Apps.options',['block' => true]);
         }
     }
     ?>
-    <?= $this->element('Apps.form-tiles',['tiles' => $tiles]) ?>
+    <?= $this->element('Apps.form_tiles',['tiles' => $tiles]) ?>
 
     <div class="margin-50">
         <?= $this->Form->button(__('Update'),['class' => 'button']) ?>
