@@ -17,40 +17,40 @@ echo "<h1>Admin Permissions </h1>";
 <h1><span class="icon-plus green"></span> Add New Permission</h1>
 <p>Add a permission that can be assigned to a new or already existing role or group in the database.</p>
 <div class="column">
-<section class="form-basic">
-    <?= $this->Form->create($permission) ?>
-    <fieldset>
-        <legend><?= __('Add Permission') ?></legend>
-        <?php
-        echo '<label><strong>Permission Group</strong></label>';
-        echo $this->Form->control('permission_group_id',
-            ['options' => $permissionGroups, 'empty' => true, 'label' => false]);
-        echo '<label><strong>Permission Name</strong></label>';
+    <section class="form-basic">
+        <?= $this->Form->create($permission) ?>
+        <fieldset>
+            <legend><?= __('Add Permission') ?></legend>
+            <?php
+            echo '<label><strong>Permission Group</strong></label>';
+            echo $this->Form->control('permission_group_id',
+                ['options' => $permissionGroups, 'empty' => true, 'label' => false]);
+            echo '<label><strong>Permission Name</strong></label>';
 
-        echo $this->Form->control('name', [
-            'class' => 'small-input',
-            'label' => false,
-            'placeholder' => 'Enter Permission Name',
-            'maxlength' => '30',
-            'style' => 'width:300px'
-        ]);
+            echo $this->Form->control('name', [
+                'class' => 'small-input',
+                'label' => false,
+                'placeholder' => 'Enter Permission Name',
+                'maxlength' => '30',
+                'style' => 'width:300px'
+            ]);
 
-        echo '<label><strong>Permission Description </strong></label>';
-        //TODO conflict with UX/UI and SA
-        //TODO display maximum characters
-        // echo $this->Form->control('description',['class' => 'input-textarea','label'=>false,'placeholder'=>'Enter a brief description','maxlength'=>'30']);
-        echo $this->Form->textarea('description', [
-            'class' => 'input-textarea',
-            'label' => false,
-            'placeholder' => 'Enter a brief description',
-            'maxlength' => '100'
-        ]);
-        ?>
-    </fieldset>
-    <div class="margin-50 ">
-        <?= $this->Form->button(__('Save'), ['class' => 'button']) ?>
-        <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'button black']) ?>
-        <?= $this->Form->end() ?>
-    </div>
-</section>
+            echo '<label><strong>Permission Description </strong></label>';
+            //TODO conflict with UX/UI and SA
+            //TODO display maximum characters
+            // echo $this->Form->control('description',['class' => 'input-textarea','label'=>false,'placeholder'=>'Enter a brief description','maxlength'=>'30']);
+            echo $this->Form->control('description', [
+                'type' => 'textarea',
+                'class' => 'input-textarea',
+                'label' => false,
+                'placeholder' => 'Enter a brief description'
+            ]);
+            ?>
+        </fieldset>
+        <div class="margin-50 ">
+            <?= $this->Form->button(__('Save'), ['class' => 'button']) ?>
+            <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'button black']) ?>
+            <?= $this->Form->end() ?>
+        </div>
+    </section>
 </div>

@@ -3,13 +3,14 @@
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\MimeType $mimeType
  */
-?>
-<h1><span class="icon-plus green"></span> Add Mime Type</h1>
 
+$this->extend('/Admin/add');
+
+$this->start('form');
+?>
 <section class="form-basic">
     <?= $this->Form->create($mimeType) ?>
     <fieldset>
-        <legend><?= __('Add Mime Type') ?></legend>
         <?= $this->Form->control('name') ?>
         <div class="form-row">
             <div><?= $this->Form->control('image', ['options' => $imageOptions, 'default' => 'no']) ?></div>
@@ -27,3 +28,6 @@
         <?= $this->Form->end() ?>
     </div>
 </section>
+
+<?php
+$this->end();

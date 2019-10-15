@@ -18,6 +18,9 @@ use Cake\ORM\TableRegistry;
  */
 class FilesController extends AppController
 {
+    public $crud = [
+        'fallbackTemplatePath' => 'Admin'
+    ];
 
     // TODO is is an ugly solution; we should find the key for "image/png" in the database
     private $imagepng = 13;

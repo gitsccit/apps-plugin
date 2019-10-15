@@ -11,7 +11,7 @@ if ($entities->count() === 0) {
 }
 ?>
 
-<h1>Admin : <?= $title ?></h1>
+<h1><?= $title ?></h1>
 <hr>
 
 <?= $this->element('Apps.table_filter', [

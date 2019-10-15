@@ -15,6 +15,9 @@ namespace Apps\Controller;
  */
 class UsersController extends AppController
 {
+    public $crud = [
+        'fallbackTemplatePath' => 'Admin'
+    ];
 
     /**
      * Index method
@@ -189,7 +192,7 @@ class UsersController extends AppController
     /**
      * this function will synchronize all user information from the active directory
      * @var string $id
-     * */
+     */
     public function synchronizeLdap($id = null)
     {
         // refresh ALL users if called without a user ID

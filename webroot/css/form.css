@@ -51,7 +51,7 @@
     flex-wrap: wrap;
 }
 
-.form-row > * {
+.form-row > *:not(*:last-child) {
     margin-right: 50px;
 }
 

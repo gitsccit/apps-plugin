@@ -14,6 +14,9 @@ use Cake\ORM\TableRegistry;
  */
 class OptionsController extends AppController
 {
+    public $crud = [
+        'fallbackTemplatePath' => 'Admin'
+    ];
 
     /**
      * Index method
