@@ -19,8 +19,8 @@ class StoreSortFieldsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.StoreSortFields',
-        'app.Stores'
+        'plugin.Apps.StoreSortFields',
+        'plugin.Apps.Stores'
     ];
 
     /**

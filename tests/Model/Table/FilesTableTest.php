@@ -23,10 +23,10 @@ class FilesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Files',
-        'app.MimeTypes',
-        'app.Users',
-        'app.AppLinks'
+        'plugin.Apps.Files',
+        'plugin.Apps.MimeTypes',
+        'plugin.Apps.Users',
+        'plugin.Apps.AppLinks'
     ];
 
     /**

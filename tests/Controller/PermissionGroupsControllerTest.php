@@ -19,8 +19,8 @@ class PermissionGroupsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.PermissionGroups',
-        'app.Permissions'
+        'plugin.Apps.PermissionGroups',
+        'plugin.Apps.Permissions'
     ];
 
     /**

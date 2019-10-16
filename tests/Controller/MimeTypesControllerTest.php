@@ -19,8 +19,8 @@ class MimeTypesControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.MimeTypes',
-        'app.Files'
+        'plugin.Apps.MimeTypes',
+        'plugin.Apps.Files'
     ];
 
     /**

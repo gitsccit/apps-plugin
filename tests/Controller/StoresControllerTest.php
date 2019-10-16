@@ -19,12 +19,12 @@ class StoresControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Stores',
-        'app.OptionStores',
-        'app.StoreDivisions',
-        'app.StoreIpMaps',
-        'app.StoreReturns',
-        'app.StoreSortFields'
+        'plugin.Apps.Stores',
+        'plugin.Apps.OptionStores',
+        'plugin.Apps.StoreDivisions',
+        'plugin.Apps.StoreIpMaps',
+        'plugin.Apps.StoreReturns',
+        'plugin.Apps.StoreSortFields'
     ];
 
     /**

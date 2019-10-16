@@ -23,10 +23,10 @@ class OptionStoresTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.OptionStores',
-        'app.Options',
-        'app.Stores',
-        'app.Environments'
+        'plugin.Apps.OptionStores',
+        'plugin.Apps.Options',
+        'plugin.Apps.Stores',
+        'plugin.Apps.Environments'
     ];
 
     /**

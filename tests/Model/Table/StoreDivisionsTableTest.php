@@ -23,8 +23,8 @@ class StoreDivisionsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.StoreDivisions',
-        'app.Stores'
+        'plugin.Apps.StoreDivisions',
+        'plugin.Apps.Stores'
     ];
 
     /**

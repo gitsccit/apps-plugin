@@ -19,10 +19,10 @@ class AppLinksControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.AppLinks',
-        'app.Apps',
-        'app.Permissions',
-        'app.Files'
+        'plugin.Apps.AppLinks',
+        'plugin.Apps.Apps',
+        'plugin.Apps.Permissions',
+        'plugin.Apps.Files'
     ];
 
     /**

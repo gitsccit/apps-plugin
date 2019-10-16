@@ -18,13 +18,13 @@ class UsersControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Users',
-        'app.TimeZones',
-        'app.Files',
-        'app.UserContacts',
-        'app.UserLogins',
-        'app.Roles',
-        'app.RolesUsers'
+        'plugin.Apps.Users',
+        'plugin.Apps.TimeZones',
+        'plugin.Apps.Files',
+        'plugin.Apps.UserContacts',
+        'plugin.Apps.UserLogins',
+        'plugin.Apps.Roles',
+        'plugin.Apps.RolesUsers'
     ];
 
     /**

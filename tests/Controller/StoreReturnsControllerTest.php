@@ -19,8 +19,8 @@ class StoreReturnsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.StoreReturns',
-        'app.Stores'
+        'plugin.Apps.StoreReturns',
+        'plugin.Apps.Stores'
     ];
 
     /**

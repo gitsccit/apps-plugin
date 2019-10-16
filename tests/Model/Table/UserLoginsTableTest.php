@@ -23,8 +23,8 @@ class UserLoginsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.UserLogins',
-        'app.Users'
+        'plugin.Apps.UserLogins',
+        'plugin.Apps.Users'
     ];
 
     /**

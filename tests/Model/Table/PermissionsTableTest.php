@@ -23,11 +23,11 @@ class PermissionsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Permissions',
-        'app.PermissionGroups',
-        'app.AppLinks',
-        'app.Environments',
-        'app.Roles'
+        'plugin.Apps.Permissions',
+        'plugin.Apps.PermissionGroups',
+        'plugin.Apps.AppLinks',
+        'plugin.Apps.Environments',
+        'plugin.Apps.Roles'
     ];
 
     /**

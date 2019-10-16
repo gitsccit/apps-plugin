@@ -23,7 +23,7 @@ class ApisTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Apis'
+        'plugin.Apps.Apis'
     ];
 
     /**

@@ -19,10 +19,10 @@ class EnvironmentsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Environments',
-        'app.Permissions',
-        'app.OptionStores',
-        'app.StoreIpMaps'
+        'plugin.Apps.Environments',
+        'plugin.Apps.Permissions',
+        'plugin.Apps.OptionStores',
+        'plugin.Apps.StoreIpMaps'
     ];
 
     /**

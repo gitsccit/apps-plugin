@@ -23,9 +23,9 @@ class StoreIpMapsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.StoreIpMaps',
-        'app.Stores',
-        'app.Environments'
+        'plugin.Apps.StoreIpMaps',
+        'plugin.Apps.Stores',
+        'plugin.Apps.Environments'
     ];
 
     /**
