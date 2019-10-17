@@ -12,7 +12,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Apps\\": "src/"
+            "Apps\\": "src/",
+            "Apps\\Test\\Fixture\\": "tests/Fixture/"
         }
     },
     "autoload-dev": {
