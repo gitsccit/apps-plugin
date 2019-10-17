@@ -34,7 +34,7 @@ if(isset($display) && $display === false) echo ' style="display:none"';
 foreach($links as $link) {
     echo "<li>".$link['content'];
     if($link['children'])
-        echo $this->element('Apps.ul-recursive',['links' => $link['children'],'display' => $display,'handler' => $handler]);
+        echo $this->element('Apps.ul_recursive',['links' => $link['children'],'display' => $display,'handler' => $handler]);
     echo "</li>\n";
 }
 ?>
