@@ -131,7 +131,10 @@ LOCK TABLES `environments` WRITE;
 /*!40000 ALTER TABLE `environments`
     DISABLE KEYS */;
 INSERT INTO `environments`
-VALUES (1, 'Dev', 'https://dev-web1.sourcecode.com/apps', NULL, '2019-07-29 17:15:56', '2019-07-29 17:15:56');
+VALUES (1, 'Dev', 'https://dev-web.sourcecode.com/apps', NULL, '2019-07-29 17:15:56', '2019-07-29 17:15:56'),
+       (2, 'Test', 'https://test-web.sourcecode.com/apps', NULL, '2019-07-29 17:15:56', '2019-07-29 17:15:56'),
+       (3, 'Prod East', 'https://prod-web.sourcecode.com/apps', NULL, '2019-07-29 17:15:56', '2019-07-29 17:15:56'),
+       (4, 'Prod West', 'https://prod-webw.sourcecode.com/apps', NULL, '2019-07-29 17:15:56', '2019-07-29 17:15:56');
 /*!40000 ALTER TABLE `environments`
     ENABLE KEYS */;
 UNLOCK TABLES;

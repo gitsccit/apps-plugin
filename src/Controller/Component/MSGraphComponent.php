@@ -119,7 +119,7 @@ class MSGraphComponent extends Component
         $host = $this->controller->getRequest()->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('apps');
+            $conn = ConnectionManager::get('default');
             $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
                 [$state, $redirect]);
             $redirect = $this->config['redirect_alt_uri'];

@@ -65,7 +65,7 @@ class MSGraphAuthComponent extends Component
 
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('apps');
+            $conn = ConnectionManager::get('default');
             $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
                 [$state, $redirect]);
             $redirect = $this->config['redirect_alt_uri'];
