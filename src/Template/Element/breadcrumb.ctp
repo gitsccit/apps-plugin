@@ -5,7 +5,7 @@
  */
 
 $crumbs = [
-    ['title' => humanize($this->getPlugin() ?? basename(ROOT))],
+    ['title' => humanize($this->getPlugin() ?? env('APP_NAME', basename(ROOT)))],
     ['title' => humanize($this->getName()), 'url' => ['action' => 'index']]
 ];
 

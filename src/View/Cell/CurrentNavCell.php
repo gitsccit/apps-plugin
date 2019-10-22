@@ -47,7 +47,7 @@ class CurrentNavCell extends Cell
          * $this->set(compact('title', 'links'));
          **/
         // get the name of the current active plugin
-        $name = $this->request->getParam('plugin') === 'Apps' ? 'Admin' : basename(ROOT);
+        $name = $this->request->getParam('plugin') === 'Apps' ? 'Admin' : env('APP_NAME', basename(ROOT));
         $appId = 1; // use appId 1 as the fallback
         $app = $this->Apps->find('all', [
             'conditions' => ['name' => $name],

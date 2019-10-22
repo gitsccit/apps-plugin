@@ -32,7 +32,7 @@ class AppNavCell extends Cell
     public function active($sequence)
     {
         // get the name of the current active plugin
-        $name = $this->request->getParam('plugin') === 'Apps' ? 'Admin' : basename(ROOT);
+        $name = $this->request->getParam('plugin') === 'Apps' ? 'Admin' : env('APP_NAME', basename(ROOT));
 
         $app = $this->Apps->find('all', [
             'conditions' => ['Apps.name' => $name],
