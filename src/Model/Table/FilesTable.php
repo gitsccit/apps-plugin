@@ -38,6 +38,8 @@ class FilesTable extends Table
     {
         parent::initialize($config);
 
+        $this->addBehavior('Skeleton.CurrentUser');
+
         $this->setTable('files');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');

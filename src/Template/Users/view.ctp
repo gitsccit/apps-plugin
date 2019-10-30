@@ -85,7 +85,7 @@ foreach ($user->user_contacts as $contact) {
         h($c),
     ]);
 }
-echo $this->element('Apps.table-list', ['header' => $header, 'collection' => $collection]);
+echo $this->element('Apps.table_list', ['header' => $header, 'collection' => $collection]);
 $this->end();
 
 // view block for roles
@@ -97,7 +97,7 @@ foreach ($user->roles as $role) {
         h($role->name),
     ]);
 }
-echo $this->element('Apps.table-list', ['header' => $header, 'collection' => $collection]);
+echo $this->element('Apps.table_list', ['header' => $header, 'collection' => $collection]);
 $this->end();
 
 $tabs = [

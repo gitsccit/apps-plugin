@@ -23,7 +23,7 @@ class FilesController extends AppController
     ];
 
     // TODO is is an ugly solution; we should find the key for "image/png" in the database
-    private $imagepng = 13;
+    protected $imagepng = 13;
 
     public function beforeFilter(Event $event)
     {
@@ -156,7 +156,7 @@ class FilesController extends AppController
         return $this->fetch($id, false);
     }
 
-    private function fetch($id = null, $download = true, $width = false, $height = false)
+    protected function fetch($id = null, $download = true, $width = false, $height = false)
     {
         $response = $this->getResponse();
         $files = TableRegistry::getTableLocator()->get('Apps.Files');
@@ -431,7 +431,7 @@ class FilesController extends AppController
      * Compliance requirement; strip any metadata from images
      * also use this opportunity to convert to png and set width and height
      */
-    private function imagepng(&$content, &$file)
+    protected function imagepng(&$content, &$file)
     {
         if (($source_image = imagecreatefromstring($content)) === false) {
             die("Unable to load as an image");
@@ -468,7 +468,7 @@ class FilesController extends AppController
     /**
      * Compliance requirement; inspect PDF files for javascript. Strip any javascript from the content.
      */
-    private function pdfscript(&$content, &$file)
+    protected function pdfscript(&$content, &$file)
     {
         // strips the contents of any pdf obj of type /JavaScript or /JS
         while ($this->stringRemoveBetween($content, "/JavaScript", "<<", ">>")) {
@@ -479,7 +479,7 @@ class FilesController extends AppController
         }
     }
 
-    private function stringRemoveBetween(&$content, $find, $left, $right)
+    protected function stringRemoveBetween(&$content, $find, $left, $right)
     {
         $pos = stripos($content, $find);
         if ($pos === false) {

@@ -55,4 +55,4 @@ foreach($app->app_links as $applink) {
     ]);
 }
 ?>
-<?= $this->element('Apps.table-list',['header' => $header,'collection' => $collection]) ?>
+<?= $this->element('Apps.table_list',['header' => $header,'collection' => $collection]) ?>
