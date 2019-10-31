@@ -84,7 +84,7 @@ class AppController extends \Skeleton\Controller\AppController
             $history = [];
         }
         // add this request, clean up the array, and limit in size
-        array_unshift($history, $_SERVER['REQUEST_URI']);
+        array_unshift($history, $this->getRequest()->getRequestTarget());
         $history = array_slice(array_unique($history), 0, 12);
         // save array to the session
         $session->write('BrowsingHistory', $history);
