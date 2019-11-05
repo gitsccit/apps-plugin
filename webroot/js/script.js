@@ -294,14 +294,13 @@ function lightbox(url) {
     lightboxOrigin = this;
 
     var wrap = document.body.getElementsByClassName('lightbox-wrap');
-    if (wrap.length == 0) {
-        if (url !== false && url.length) {
-            // insert the lightbox
-            document.body.insertAdjacentHTML('beforeend', '<div class="lightbox-wrap"><div class="lightbox-body"><div class="lightbox-close"><span class="icon-cancel" onclick="lightbox(false)"></span></div><div class="lightbox-content">Loading...</div></div></div>');
-        }
+    if (wrap.length == 0 && url !== false) {
+        // insert the lightbox
+        document.body.insertAdjacentHTML('beforeend', '<div class="lightbox-wrap"><div class="lightbox-body"><div class="lightbox-close"><span class="icon-cancel" onclick="lightbox(false)"></span></div><div class="lightbox-content">Loading...</div></div></div>');
     } else if (url === false) {
         // remove the lightbox if the url was false
-        document.body.removeChild(wrap[0]);
+        if(wrap.length > 0)
+            document.body.removeChild(wrap[0]);
         return;
     }
 
