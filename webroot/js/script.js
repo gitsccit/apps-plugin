@@ -295,7 +295,7 @@ function lightbox(url) {
 
     var wrap = document.body.getElementsByClassName('lightbox-wrap');
     if (wrap.length == 0) {
-        if (url.length) {
+        if (url !== false && url.length) {
             // insert the lightbox
             document.body.insertAdjacentHTML('beforeend', '<div class="lightbox-wrap"><div class="lightbox-body"><div class="lightbox-close"><span class="icon-cancel" onclick="lightbox(false)"></span></div><div class="lightbox-content">Loading...</div></div></div>');
         }
