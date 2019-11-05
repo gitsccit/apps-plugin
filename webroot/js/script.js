@@ -314,8 +314,9 @@ function lightbox(url) {
         if (this.readyState == 4) {
 
             // empty the target element
-            while (xhr.htmlbody.hasChildNodes())
-                xhr.htmlbody.removeChild(xhr.htmlbody.lastChild);
+            if(xhr.htmlbody)
+                while (xhr.htmlbody.hasChildNodes())
+                    xhr.htmlbody.removeChild(xhr.htmlbody.lastChild);
 
             xhr.htmlbody.insertAdjacentHTML('beforeend', xhr.response);
             lightboxUrlHandler();
