@@ -25,6 +25,8 @@ function fileUploadClear(obj) {
     // clear the input box
     var target = fileUploadTarget(obj);
     target.value = '';
+    if(target.onchange)
+        target.onchange();
 
     // clear any completed uploads
     var list = fileUploadContainer(obj).getElementsByClassName('file-complete');
@@ -212,7 +214,10 @@ function fileAttachFileId(id,name,object) {
         fileUploadContainer(object).querySelector('.file-progress').innerHTML = '';
 
         // set the target's value to the file id
-        fileUploadTarget(object).value = id;
+        let obj = fileUploadTarget(object);
+        obj.value = id;
+        if(obj.onchange)
+            obj.onchange();
 
     }
     else { // multi-input
