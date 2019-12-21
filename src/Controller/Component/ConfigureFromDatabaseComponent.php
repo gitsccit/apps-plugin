@@ -23,7 +23,7 @@ class ConfigureFromDatabaseComponent extends Component
     private $db = false;
     public $paginate = false;
 
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
 
         $controller = $this->_registry->getController();

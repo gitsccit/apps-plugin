@@ -16,6 +16,7 @@
 namespace Apps\Controller;
 
 use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Http\Response;
 
 /**
@@ -39,7 +40,7 @@ class AppController extends \Skeleton\Controller\AppController
      *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
 
@@ -64,14 +65,10 @@ class AppController extends \Skeleton\Controller\AppController
         ]);
     }
 
-    /**
-     * @param Event $event
-     * @return Response|void|null
-     *
-     * save to the browsing history array
-     */
-    public function afterFilter(Event $event)
+    public function afterFilter(EventInterface $event)
     {
+        parent::afterFilter($event);
+
         // only save for text/html documents
         if ($this->getResponse()->getType() != "text/html" || $this->trackHistory() === false) {
             return;
@@ -90,7 +87,7 @@ class AppController extends \Skeleton\Controller\AppController
         $session->write('BrowsingHistory', $history);
     }
 
-    public function beforeRender(Event $event)
+    public function beforeRender(EventInterface $event)
     {
         parent::beforeRender($event);
 

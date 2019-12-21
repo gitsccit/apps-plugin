@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps;
 
@@ -10,9 +11,9 @@ use Cake\Core\PluginApplicationInterface;
  */
 class Plugin extends BasePlugin
 {
-    public function bootstrap(PluginApplicationInterface $app)
+    public function bootstrap(PluginApplicationInterface $app): void
     {
-        $app->addPlugin('Skeleton');
         parent::bootstrap($app);
+        $app->addPlugin('Skeleton');
     }
 }

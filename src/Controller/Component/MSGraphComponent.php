@@ -31,15 +31,14 @@ use Cake\Validation\Validation;
 class MSGraphComponent extends Component
 {
 
-    private $config;
-
     /**
      * Reference to the current controller.
      *
      * @var \Cake\Controller\Controller
      */
     protected $controller;
-
+    protected $oauthForwarding;
+    private $config;
     private $timezones;
     private $userFields = [
         "id",
@@ -63,11 +62,8 @@ class MSGraphComponent extends Component
         "isResourceAccount"
     ];
 
-    protected $oauthForwarding;
-
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
-
         parent::initialize($config);
         $this->config = array_merge(Configure::readOrFail('MSGraph.Common'), Configure::readOrFail('MSGraph.Service'));
         $this->timezones = false;
@@ -104,64 +100,6 @@ class MSGraphComponent extends Component
             set_time_limit(300);
             $this->updateUsersDelta();
         }
-
-        return true;
-
-    }
-
-    public function authorizationCode()
-    {
-
-        $state = uniqid();
-        Cache::write('MSGraphState', $state, 'MSGraph');
-        Cache::write('MSGraphRedirect', $this->controller->referer(), 'MSGraph');
-
-        $host = $this->controller->getRequest()->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
-        $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
-        if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('default');
-            $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
-                [$state, $redirect]);
-            $redirect = $this->config['redirect_alt_uri'];
-        }
-
-        $url = $this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/authorize";
-        $vars = [
-            'client_id' => $this->config['application_id'],
-            'response_type' => $this->config['response_type'],
-            'redirect_uri' => $redirect,
-            'response_mode' => $this->config['response_mode'],
-            'scope' => $this->config['scope'],
-            'state' => $state,
-        ];
-
-        return $this->controller->redirect($url . "?" . http_build_query($vars));
-
-    }
-
-    public function authorizationCodeResponse()
-    {
-
-        // step 1 verify that this is the correct component for this oauth2 response
-        $state_orig = Cache::read('MSGraphState', 'MSGraph');
-        $state = $this->controller->getRequest()->getQuery('state');
-        $code = $this->controller->getRequest()->getQuery('code');
-
-        if (empty($code) || $state_orig === false || $state_orig !== $state) {
-            return false;
-        } // does not match this component
-
-        // success! use the authorization code to request a new token
-        $this->accessToken($code);
-
-        $redirect = Cache::read('MSGraphRedirect', 'MSGraph');
-        Cache::delete('MSGraphState', 'MSGraph');
-        Cache::delete('MSGraphRedirect', 'MSGraph');
-        if ($redirect) {
-            return $this->controller->redirect($redirect);
-        }
-        return false;
-
     }
 
     public function accessToken($code, $refresh = false)
@@ -207,6 +145,15 @@ class MSGraphComponent extends Component
 
     }
 
+    public function getMe()
+    {
+
+        $fields = ["accountEnabled", "displayName", "mailNickname"];
+        $json = $this->get("me?\$select=" . implode(",", $fields));
+        return $json;
+
+    }
+
     private function get($path, $json = true)
     {
 
@@ -241,49 +188,126 @@ class MSGraphComponent extends Component
 
     }
 
-    private function post($path, $post)
+    public function updateUsersDelta()
     {
-        if (substr($path, 0, 4) == "http") {
-            $url = $path;
-        } else {
-            $url = $this->config['api_url'] . $path;
+
+        $url = Cache::read('MSGraphUserDeltaLink', 'forever');
+        if ($url === false) {
+            $url = "/users/delta?\$select=id";
         }
 
-        $http = new Client(['headers' => ['Authorization' => "Bearer " . $this->accessToken]]);
-        $response = $http->post($url, json_encode($post), ['type' => "json"]);
-        $json = $response->getJson();
-        if (!empty($json['error']['message'])) {
-            throw new ServiceUnavailableException(__($json['error']['code'] . " : " . $json['error']['message']));
+        $users = [];
+        $json = $this->get($url);
+        while (!empty($json['@odata.nextLink'])) {
+            $temp = $this->get($json['@odata.nextLink']);
+            $temp['value'] = array_merge($json['value'], $temp['value']);
+            $json = $temp;
         }
-        return $json;
+        foreach ($json['value'] as $user) {
+            $users[] = $user['id'];
+        }
+
+        if (!empty($json['@odata.deltaLink'])) {
+            Cache::write('MSGraphUserDeltaLink', $json['@odata.deltaLink'], 'forever');
+        }
+
+        return $this->updateUsers($users);
 
     }
 
-    private function delete($path)
+    public function updateUsers($filter = false)
     {
-        if (substr($path, 0, 4) == "http") {
-            $url = $path;
-        } else {
-            $url = $this->config['api_url'] . $path;
+
+        if (is_array($filter) && sizeof($filter) == 0) {
+            return 0;
         }
 
-        $http = new Client(['headers' => ['Authorization' => "Bearer " . $this->accessToken]]);
-        $response = $http->delete($url);
-        if (!empty($response->getStatusCode()) && $response->getStatusCode() == 204) {
+        $json = $this->get("/users?\$select=" . implode(",", $this->userFields));
+        while (!empty($json['@odata.nextLink'])) {
+            $temp = $this->get($json['@odata.nextLink']);
+            $temp['value'] = array_merge($json['value'], $temp['value']);
+            $json = $temp;
+        }
+
+        foreach ($json['value'] as $key => $value) {
+            $json['value'][$key]['match'] = [];
+        }
+
+        // walk through the user list and attempt to combine entries
+        foreach ($json['value'] as $key => $user) {
+            foreach ($json['value'] as $k => $compare) {
+                if ($compare['id'] != $user['id'] && array_search($user['id'],
+                        $json['value'][$k]['match']) === false && $this->userCompare($json['value'][$key],
+                        $json['value'][$k])) {
+                    $this->userCombine($json['value'][$key], $json['value'][$k]);
+                }
+            }
+        }
+
+        if ($filter) {
+            foreach ($json['value'] as $key => $value) {
+                if (sizeof($value['match']) && array_search($value['id'], $filter) !== false) {
+                    $filter = array_unique(array_merge($filter, $value['match']));
+                }
+            }
+        }
+
+        $count = 0;
+        foreach ($json['value'] as $user) {
+            if ($filter === false || array_search($user['id'], $filter) !== false) {
+                if ($this->updateUser($user)) {
+                    $count++;
+                }
+            }
+        }
+
+        return $count;
+
+    }
+
+    private function userCompare($a, $b)
+    {
+        if ($this->stringCompare($a['mailNickname'], $b['mailNickname'])
+            || $this->stringCompare($a['displayName'], $b['displayName'])
+            || ($this->stringCompare($a['givenName'], $b['givenName']) && $this->stringCompare($a['surname'],
+                    $b['surname']))) {
             return true;
         }
 
         return false;
-
     }
 
-    public function getMe()
+    private function stringCompare($a, $b)
     {
+        // place in an array; shortest string in position 0
+        $compare = [$b, $a];
+        if (strlen($a) < strlen($b)) {
+            $compare = array_reverse($compare);
+        }
 
-        $fields = ["accountEnabled", "displayName", "mailNickname"];
-        $json = $this->get("me?\$select=" . implode(",", $fields));
-        return $json;
+        // only compare a-z (ignore numbers, spaces, special chars)
+        foreach ($compare as $k => $v) {
+            $compare[$k] = preg_replace('/[^a-z]+/', '', strtolower($v));
+        }
 
+        // true if at least 3 char and the beginning of the strings match
+        if (strlen($compare[0]) >= 3 && substr($compare[1], 0, strlen($compare[0])) == $compare[0]) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function userCombine(&$a, &$b)
+    {
+        $a['match'][] = $b['id'];
+        $b['match'][] = $a['id'];
+        foreach ($a as $k => $v) {
+            if ($k != "match" && is_array($v)) {
+                $a[$k] = array_unique(array_merge($v, $b[$k]));
+                $b[$k] = $a[$k];
+            }
+        }
     }
 
     private function updateUser($msgraph_user)
@@ -471,125 +495,58 @@ LIMIT 1", [$user->location . "%"]);
         return true;
     }
 
-    public function updateUsers($filter = false)
+    public function authorizationCode()
     {
 
-        if (is_array($filter) && sizeof($filter) == 0) {
-            return 0;
+        $state = uniqid();
+        Cache::write('MSGraphState', $state, 'MSGraph');
+        Cache::write('MSGraphRedirect', $this->controller->referer(), 'MSGraph');
+
+        $host = $this->controller->getRequest()->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
+        $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
+        if ($this->oauthForwarding) {
+            $conn = ConnectionManager::get('default');
+            $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
+                [$state, $redirect]);
+            $redirect = $this->config['redirect_alt_uri'];
         }
 
-        $json = $this->get("/users?\$select=" . implode(",", $this->userFields));
-        while (!empty($json['@odata.nextLink'])) {
-            $temp = $this->get($json['@odata.nextLink']);
-            $temp['value'] = array_merge($json['value'], $temp['value']);
-            $json = $temp;
-        }
+        $url = $this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/authorize";
+        $vars = [
+            'client_id' => $this->config['application_id'],
+            'response_type' => $this->config['response_type'],
+            'redirect_uri' => $redirect,
+            'response_mode' => $this->config['response_mode'],
+            'scope' => $this->config['scope'],
+            'state' => $state,
+        ];
 
-        foreach ($json['value'] as $key => $value) {
-            $json['value'][$key]['match'] = [];
-        }
-
-        // walk through the user list and attempt to combine entries
-        foreach ($json['value'] as $key => $user) {
-            foreach ($json['value'] as $k => $compare) {
-                if ($compare['id'] != $user['id'] && array_search($user['id'],
-                        $json['value'][$k]['match']) === false && $this->userCompare($json['value'][$key],
-                        $json['value'][$k])) {
-                    $this->userCombine($json['value'][$key], $json['value'][$k]);
-                }
-            }
-        }
-
-        if ($filter) {
-            foreach ($json['value'] as $key => $value) {
-                if (sizeof($value['match']) && array_search($value['id'], $filter) !== false) {
-                    $filter = array_unique(array_merge($filter, $value['match']));
-                }
-            }
-        }
-
-        $count = 0;
-        foreach ($json['value'] as $user) {
-            if ($filter === false || array_search($user['id'], $filter) !== false) {
-                if ($this->updateUser($user)) {
-                    $count++;
-                }
-            }
-        }
-
-        return $count;
+        return $this->controller->redirect($url . "?" . http_build_query($vars));
 
     }
 
-    private function stringCompare($a, $b)
+    public function authorizationCodeResponse()
     {
-        // place in an array; shortest string in position 0
-        $compare = [$b, $a];
-        if (strlen($a) < strlen($b)) {
-            $compare = array_reverse($compare);
-        }
 
-        // only compare a-z (ignore numbers, spaces, special chars)
-        foreach ($compare as $k => $v) {
-            $compare[$k] = preg_replace('/[^a-z]+/', '', strtolower($v));
-        }
+        // step 1 verify that this is the correct component for this oauth2 response
+        $state_orig = Cache::read('MSGraphState', 'MSGraph');
+        $state = $this->controller->getRequest()->getQuery('state');
+        $code = $this->controller->getRequest()->getQuery('code');
 
-        // true if at least 3 char and the beginning of the strings match
-        if (strlen($compare[0]) >= 3 && substr($compare[1], 0, strlen($compare[0])) == $compare[0]) {
-            return true;
-        }
+        if (empty($code) || $state_orig === false || $state_orig !== $state) {
+            return false;
+        } // does not match this component
 
+        // success! use the authorization code to request a new token
+        $this->accessToken($code);
+
+        $redirect = Cache::read('MSGraphRedirect', 'MSGraph');
+        Cache::delete('MSGraphState', 'MSGraph');
+        Cache::delete('MSGraphRedirect', 'MSGraph');
+        if ($redirect) {
+            return $this->controller->redirect($redirect);
+        }
         return false;
-    }
-
-    private function userCompare($a, $b)
-    {
-        if ($this->stringCompare($a['mailNickname'], $b['mailNickname'])
-            || $this->stringCompare($a['displayName'], $b['displayName'])
-            || ($this->stringCompare($a['givenName'], $b['givenName']) && $this->stringCompare($a['surname'],
-                    $b['surname']))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private function userCombine(&$a, &$b)
-    {
-        $a['match'][] = $b['id'];
-        $b['match'][] = $a['id'];
-        foreach ($a as $k => $v) {
-            if ($k != "match" && is_array($v)) {
-                $a[$k] = array_unique(array_merge($v, $b[$k]));
-                $b[$k] = $a[$k];
-            }
-        }
-    }
-
-    public function updateUsersDelta()
-    {
-
-        $url = Cache::read('MSGraphUserDeltaLink', 'forever');
-        if ($url === false) {
-            $url = "/users/delta?\$select=id";
-        }
-
-        $users = [];
-        $json = $this->get($url);
-        while (!empty($json['@odata.nextLink'])) {
-            $temp = $this->get($json['@odata.nextLink']);
-            $temp['value'] = array_merge($json['value'], $temp['value']);
-            $json = $temp;
-        }
-        foreach ($json['value'] as $user) {
-            $users[] = $user['id'];
-        }
-
-        if (!empty($json['@odata.deltaLink'])) {
-            Cache::write('MSGraphUserDeltaLink', $json['@odata.deltaLink'], 'forever');
-        }
-
-        return $this->updateUsers($users);
 
     }
 
@@ -676,6 +633,24 @@ LIMIT 1", [$user->location . "%"]);
         return false;
     }
 
+    private function post($path, $post)
+    {
+        if (substr($path, 0, 4) == "http") {
+            $url = $path;
+        } else {
+            $url = $this->config['api_url'] . $path;
+        }
+
+        $http = new Client(['headers' => ['Authorization' => "Bearer " . $this->accessToken]]);
+        $response = $http->post($url, json_encode($post), ['type' => "json"]);
+        $json = $response->getJson();
+        if (!empty($json['error']['message'])) {
+            throw new ServiceUnavailableException(__($json['error']['code'] . " : " . $json['error']['message']));
+        }
+        return $json;
+
+    }
+
     public function getFolder($path)
     {
         $path = trim($path, "/");
@@ -716,18 +691,6 @@ LIMIT 1", [$user->location . "%"]);
 
     }
 
-    public function getFile($id)
-    {
-
-        $file = $this->get("/me/drive/items/" . $id . "/content", false);
-        if (!empty($file['content'])) {
-            return $file;
-        }
-
-        return false;
-
-    }
-
     public function getProfileImage($id)
     {
 
@@ -761,6 +724,18 @@ LIMIT 1", [$user->location . "%"]);
         return $result;
     }
 
+    public function getFile($id)
+    {
+
+        $file = $this->get("/me/drive/items/" . $id . "/content", false);
+        if (!empty($file['content'])) {
+            return $file;
+        }
+
+        return false;
+
+    }
+
     public function deleteFile($id)
     {
         if (empty($id)) {
@@ -781,6 +756,24 @@ LIMIT 1", [$user->location . "%"]);
         }
 
         return false;
+    }
+
+    private function delete($path)
+    {
+        if (substr($path, 0, 4) == "http") {
+            $url = $path;
+        } else {
+            $url = $this->config['api_url'] . $path;
+        }
+
+        $http = new Client(['headers' => ['Authorization' => "Bearer " . $this->accessToken]]);
+        $response = $http->delete($url);
+        if (!empty($response->getStatusCode()) && $response->getStatusCode() == 204) {
+            return true;
+        }
+
+        return false;
+
     }
 
     private function deleteEmptyFolders($id)

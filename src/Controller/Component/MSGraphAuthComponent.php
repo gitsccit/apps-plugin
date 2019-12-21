@@ -20,20 +20,17 @@ use Cake\Routing\Router;
 class MSGraphAuthComponent extends Component
 {
 
-    private $config;
-
     /**
      * Reference to the current controller.
      *
      * @var \Cake\Controller\Controller
      */
     protected $controller;
-
     protected $oauthForwarding;
+    private $config;
 
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
-
         parent::initialize($config);
         $this->config = array_merge(Configure::readOrFail('MSGraph.Common'), Configure::readOrFail('MSGraph.Auth'));
         $this->controller = $this->_registry->getController();
@@ -50,65 +47,6 @@ class MSGraphAuthComponent extends Component
                 $this->accessToken($this->refreshToken, true);
             }
         }
-
-        return true;
-
-    }
-
-    public function authorizationCode()
-    {
-        $state = uniqid();
-        $this->session->write('MSGraph.state', $state);
-        $referer = $this->controller->referer();
-        $host = $this->controller->getRequest()->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
-        $this->session->write('MSGraph.redirect', $this->controller->Auth->redirectUrl());
-
-        $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
-        if ($this->oauthForwarding) {
-            $conn = ConnectionManager::get('default');
-            $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
-                [$state, $redirect]);
-            $redirect = $this->config['redirect_alt_uri'];
-        }
-
-        $url = $this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/authorize";
-        $vars = [
-            'client_id' => $this->config['application_id'],
-            'response_type' => $this->config['response_type'],
-            'redirect_uri' => $redirect,
-            'response_mode' => $this->config['response_mode'],
-            'scope' => $this->config['scope'],
-            'state' => $state,
-        ];
-
-        $this->session->delete('Flash.flash'); // remove flash messages
-        return $this->controller->redirect($url . "?" . http_build_query($vars));
-
-    }
-
-    public function authorizationCodeResponse()
-    {
-
-        // step 1 verify that this is the correct component for this oauth2 response
-        $state_orig = $this->session->read('MSGraph.state');
-        $state = $this->controller->getRequest()->getQuery('state');
-        $code = $this->controller->getRequest()->getQuery('code');
-
-        if (empty($code) || $state_orig === false || $state_orig !== $state) {
-            return false;
-        } // does not match this component
-
-        // success! use the authorization code to request a new token
-        $this->accessToken($code);
-
-        $redirect = $this->session->read('MSGraph.redirect');
-        $this->session->delete('MSGraph.state');
-        $this->session->delete('MSGraph.redirect');
-        if ($redirect) {
-            return $this->controller->redirect($redirect);
-        }
-        return false;
-
     }
 
     public function accessToken($code, $refresh = false)
@@ -155,6 +93,51 @@ class MSGraphAuthComponent extends Component
             $this->session->delete('MSGraph.refreshToken');
             throw new ServiceUnavailableException("User account was not enabled");
         }
+
+    }
+
+    public function getMe()
+    {
+
+        $fields = [
+            "id",
+            "accountEnabled",
+            "mailNickname",
+            "displayName",
+            "givenName",
+            "surname",
+            "businessPhones",
+            "city",
+            "companyName",
+            "department",
+            "faxNumber",
+            "jobTitle",
+            "mail",
+            "mobilePhone",
+            "officeLocation",
+            "proxyAddresses",
+            "userType"
+        ];
+        $json = $this->get("me?\$select=" . implode(",", $fields));
+        return $json;
+
+    }
+
+    private function get($path, $retry = 0)
+    {
+
+        $http = new Client(['headers' => ['Authorization' => "Bearer " . $this->accessToken]]);
+        $response = $http->get($this->config['api_url'] . $path);
+        if (substr($response->getHeaders()['Content-Type'][0], 0, 6) == "image/") {
+            return $response->getStringBody();
+        }
+
+        $json = $response->getJson();
+        if (!empty($json['error']['message'])) {
+            throw new ServiceUnavailableException(__($json['error']['code'] . " : " . $json['error']['message']));
+        }
+
+        return $json;
 
     }
 
@@ -214,21 +197,59 @@ class MSGraphAuthComponent extends Component
 
     }
 
-    private function get($path, $retry = 0)
+    public function authorizationCode()
+    {
+        $state = uniqid();
+        $this->session->write('MSGraph.state', $state);
+        $referer = $this->controller->referer();
+        $host = $this->controller->getRequest()->getEnv('HTTP_HOST'); // Configure::read("store.hostname");
+        $this->session->write('MSGraph.redirect', $this->controller->Auth->redirectUrl());
+
+        $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
+        if ($this->oauthForwarding) {
+            $conn = ConnectionManager::get('default');
+            $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
+                [$state, $redirect]);
+            $redirect = $this->config['redirect_alt_uri'];
+        }
+
+        $url = $this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/authorize";
+        $vars = [
+            'client_id' => $this->config['application_id'],
+            'response_type' => $this->config['response_type'],
+            'redirect_uri' => $redirect,
+            'response_mode' => $this->config['response_mode'],
+            'scope' => $this->config['scope'],
+            'state' => $state,
+        ];
+
+        $this->session->delete('Flash.flash'); // remove flash messages
+        return $this->controller->redirect($url . "?" . http_build_query($vars));
+
+    }
+
+    public function authorizationCodeResponse()
     {
 
-        $http = new Client(['headers' => ['Authorization' => "Bearer " . $this->accessToken]]);
-        $response = $http->get($this->config['api_url'] . $path);
-        if (substr($response->getHeaders()['Content-Type'][0], 0, 6) == "image/") {
-            return $response->getStringBody();
-        }
+        // step 1 verify that this is the correct component for this oauth2 response
+        $state_orig = $this->session->read('MSGraph.state');
+        $state = $this->controller->getRequest()->getQuery('state');
+        $code = $this->controller->getRequest()->getQuery('code');
 
-        $json = $response->getJson();
-        if (!empty($json['error']['message'])) {
-            throw new ServiceUnavailableException(__($json['error']['code'] . " : " . $json['error']['message']));
-        }
+        if (empty($code) || $state_orig === false || $state_orig !== $state) {
+            return false;
+        } // does not match this component
 
-        return $json;
+        // success! use the authorization code to request a new token
+        $this->accessToken($code);
+
+        $redirect = $this->session->read('MSGraph.redirect');
+        $this->session->delete('MSGraph.state');
+        $this->session->delete('MSGraph.redirect');
+        if ($redirect) {
+            return $this->controller->redirect($redirect);
+        }
+        return false;
 
     }
 
@@ -239,33 +260,6 @@ class MSGraphAuthComponent extends Component
         $response = $http->post($this->config['api_url'] . $path, json_encode($post), ['type' => "json"]);
         var_dump($response);
         die;
-
-    }
-
-    public function getMe()
-    {
-
-        $fields = [
-            "id",
-            "accountEnabled",
-            "mailNickname",
-            "displayName",
-            "givenName",
-            "surname",
-            "businessPhones",
-            "city",
-            "companyName",
-            "department",
-            "faxNumber",
-            "jobTitle",
-            "mail",
-            "mobilePhone",
-            "officeLocation",
-            "proxyAddresses",
-            "userType"
-        ];
-        $json = $this->get("me?\$select=" . implode(",", $fields));
-        return $json;
 
     }
 
