@@ -7,14 +7,14 @@
  */
 ?>
 <table class="table-list">
-    <?php if (!empty($header)): ?>
+    <?php if (!empty($header)) : ?>
         <thead>
         <?= $header ?>
         </thead>
     <?php endif; ?>
-    <?php if (!empty($collection)): ?>
+    <?php if (!empty($collection)) : ?>
         <tbody>
-        <?php foreach ($collection as $row): ?>
+        <?php foreach ($collection as $row) : ?>
             <?= $row ?>
         <?php endforeach; ?>
         </tbody>

@@ -14,12 +14,12 @@ $username = $this->request->getSession()->read('Auth.User.display_name');
             <li><a href="javascript:void(0)" title="SCC Intranet"><span class="icon-home"></span></a></li>
             <li><a href="javascript:void(0)" title="Support"><span class="icon-help-circled"></span></a></li>
             <li><a href="<?= $this->Url->build('/apps/users/view') ?>"><span id="user-profile" style="background-image:url(<?= $this->Url->build(['controller' => 'users','action' => 'profileimage','plugin' => 'Apps',$userldapid]) ?>)"></span></a>
-                <?php if($userldapid): ?>
+                <?php if ($userldapid) : ?>
                 <ul>
-                    <li><?= $this->Html->link("Profile ".$username,['controller' => 'users','action' => 'view','plugin' => 'Apps']) ?></li>
-                    <li><?= $this->Html->link("Employee Directory",['controller' => 'users','plugin' => 'Apps']) ?></li>
+                    <li><?= $this->Html->link("Profile " . $username, ['controller' => 'users','action' => 'view','plugin' => 'Apps']) ?></li>
+                    <li><?= $this->Html->link("Employee Directory", ['controller' => 'users','plugin' => 'Apps']) ?></li>
                     <li><hr></li>
-                    <li><?= $this->Html->link("<span class='icon-logout'></span>Logout",['controller' => 'session','action' => 'end','plugin' => 'Apps'],['escape' => false]) ?></li>
+                    <li><?= $this->Html->link("<span class='icon-logout'></span>Logout", ['controller' => 'session','action' => 'end','plugin' => 'Apps'], ['escape' => false]) ?></li>
                 </ul>
                 <?php endif; ?>
             </li>

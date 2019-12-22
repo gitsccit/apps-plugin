@@ -47,19 +47,19 @@ class FilesTable extends Table
 
         $this->belongsTo('MimeType', [
             'className' => 'Apps.MimeTypes',
-            'foreignKey' => 'mime_type_id'
+            'foreignKey' => 'mime_type_id',
         ]);
         $this->belongsTo('Users', [
             'className' => 'Apps.Users',
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->hasMany('AppLinks', [
             'className' => 'Apps.AppLinks',
-            'foreignKey' => 'file_id'
+            'foreignKey' => 'file_id',
         ]);
         $this->hasMany('MimeTypes', [
             'className' => 'Apps.MimeTypes',
-            'foreignKey' => 'file_id'
+            'foreignKey' => 'file_id',
         ]);
     }
 

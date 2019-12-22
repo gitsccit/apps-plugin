@@ -6,7 +6,7 @@
 
 $crumbs = [
     ['title' => humanize($this->getPlugin() ?? env('APP_NAME', basename(ROOT)))],
-    ['title' => humanize($this->getName()), 'url' => ['action' => 'index']]
+    ['title' => humanize($this->getName()), 'url' => ['action' => 'index']],
 ];
 
 // $entity and $displayField are set in CrudComponent - `beforeRender()`

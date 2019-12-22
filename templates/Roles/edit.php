@@ -35,13 +35,12 @@ foreach ($permissionGroups as $pg) {
         echo '<span class="padding-5">' . $this->Form->checkbox('permission[]', [
                 'value' => $permission->id,
                 'hiddenField' => false,
-                'checked' => $checked
+                'checked' => $checked,
             ]) . '<strong>' . $permission->name . '</strong></span>';
     }
     echo '</div>';
     echo '</div>';
     echo '</div>';
-
 }
 
 echo '</div>';

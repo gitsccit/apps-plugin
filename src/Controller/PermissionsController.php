@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class PermissionsController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -25,7 +25,7 @@ class PermissionsController extends AppController
     {
         $this->paginate = [
             'contain' => ['PermissionGroups'],
-            'order' => ['PermissionGroups.name' => 'ASC', 'Permissions.name' => 'ASC']
+            'order' => ['PermissionGroups.name' => 'ASC', 'Permissions.name' => 'ASC'],
         ];
         $permissions = $this->paginate($this->Permissions);
 
@@ -43,7 +43,7 @@ class PermissionsController extends AppController
     {
         $query = $this->Permissions->find('all', [
             'contain' => ['PermissionGroups', 'Roles', 'AppLinks', 'Environments'],
-            'conditions' => ['Permissions.id' => $id]
+            'conditions' => ['Permissions.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -82,7 +82,7 @@ class PermissionsController extends AppController
     public function edit($id = null)
     {
         $permission = $this->Permissions->get($id, [
-            'contain' => ['Roles']
+            'contain' => ['Roles'],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $permission = $this->Permissions->patchEntity($permission, $this->getRequest()->getData());

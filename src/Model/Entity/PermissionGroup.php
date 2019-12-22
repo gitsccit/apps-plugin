@@ -26,7 +26,7 @@ class PermissionGroup extends Entity
      */
     protected $_accessible = [
         'name' => true,
-        'permissions' => true
+        'permissions' => true,
     ];
 
     /**
@@ -35,7 +35,7 @@ class PermissionGroup extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
+        'id',
     ];
 
     /**
@@ -44,7 +44,7 @@ class PermissionGroup extends Entity
      * @var array
      */
     public static $filterable = [
-        'name'
+        'name',
     ];
 
     /**

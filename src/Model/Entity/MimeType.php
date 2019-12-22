@@ -37,7 +37,7 @@ class MimeType extends Entity
         'resize' => true,
         'file_id' => true,
         'handler' => true,
-        'files' => true
+        'files' => true,
     ];
 
     /**
@@ -47,7 +47,7 @@ class MimeType extends Entity
      */
     protected $_hidden = [
         'id',
-        'file_id'
+        'file_id',
     ];
 
     /**
@@ -56,7 +56,7 @@ class MimeType extends Entity
      * @var array
      */
     public static $filterable = [
-        'name'
+        'name',
     ];
 
     /**

@@ -19,7 +19,7 @@ use Cake\ORM\TableRegistry;
 class FilesController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     // TODO is is an ugly solution; we should find the key for "image/png" in the database
@@ -47,6 +47,7 @@ class FilesController extends AppController
     }
 
     // browse available files through a lightbox
+
     public function browse()
     {
         $this->viewBuilder()->setLayout('ajax');
@@ -54,7 +55,7 @@ class FilesController extends AppController
         $this->paginate = [
             'contain' => ['MimeType', 'Users'],
             'order' => ['Files.created_at' => 'DESC'],
-            'limit' => 5
+            'limit' => 5,
         ];
         $files = $this->paginate($this->Files);
         $this->set(compact('files'));
@@ -70,7 +71,7 @@ class FilesController extends AppController
     public function view($id = null)
     {
         $file = $this->Files->get($id, [
-            'contain' => ['Users', 'MimeType', 'MimeTypes', 'AppLinks']
+            'contain' => ['Users', 'MimeType', 'MimeTypes', 'AppLinks'],
         ]);
 
         $this->set('file', $file);
@@ -177,7 +178,6 @@ class FilesController extends AppController
         // if we have a width & height (resize) and this is not an image; load the default file type icon (if exists)
         // this functions as a thumbnailer
         if ($file->mime_type->image == "no" && ($width || $height)) {
-
             if ($file->mime_type->file_id) {
                 $thumbnail = $file->mime_type->file_id;
             } else {
@@ -189,7 +189,6 @@ class FilesController extends AppController
             if (!empty($thumbnail)) {
                 $file = $files->get($thumbnail, ['contain' => ['MimeType']]);
             }
-
         }
 
         // fetch the file content
@@ -258,7 +257,7 @@ class FilesController extends AppController
             if (!endsWith(strtolower($sheet), '.css')) {
                 $sheet .= '.css';
             }
-            list($plugin, $name) = pluginSplit($sheet);
+            [$plugin, $name] = pluginSplit($sheet);
             $basePath = WWW_ROOT;
             if (Plugin::isLoaded($plugin)) {
                 $basePath = Plugin::path($plugin) . 'webroot' . DS;
@@ -448,8 +447,18 @@ class FilesController extends AppController
 
         $white_transparent = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
         imagefill($new_image, 0, 0, $white_transparent);
-        imagecopyresampled($new_image, $source_image, 0, 0, 0, 0, $file->width, $file->height, $file->width,
-            $file->height);
+        imagecopyresampled(
+            $new_image,
+            $source_image,
+            0,
+            0,
+            0,
+            0,
+            $file->width,
+            $file->height,
+            $file->width,
+            $file->height
+        );
 
         ob_start();
         imagepng($new_image, null, 9);
@@ -472,10 +481,8 @@ class FilesController extends AppController
     {
         // strips the contents of any pdf obj of type /JavaScript or /JS
         while ($this->stringRemoveBetween($content, "/JavaScript", "<<", ">>")) {
-            ;
         }
         while ($this->stringRemoveBetween($content, "/JS", "<<", ">>")) {
-            ;
         }
     }
 

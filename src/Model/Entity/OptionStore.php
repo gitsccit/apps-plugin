@@ -38,6 +38,6 @@ class OptionStore extends Entity
         'timestamp' => true,
         'option' => true,
         'store' => true,
-        'environment' => true
+        'environment' => true,
     ];
 }

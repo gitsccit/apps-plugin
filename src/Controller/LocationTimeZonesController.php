@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class LocationTimeZonesController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -24,7 +24,7 @@ class LocationTimeZonesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['TimeZones']
+            'contain' => ['TimeZones'],
         ];
         $locationTimeZones = $this->paginate($this->LocationTimeZones);
 
@@ -42,7 +42,7 @@ class LocationTimeZonesController extends AppController
     {
         $query = $this->LocationTimeZones->find('all', [
             'contain' => ['TimeZones'],
-            'conditions' => ['LocationTimeZones.id' => $id]
+            'conditions' => ['LocationTimeZones.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -80,7 +80,7 @@ class LocationTimeZonesController extends AppController
     public function edit($id = null)
     {
         $locationTimeZone = $this->LocationTimeZones->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $locationTimeZone = $this->LocationTimeZones->patchEntity($locationTimeZone, $this->getRequest()->getData());

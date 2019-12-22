@@ -15,7 +15,7 @@ use Cake\ORM\TableRegistry;
 class AppsController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -81,7 +81,6 @@ class AppsController extends AppController
         $app = $this->Apps->get($id, ['contain' => ['AppLinks' => ['ChildLinks']]]);
 
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
-
             $data = $this->getRequest()->getData();
             $app = $this->Apps->patchEntity($app, $data);
 
@@ -94,7 +93,6 @@ class AppsController extends AppController
                 $indents = [0 => [null, 0]];
 
                 foreach ($data as $key => $value) {
-
                     // deletions
                     if ($key == "applinkdelete" && is_array($value) && sizeof($value)) {
                         foreach ($value as $deleteId) {
@@ -106,13 +104,11 @@ class AppsController extends AppController
 
                     // insert or update existing
                     if (substr($key, 0, 7) == "applink") {
-
                         if (!is_array($value)) {
                             $value = [$value];
                         }
 
                         foreach ($value as $v) {
-
                             $val = json_decode($v, true);
                             $val['app_id'] = $app['id'];
 
@@ -145,11 +141,8 @@ class AppsController extends AppController
 
                             $this->AppLinks->patchEntity($applink, $val);
                             $this->AppLinks->save($applink);
-
                         }
-
                     }
-
                 }
 
                 return $this->redirect(['action' => 'index']);

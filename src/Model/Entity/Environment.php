@@ -36,7 +36,7 @@ class Environment extends Entity
         'permission_id' => true,
         'permission' => true,
         'option_stores' => true,
-        'store_ip_maps' => true
+        'store_ip_maps' => true,
     ];
 
     /**
@@ -46,7 +46,7 @@ class Environment extends Entity
      */
     protected $_hidden = [
         'id',
-        'permission_id'
+        'permission_id',
     ];
 
     /**
@@ -56,7 +56,7 @@ class Environment extends Entity
      */
     public static $filterable = [
         'name',
-        'path'
+        'path',
     ];
 
     /**
@@ -69,6 +69,6 @@ class Environment extends Entity
         'path',
         'created_at',
         'modified_at',
-        'permission'
+        'permission',
     ];
 }

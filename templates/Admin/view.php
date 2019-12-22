@@ -22,7 +22,7 @@ foreach ($associations as $association => $resultSet) {
     <?= $this->Html->link('Edit', ['action' => 'edit', $entity->id], ['class' => 'button']); ?>
     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $entity->id], [
         'class' => 'button black',
-        'confirm' => __('Are you sure you want to delete "{0}"?', $entity->$displayField)
+        'confirm' => __('Are you sure you want to delete "{0}"?', $entity->$displayField),
     ]); ?>
 </div>
 <h1><?= Inflector::singularize($title) . " #$entity->id"; ?></h1>
@@ -30,6 +30,6 @@ foreach ($associations as $association => $resultSet) {
 
 <?= $this->element('Apps.profile', ['title' => $entity->$displayField, 'data' => $profileData]); ?>
 
-<?php if (isset($associations)): ?>
+<?php if (isset($associations)) : ?>
     <?= $this->element('Apps.tabs', ['tabs' => $tabs]) ?>
 <?php endif; ?>

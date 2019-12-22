@@ -43,7 +43,7 @@ class UserContactsTable extends Table
         $this->belongsTo('Users', [
             'className' => 'Apps.Users',
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 

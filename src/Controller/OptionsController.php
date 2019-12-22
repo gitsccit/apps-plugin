@@ -15,7 +15,7 @@ use Cake\ORM\TableRegistry;
 class OptionsController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -26,7 +26,7 @@ class OptionsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'order' => ['Options.name' => 'ASC']
+            'order' => ['Options.name' => 'ASC'],
         ];
         $options = $this->paginate($this->Options);
 
@@ -47,9 +47,9 @@ class OptionsController extends AppController
                 'OptionStores' => [
                     'Stores',
                     'Environments',
-                ]
+                ],
             ],
-            'conditions' => ['Options.id' => $id]
+            'conditions' => ['Options.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -96,8 +96,8 @@ class OptionsController extends AppController
                 'OptionStores' => [
                     'Stores',
                     'Environments',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
@@ -127,10 +127,8 @@ class OptionsController extends AppController
                     // update store_options
                     foreach ($data as $key => $value) {
                         if (substr($key, 0, 2) == "os") {
-
                             $optionstore_id = (int)substr($key, 2);
                             if ($optionstore_id == 0 && !empty($value)) { // insert a new store value
-
                                 $key = explode("_", $key);
                                 $store_id = (int)substr($key[1], 1);
                                 $environment_id = (int)substr($key[2], 1);
@@ -142,7 +140,6 @@ class OptionsController extends AppController
                                 $optionstore->value = trim($value);
 
                                 $this->OptionStores->save($optionstore);
-
                             } else {
                                 if ($optionstore_id > 0) {
                                     $optionstore = $this->OptionStores->get($optionstore_id);
@@ -154,7 +151,6 @@ class OptionsController extends AppController
                                     }
                                 }
                             }
-
                         }
                     }
 
@@ -185,6 +181,7 @@ class OptionsController extends AppController
             case "email":
                 if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
                     $this->Flash->error(__('Value must be an email address.'));
+
                     return false;
                 }
                 break;
@@ -193,6 +190,7 @@ class OptionsController extends AppController
 
                 if (preg_match('/^[A-Fa-f0-6]{6}$/', $value) == false) {
                     $this->Flash->error(__('Value must be a 6 character color hex code.'));
+
                     return false;
                 }
                 $value = "#" . $value;
@@ -209,18 +207,21 @@ class OptionsController extends AppController
                 // must have at least 10 characters (xxx-xxx-xxxx)
                 if (strlen($value) < 10) {
                     $this->Flash->error(__('Value must be a telephone number with area code.'));
+
                     return false;
                 }
                 break;
             case "file":
                 if (!is_numeric($value)) {
                     $this->Flash->error(__('Value must be a file ID.'));
+
                     return false;
                 }
                 break;
             default:
                 if (empty($value)) {
                     $this->Flash->error(__('Value may not be empty.'));
+
                     return false;
                 }
                 break;

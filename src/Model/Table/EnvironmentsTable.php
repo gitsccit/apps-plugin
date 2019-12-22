@@ -41,15 +41,15 @@ class EnvironmentsTable extends Table
 
         $this->belongsTo('Permissions', [
             'className' => 'Apps.Permissions',
-            'foreignKey' => 'permission_id'
+            'foreignKey' => 'permission_id',
         ]);
         $this->hasMany('OptionStores', [
             'className' => 'Apps.OptionStores',
-            'foreignKey' => 'environment_id'
+            'foreignKey' => 'environment_id',
         ]);
         $this->hasMany('StoreIpMaps', [
             'className' => 'Apps.StoreIpMaps',
-            'foreignKey' => 'environment_id'
+            'foreignKey' => 'environment_id',
         ]);
     }
 

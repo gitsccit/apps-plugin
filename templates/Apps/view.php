@@ -6,7 +6,7 @@
 $timezone = $this->request->getSession()->read('Auth.User.time_zone.name');
 
 echo "<div class=\"links-top-right\">";
-echo $this->Html->link('Edit',['action' => 'edit',$app->id],['class' => 'button']);
+echo $this->Html->link('Edit', ['action' => 'edit',$app->id], ['class' => 'button']);
 echo $this->Form->postLink(
     __('Delete'),
     ['action' => 'delete', $app->id],
@@ -14,7 +14,7 @@ echo $this->Form->postLink(
 );
 echo "</div>";
 
-echo "<h1>App #".$app->id."</h1>\n";
+echo "<h1>App #" . $app->id . "</h1>\n";
 
 $title = $app->name;
 
@@ -25,11 +25,13 @@ $data = [
         ['Route', $app->route],
     ],
 ];
-foreach($data as $key => $value)
-    foreach($value as $k => $v)
-        $data[$key][$k][0] = "<label>".$data[$key][$k][0].":</label>";
+foreach ($data as $key => $value) {
+    foreach ($value as $k => $v) {
+        $data[$key][$k][0] = "<label>" . $data[$key][$k][0] . ":</label>";
+    }
+}
 
-echo $this->element('Apps.profile',['title' => $title,'data' => $data]);
+echo $this->element('Apps.profile', ['title' => $title,'data' => $data]);
 ?>
 
 <hr>
@@ -38,14 +40,14 @@ echo $this->element('Apps.profile',['title' => $title,'data' => $data]);
 <?php
 $header = $this->Html->tableHeaders(['Title','Destination','HtmlID','Permission','Thumbnail','Added','Modified']);
 $collection = [];
-foreach($app->app_links as $applink) {
+foreach ($app->app_links as $applink) {
     $url = $applink->destination;
-    if(substr($applink->destination,0,1) == "{") {
-        $temp = json_decode($applink->destination,true);
+    if (substr($applink->destination, 0, 1) == "{") {
+        $temp = json_decode($applink->destination, true);
         $url = $this->Url->build($temp);
     }
     $collection[] = $this->Html->tableCells([
-        '<span style="margin-left:'.($applink->indent * 40).'px">'.$applink->title.'</span>',
+        '<span style="margin-left:' . ($applink->indent * 40) . 'px">' . $applink->title . '</span>',
         $url,
         $applink->htmlid,
         (empty($applink->permission->name) ? "" : $applink->permission->name),
@@ -55,4 +57,4 @@ foreach($app->app_links as $applink) {
     ]);
 }
 ?>
-<?= $this->element('Apps.table_list',['header' => $header,'collection' => $collection]) ?>
+<?= $this->element('Apps.table_list', ['header' => $header,'collection' => $collection]) ?>

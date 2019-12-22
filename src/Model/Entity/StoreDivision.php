@@ -30,7 +30,7 @@ class StoreDivision extends Entity
         'store_id' => true,
         'company_code' => true,
         'ar_division_number' => true,
-        'store' => true
+        'store' => true,
     ];
 
     /**
@@ -40,7 +40,7 @@ class StoreDivision extends Entity
      */
     protected $_hidden = [
         'id',
-        'store_id'
+        'store_id',
     ];
 
     /**
@@ -51,7 +51,7 @@ class StoreDivision extends Entity
     public static $filterable = [
         'store' => 'name',
         'company_code',
-        'ar_division_number'
+        'ar_division_number',
     ];
 
     /**
@@ -61,6 +61,6 @@ class StoreDivision extends Entity
      * @var array
      */
     public static $priority = [
-        'company_code'
+        'company_code',
     ];
 }

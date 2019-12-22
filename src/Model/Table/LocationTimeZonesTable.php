@@ -40,7 +40,7 @@ class LocationTimeZonesTable extends Table
         $this->belongsTo('TimeZones', [
             'className' => 'Apps.TimeZones',
             'foreignKey' => 'time_zone_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 

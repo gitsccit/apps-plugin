@@ -40,12 +40,12 @@ class PermissionsRolesTable extends Table
         $this->belongsTo('Roles', [
             'className' => 'Apps.Roles',
             'foreignKey' => 'role_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Permissions', [
             'className' => 'Apps.Permissions',
             'foreignKey' => 'permission_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Apps\Controller;
 
-
 /**
  * Users Controller
  *
@@ -17,7 +16,7 @@ namespace Apps\Controller;
 class UsersController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -47,7 +46,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $id = ($id !== null) ? $id : $this->getRequest()->getSession()->read('Auth.User.id');
+        $id = $id ?? $this->getRequest()->getSession()->read('Auth.User.id');
         $user = $this->Users->get($id, ['contain' => ['Managers', 'Roles', 'UserContacts', 'UserLogins', 'TimeZones']]);
 
         $this->set(compact('user'));
@@ -67,7 +66,7 @@ class UsersController extends AppController
      */
     public function roles($id = null)
     {
-        $id = ($id !== null) ? $id : $this->getRequest()->getSession()->read('Auth.User.id');
+        $id = $id ?? $this->getRequest()->getSession()->read('Auth.User.id');
 
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $data = $this->getRequest()->getData();
@@ -77,8 +76,8 @@ class UsersController extends AppController
             }, $new_roles);
             $data = [
                 'roles' => [
-                    '_ids' => $new_roles
-                ]
+                    '_ids' => $new_roles,
+                ],
             ];
             $user = $this->Users->get($id);
             $user = $this->Users->patchEntity($user, $data);
@@ -126,7 +125,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['TimeZones']
+            'contain' => ['TimeZones'],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
@@ -164,6 +163,7 @@ class UsersController extends AppController
     } */
 
     // fetches and outputs to browser a user's profile image
+
     public function profileImage($id = null)
     {
         // check etag and lastmodified; we don't actually know but if they exist lets assume they're current
@@ -176,6 +176,7 @@ class UsersController extends AppController
             $response = $response->withEtag($match[0]);
             $response = $response->withModified($modified[0]);
             $response->notModified();
+
             return $response;
         }
 
@@ -199,6 +200,7 @@ class UsersController extends AppController
         // refresh ALL users if called without a user ID
         if (is_null($id)) {
             $this->MSGraph->updateUsers();
+
             return $this->redirect(['controller' => 'users']);
         }
         // only update this user

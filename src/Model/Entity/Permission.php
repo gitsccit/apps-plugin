@@ -36,7 +36,7 @@ class Permission extends Entity
         'permission_group' => true,
         'app_links' => true,
         'environments' => true,
-        'roles' => true
+        'roles' => true,
     ];
 
     /**
@@ -46,7 +46,7 @@ class Permission extends Entity
      */
     protected $_hidden = [
         'id',
-        'permission_group_id'
+        'permission_group_id',
     ];
 
     /**
@@ -56,7 +56,7 @@ class Permission extends Entity
      */
     public static $filterable = [
         'name',
-        'description'
+        'description',
     ];
 
     /**
@@ -66,6 +66,6 @@ class Permission extends Entity
      * @var array
      */
     public static $priority = [
-        'permission_group'
+        'permission_group',
     ];
 }

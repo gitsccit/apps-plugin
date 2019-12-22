@@ -32,7 +32,7 @@ class Option extends Entity
         'type' => true,
         'value' => true,
         'timestamp' => true,
-        'option_stores' => true
+        'option_stores' => true,
     ];
 
     /**
@@ -41,7 +41,7 @@ class Option extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
+        'id',
     ];
 
     /**
@@ -51,7 +51,7 @@ class Option extends Entity
      */
     public static $filterable = [
         'name',
-        'type'
+        'type',
     ];
 
     /**
@@ -62,6 +62,6 @@ class Option extends Entity
      */
     public static $priority = [
         'type',
-        'timestamp'
+        'timestamp',
     ];
 }

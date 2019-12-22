@@ -18,11 +18,13 @@
         'Apps.tabset',
         'Apps.message',
         'Apps.form',
-        'Apps.style'
+        'Apps.style',
     ]; ?>
     <link rel="stylesheet"
-          href="<?= $this->Url->build(array_merge(['controller' => 'files', 'action' => 'css', 'plugin' => 'Apps'],
-              $stylesheets)) ?>">
+          href="<?= $this->Url->build(array_merge(
+              ['controller' => 'files', 'action' => 'css', 'plugin' => 'Apps'],
+              $stylesheets
+          )) ?>">
     <?= $this->Html->script('Apps.script'); ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

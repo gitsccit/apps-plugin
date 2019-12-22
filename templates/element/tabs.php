@@ -7,7 +7,7 @@
 ?>
 <section>
     <div class="tab-list">
-        <?php foreach($tabs as $tab => $content): ?>
+        <?php foreach ($tabs as $tab => $content) : ?>
         <div class="tab-link" onclick="tabListSelect(this)" data-content="tab-content-<?= $tab ?>">
             <div><?= $tab ?></div>
             <div class="tab-underline"></div>
@@ -15,7 +15,7 @@
         <?php endforeach; ?>
     </div>
 
-    <?php foreach($tabs as $tab => $content): ?>
+    <?php foreach ($tabs as $tab => $content) : ?>
     <div class="tab-content" id="tab-content-<?= $tab ?>">
         <?= $content ?>
     </div>

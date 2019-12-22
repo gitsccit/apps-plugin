@@ -28,7 +28,7 @@ class LocationTimeZone extends Entity
     protected $_accessible = [
         'location' => true,
         'time_zone_id' => true,
-        'time_zone' => true
+        'time_zone' => true,
     ];
 
     /**
@@ -38,7 +38,7 @@ class LocationTimeZone extends Entity
      */
     protected $_hidden = [
         'id',
-        'time_zone_id'
+        'time_zone_id',
     ];
 
     /**
@@ -47,7 +47,7 @@ class LocationTimeZone extends Entity
      * @var array
      */
     public static $filterable = [
-        'location'
+        'location',
     ];
 
     /**

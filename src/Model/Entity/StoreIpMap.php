@@ -34,7 +34,7 @@ class StoreIpMap extends Entity
         'ip_address' => true,
         'port' => true,
         'store' => true,
-        'environment' => true
+        'environment' => true,
     ];
 
     /**
@@ -45,7 +45,7 @@ class StoreIpMap extends Entity
     protected $_hidden = [
         'id',
         'store_id',
-        'environment_id'
+        'environment_id',
     ];
 
     /**
@@ -65,6 +65,6 @@ class StoreIpMap extends Entity
      * @var array
      */
     public static $priority = [
-        'store'
+        'store',
     ];
 }

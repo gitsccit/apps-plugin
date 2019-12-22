@@ -14,9 +14,9 @@
         echo $this->Form->end();
         ?>
     </div>
-    <?php if (!empty($links)): ?>
+    <?php if (!empty($links)) : ?>
         <div class="table-links">
-            <?php foreach ($links as $link): ?>
+            <?php foreach ($links as $link) : ?>
                 <?= $link ?>
             <?php endforeach; ?>
         </div>

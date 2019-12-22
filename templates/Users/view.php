@@ -2,9 +2,9 @@
 /**
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\User $user
- * @var boolean $canEditRoles
- * @var boolean $canSynchronizeLDAP
- * @var boolean $canLoginAs
+ * @var bool $canEditRoles
+ * @var bool $canSynchronizeLDAP
+ * @var bool $canLoginAs
  */
 $this->assign('title', $user->display_name);
 
@@ -15,16 +15,22 @@ echo "</div>";
 echo "<h1>User Profile #" . $user->id . "</h1>\n";
 
 echo "<hr>\n";
-echo $this->Html->link('Kill Session', ['controller' => 'Session', 'action' => 'kill', $user->id],
-    ['class' => 'button']);
+echo $this->Html->link(
+    'Kill Session',
+    ['controller' => 'Session', 'action' => 'kill', $user->id],
+    ['class' => 'button']
+);
 
 if ($canSynchronizeLDAP) {
     echo $this->Html->link('Refresh AD Data', ['action' => 'synchronizeLdap', $user->id], ['class' => 'button']);
 }
 if ($canLoginAs) {
     if ($this->request->getSession()->read('Auth.User.id') != $user->id) {
-        echo $this->Html->link('Log In As User', ['controller' => 'Session', 'action' => 'loginAs', $user->id],
-            ['class' => 'button']);
+        echo $this->Html->link(
+            'Log In As User',
+            ['controller' => 'Session', 'action' => 'loginAs', $user->id],
+            ['class' => 'button']
+        );
     }
 }
 if ($canEditRoles) {

@@ -30,6 +30,6 @@ class UserContact extends Entity
         'user_id' => true,
         'type' => true,
         'contact' => true,
-        'user' => true
+        'user' => true,
     ];
 }

@@ -5,14 +5,14 @@
 
 
 <ul id="app-submenu-1">
-    <li><?= $this->Html->link("Application Links",['controller' => 'AppLinks','action'=>'index']) ?></li>
-    <li><?= $this->Html->link("Users",['controller' => 'users']) ?></li>
-    <li><?= $this->Html->link("Roles",['controller' => 'roles']) ?></li>
-    <li><?= $this->Html->link("Permissions",['controller' => 'permissions']) ?></li>
-    <li><?= $this->Html->link("Options",['controller' => 'options']) ?></li>
-    <li><?= $this->Html->link("Files",['controller' => 'files']) ?></li>
-    <li><?= $this->Html->link("Stores",['controller' => 'stores']) ?></li>
-    <li><?= $this->Html->link("Environments",['controller' => 'environments']) ?></li>
+    <li><?= $this->Html->link("Application Links", ['controller' => 'AppLinks','action' => 'index']) ?></li>
+    <li><?= $this->Html->link("Users", ['controller' => 'users']) ?></li>
+    <li><?= $this->Html->link("Roles", ['controller' => 'roles']) ?></li>
+    <li><?= $this->Html->link("Permissions", ['controller' => 'permissions']) ?></li>
+    <li><?= $this->Html->link("Options", ['controller' => 'options']) ?></li>
+    <li><?= $this->Html->link("Files", ['controller' => 'files']) ?></li>
+    <li><?= $this->Html->link("Stores", ['controller' => 'stores']) ?></li>
+    <li><?= $this->Html->link("Environments", ['controller' => 'environments']) ?></li>
     <!--
     <li><a href="javascript:void(0)">Pages</a></li>
     <li><a href="javascript:void(0)">Posts</a></li>

@@ -21,7 +21,6 @@ use Cake\Routing\Router;
 
 class MSGraphAuthComponent extends Component
 {
-
     /**
      * Reference to the current controller.
      *
@@ -32,7 +31,7 @@ class MSGraphAuthComponent extends Component
     /**
      * @var \Cake\Http\Session
      */
-    private \Cake\Http\Session $session;
+    private $session;
 
     public function initialize(array $config): void
     {
@@ -66,7 +65,8 @@ class MSGraphAuthComponent extends Component
             $redirect = $this->config['redirect_alt_uri'];
         }
 
-        $response = $http->post($this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/token",
+        $response = $http->post(
+            $this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/token",
             [
                 'client_id' => $this->config['application_id'],
                 'scope' => $this->config['scope_service'],
@@ -74,7 +74,8 @@ class MSGraphAuthComponent extends Component
                 'redirect_uri' => $redirect,
                 'grant_type' => "authorization_code",
                 'client_secret' => $this->config['client_secret'],
-            ]);
+            ]
+        );
 
         $json = $response->getJson();
         if (empty($json['access_token']) || empty($json['refresh_token'])) {
@@ -98,7 +99,6 @@ class MSGraphAuthComponent extends Component
             $this->session->delete('MSGraph.refreshToken');
             throw new ServiceUnavailableException("User account was not enabled");
         }
-
     }
 
     public function getMe()
@@ -121,11 +121,11 @@ class MSGraphAuthComponent extends Component
             "mobilePhone",
             "officeLocation",
             "proxyAddresses",
-            "userType"
+            "userType",
         ];
         $json = $this->get("me?\$select=" . implode(",", $fields));
-        return $json;
 
+        return $json;
     }
 
     private function get($path, $retry = 0)
@@ -143,7 +143,6 @@ class MSGraphAuthComponent extends Component
         }
 
         return $json;
-
     }
 
     private function getSyncUser($msgraph_user)
@@ -179,7 +178,6 @@ class MSGraphAuthComponent extends Component
         $users->save($user);
 
         return $user;
-
     }
 
     private function userLogins($user)
@@ -199,7 +197,6 @@ class MSGraphAuthComponent extends Component
         if (rand(1, 100) > 95) {
             $user_logins->deleteAll(["datediff(NOW(),timestamp) > 30"]);
         }
-
     }
 
     public function authorizationCode()
@@ -213,8 +210,10 @@ class MSGraphAuthComponent extends Component
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
             $conn = ConnectionManager::get('default');
-            $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
-                [$state, $redirect]);
+            $conn->execute(
+                "INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
+                [$state, $redirect]
+            );
             $redirect = $this->config['redirect_alt_uri'];
         }
 
@@ -229,8 +228,8 @@ class MSGraphAuthComponent extends Component
         ];
 
         $this->session->delete('Flash.flash'); // remove flash messages
-        return $this->controller->redirect($url . "?" . http_build_query($vars));
 
+        return $this->controller->redirect($url . "?" . http_build_query($vars));
     }
 
     public function authorizationCodeResponse()
@@ -254,8 +253,8 @@ class MSGraphAuthComponent extends Component
         if ($redirect) {
             return $this->controller->redirect($redirect);
         }
-        return false;
 
+        return false;
     }
 
     private function post($path, $post)
@@ -265,7 +264,5 @@ class MSGraphAuthComponent extends Component
         $response = $http->post($this->config['api_url'] . $path, json_encode($post), ['type' => "json"]);
         var_dump($response);
         die;
-
     }
-
 }

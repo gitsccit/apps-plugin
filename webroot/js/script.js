@@ -1,4 +1,5 @@
-function app_nav_toggle() {
+function app_nav_toggle()
+{
     document.body.classList.toggle('collapsed');
     let collapsed = false;
     if (document.body.classList.contains('collapsed')) {
@@ -10,20 +11,24 @@ function app_nav_toggle() {
     }
 }
 
-function app_nav_select(elm, appid, title) {
+function app_nav_select(elm, appid, title)
+{
     // add highlight
     document.querySelector('#apps-navcolumn-1 .active').classList.remove('active');
     elm.parentNode.classList.add('active');
     // change nav
     var list = document.querySelectorAll('#apps-navcolumn-2 .appnav > ul');
-    for (var i = 0; i < list.length; i++) list[i].style.display = 'none';
+    for (var i = 0; i < list.length; i++) {
+        list[i].style.display = 'none';
+    }
     document.querySelector('#app-submenu-' + appid).style.display = 'block';
     document.getElementById('app-submenu-title').innerText = title;
 }
 
 var app_global_search_xhr = false;
 
-function app_global_search_handler(event) {
+function app_global_search_handler(event)
+{
 
     event.preventDefault();
 
@@ -32,12 +37,14 @@ function app_global_search_handler(event) {
     url += "?q=" + encodeURIComponent(query);
 
     // abort any existing submits
-    if (app_global_search_xhr)
+    if (app_global_search_xhr) {
         app_global_search_xhr.abort();
+    }
 
     // goes nowhere if query is not valid
     if (query.length == 0 || query.length < 3 && isNaN(parseInt(query))) {
         app_global_search_finish(false);
+
         return false;
     }
 
@@ -62,15 +69,18 @@ function app_global_search_handler(event) {
 
 }
 
-function app_global_search_keyup(obj) {
+function app_global_search_keyup(obj)
+{
 
     let value = obj.value.trim();
-    if (value.length == 0)
+    if (value.length == 0) {
         app_global_search_finish(false);
+    }
 
 }
 
-function app_global_search_start(query) {
+function app_global_search_start(query)
+{
 
     var html = '<h6><div class="lds-dual-ring"></div>searching...</h6>';
     document.getElementById('global-search-results').innerHTML = html;
@@ -78,29 +88,34 @@ function app_global_search_start(query) {
 
 }
 
-function app_global_search_finish(response) {
+function app_global_search_finish(response)
+{
 
     // close the search if response is false
     if (response === false) {
         document.getElementById('global-search-container').classList.remove('open');
+
         return;
     }
 
     let results = [];
     if (response.length) {
         let json = JSON.parse(response);
-        if (json && json.results.length)
+        if (json && json.results.length) {
             results = json.results;
+        }
     }
 
     if (results.length == 0) {
         document.getElementById('global-search-results').innerHTML = "<h6>No results were found.</h6>";
+
         return;
     }
 
     let html = '';
-    for (let i = 0; i < results.length; i++)
+    for (let i = 0; i < results.length; i++) {
         html += '<li><a href="' + results[i].Url + '">' + results[i].Title + '<span>' + results[i].Description + '</span></a></li>';
+    }
 
     document.getElementById('global-search-results').innerHTML = '<ul>' + html + '</ul>';
 
@@ -111,10 +126,13 @@ function app_global_search_finish(response) {
 window.addEventListener("resize", priorityTableCalculate);
 window.addEventListener("load", priorityTableCalculate);
 
-function priorityTableCalculate() {
+function priorityTableCalculate()
+{
 
     var container = document.getElementById('priority-table');
-    if (container == null) return;
+    if (container == null) {
+        return;
+    }
 
     // reset table column visibility
     var temp = container.querySelectorAll('col');
@@ -132,7 +150,6 @@ function priorityTableCalculate() {
 
     // reduce table size until it fit
     while (table_width > container_width) {
-
         var obj = priorityTableGetLowestPriority();
         table_width -= priorityTableGetColumnWidth(obj);
 
@@ -141,49 +158,56 @@ function priorityTableCalculate() {
 
         // apply to all column elements; some browsers do not support col (lookin' at you google)
         priorityTableApplyToCells(obj);
-
     }
 
 }
 
 // gets the lowest priority non-hidden col object
-function priorityTableGetLowestPriority() {
+function priorityTableGetLowestPriority()
+{
 
     var temp = document.querySelectorAll('#priority-table col');
 
     var lowest = false;
     var obj = false;
-    for (var i = 0; i < temp.length; i++)
+    for (var i = 0; i < temp.length; i++) {
         if (temp[i].style.visibility != "collapse") {
             var priority = 0;
-            if (typeof temp[i].getAttribute('data-priority') == "string")
+            if (typeof temp[i].getAttribute('data-priority') == "string") {
                 priority = parseInt(temp[i].getAttribute('data-priority'));
+            }
             if (priority > lowest) {
                 obj = temp[i];
                 lowest = priority;
             }
         }
+    }
 
     return obj;
 
 }
 
-function priorityTableGetColumn(obj) {
+function priorityTableGetColumn(obj)
+{
 
     var temp = document.querySelectorAll('#priority-table col');
-    for (var i = 0; i < temp.length; i++)
-        if (temp[i] === obj)
+    for (var i = 0; i < temp.length; i++) {
+        if (temp[i] === obj) {
             return i + 1;
+        }
+    }
 
     return false;
 
 }
 
-function priorityTableGetColumnWidth(obj) {
+function priorityTableGetColumnWidth(obj)
+{
 
     var col = priorityTableGetColumn(obj);
     if (col) {
         var temp = document.querySelector('#priority-table td:nth-child(' + col + ')');
+
         return parseInt(temp.offsetWidth);
     }
 
@@ -191,11 +215,13 @@ function priorityTableGetColumnWidth(obj) {
 
 }
 
-function priorityTableApplyToCells(obj) {
+function priorityTableApplyToCells(obj)
+{
 
     var display = "table-cell";
-    if (obj.style.visibility == "collapse")
+    if (obj.style.visibility == "collapse") {
         display = "none";
+    }
 
     var col = priorityTableGetColumn(obj);
     if (col) {
@@ -208,7 +234,6 @@ function priorityTableApplyToCells(obj) {
         for (var i = 0; i < temp.length; i++) {
             temp[i].style.display = obj.style.visibility;
             temp[i].style.display = display;
-
         }
     }
 
@@ -217,30 +242,36 @@ function priorityTableApplyToCells(obj) {
 /** TAB LISTS **/
 window.addEventListener("load", tabListInitialize);
 
-function tabListInitialize() {
+function tabListInitialize()
+{
 
     // set all tab-link to default display
     var temp = document.querySelectorAll('.tab-link');
-    for (var i = 0; i < temp.length; i++)
+    for (var i = 0; i < temp.length; i++) {
         temp[i].classList.remove('active');
+    }
 
     // set all tab-content to default display
     var temp = document.querySelectorAll('.tab-content');
-    for (var i = 0; i < temp.length; i++)
+    for (var i = 0; i < temp.length; i++) {
         temp[i].style.display = null;
+    }
 
     // for each tab-list trigger tabListSelect on the first tab
     var temp = document.querySelectorAll('.tab-list .tab-link:first-child');
-    for (var i = 0; i < temp.length; i++)
+    for (var i = 0; i < temp.length; i++) {
         temp[i].click();
+    }
 
 }
 
-function tabListSelect(obj) {
+function tabListSelect(obj)
+{
 
     // do nothing if this tab is currently active
-    if (obj.classList.contains('active'))
+    if (obj.classList.contains('active')) {
         return;
+    }
 
     var content = obj.getAttribute('data-content');
 
@@ -252,25 +283,31 @@ function tabListSelect(obj) {
         var c = temp.getAttribute('data-content');
         if (c) {
             var t = document.getElementById(c);
-            if (t) t.style.display = null;
+            if (t) {
+                t.style.display = null;
+            }
         }
     }
 
     obj.classList.add('active');
     var target = document.getElementById(content);
-    if (target) target.style.display = 'block';
+    if (target) {
+        target.style.display = 'block';
+    }
 
 }
 
 //https://www.w3schools.com/js/js_cookies.asp
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue, exdays)
+{
     let d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function getCookie(cname) {
+function getCookie(cname)
+{
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -289,7 +326,8 @@ function getCookie(cname) {
 }
 
 /** LIGHTBOX **/
-function lightbox(url) {
+function lightbox(url)
+{
 
     lightboxOrigin = this;
 
@@ -299,8 +337,10 @@ function lightbox(url) {
         document.body.insertAdjacentHTML('beforeend', '<div class="lightbox-wrap"><div class="lightbox-body"><div class="lightbox-close"><span class="icon-cancel" onclick="lightbox(false)"></span></div><div class="lightbox-content">Loading...</div></div></div>');
     } else if (url === false) {
         // remove the lightbox if the url was false
-        if(wrap.length > 0)
+        if (wrap.length > 0) {
             document.body.removeChild(wrap[0]);
+        }
+
         return;
     }
 
@@ -311,15 +351,15 @@ function lightbox(url) {
     xhr.htmlbody = body;
     xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
-
             // empty the target element
-            if(xhr.htmlbody)
-                while (xhr.htmlbody.hasChildNodes())
+            if (xhr.htmlbody) {
+                while (xhr.htmlbody.hasChildNodes()) {
                     xhr.htmlbody.removeChild(xhr.htmlbody.lastChild);
+                }
+            }
 
             xhr.htmlbody.insertAdjacentHTML('beforeend', xhr.response);
             lightboxUrlHandler();
-
         }
     };
 
@@ -329,39 +369,36 @@ function lightbox(url) {
 }
 
 // replaces all links with references to reload the lightbox
-function lightboxUrlHandler() {
+function lightboxUrlHandler()
+{
 
     var links = document.body.querySelectorAll('.lightbox-content a');
     for (var i = 0; i < links.length; i++) {
-
         var href = links[i].getAttribute('href');
         if (href.length) {
-
             links[i].setAttribute('href', 'javascript:void(0)');
             links[i].setAttribute('data-href', href);
             links[i].addEventListener('click', lightboxLink);
-
         }
-
     }
 
     var forms = document.body.querySelectorAll('.lightbox-content form');
     for (var i = 0; i < forms.length; i++) {
-
         forms[i].addEventListener('submit', lightboxForm);
-
     }
 
 }
 
-function lightboxLink() {
+function lightboxLink()
+{
 
     var link = this.getAttribute('data-href');
     lightbox(link);
 
 }
 
-function lightboxForm(event) {
+function lightboxForm(event)
+{
     event.preventDefault();
 
     // proceed with background ajax form submit
@@ -371,20 +408,21 @@ function lightboxForm(event) {
     xhr.htmlbody = body;
     xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
-
             // empty the target element
-            while (xhr.htmlbody.hasChildNodes())
+            while (xhr.htmlbody.hasChildNodes()) {
                 xhr.htmlbody.removeChild(xhr.htmlbody.lastChild);
+            }
 
             xhr.htmlbody.insertAdjacentHTML('beforeend', xhr.response);
             lightboxUrlHandler();
-
         }
     };
 
     var action = this.getAttribute('action');
     var method = this.getAttribute('method');
-    if (method != "post") method = "get";
+    if (method != "post") {
+        method = "get";
+    }
 
     xhr.open(method, action, true);
     xhr.send(new FormData(this));
@@ -395,11 +433,14 @@ function lightboxForm(event) {
 /** Textarea maxlength counter **/
 window.addEventListener("load", textareaMaxLengthInitialize);
 
-function textareaMaxLengthInitialize() {
+function textareaMaxLengthInitialize()
+{
     let elements = document.getElementsByTagName('textarea');
     for (let i = 0; i < elements.length; i++) {
         let max = elements[i].getAttribute('maxlength');
-        if (max) max = parseInt(max);
+        if (max) {
+            max = parseInt(max);
+        }
         if (isFinite(max) && max > 0) {
             elements[i].insertAdjacentHTML('afterend', '<div class="textarea-max-length-counter"><div><div></div></div></div>');
             elements[i].nextElementSibling.insertBefore(elements[i], elements[i].nextElementSibling.childNodes[0]);
@@ -410,16 +451,20 @@ function textareaMaxLengthInitialize() {
     }
 }
 
-function textareaMaxLength() {
+function textareaMaxLength()
+{
     let max = this.getAttribute('maxlength');
     let length = this.value.length;
     this.nextElementSibling.childNodes[0].innerText = length + " of " + max;
 }
 
-function url_fix(controller, action) {
+function url_fix(controller, action)
+{
     let url = window.location.toString();
     let pos = url.indexOf('/' + controller + '/');
-    if (pos)
+    if (pos) {
         url = url.substr(0, pos) + '/' + controller + '/' + action;
+    }
+
     return url;
 }

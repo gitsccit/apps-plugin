@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class EnvironmentsController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -25,7 +25,7 @@ class EnvironmentsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Permissions'],
-            'order' => ['Environments.name' => 'ASC']
+            'order' => ['Environments.name' => 'ASC'],
         ];
         $environments = $this->paginate($this->Environments);
 
@@ -43,7 +43,7 @@ class EnvironmentsController extends AppController
     {
         $query = $this->Environments->find('all', [
             'contain' => ['Permissions', 'OptionStores', 'StoreIpMaps'],
-            'conditions' => ['Environments.id' => $id]
+            'conditions' => ['Environments.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -81,7 +81,7 @@ class EnvironmentsController extends AppController
     public function edit($id = null)
     {
         $environment = $this->Environments->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $environment = $this->Environments->patchEntity($environment, $this->getRequest()->getData());

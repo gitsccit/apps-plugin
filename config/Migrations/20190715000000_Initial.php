@@ -4,7 +4,6 @@ use Migrations\AbstractMigration;
 
 class Initial extends AbstractMigration
 {
-
     public function up()
     {
         $this->execute(file_get_contents('initial.sql', true));
@@ -24,6 +23,7 @@ class Initial extends AbstractMigration
         ");
         $sqls = array_map(function ($array) {
             $sql = $array[0];
+
             return strpos($sql, 'phinxlog') ? '' : $sql;
         }, $tables);
         $sql = implode($sqls);

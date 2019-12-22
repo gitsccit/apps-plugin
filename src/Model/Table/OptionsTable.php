@@ -42,7 +42,7 @@ class OptionsTable extends Table
 
         $this->hasMany('OptionStores', [
             'className' => 'Apps.OptionStores',
-            'foreignKey' => 'option_id'
+            'foreignKey' => 'option_id',
         ]);
     }
 

@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class StoresController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -25,7 +25,7 @@ class StoresController extends AppController
     {
         $this->paginate = [
             'contain' => ['ParentStores'],
-            'order' => ['Stores.name' => 'ASC']
+            'order' => ['Stores.name' => 'ASC'],
         ];
         $stores = $this->paginate($this->Stores);
 
@@ -49,9 +49,9 @@ class StoresController extends AppController
                 'StoreIpMaps',
                 'StoreReturns',
                 'StoreSortFields',
-                'ChildStores'
+                'ChildStores',
             ],
-            'conditions' => ['Stores.id' => $id]
+            'conditions' => ['Stores.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -89,7 +89,7 @@ class StoresController extends AppController
     public function edit($id = null)
     {
         $store = $this->Stores->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $store = $this->Stores->patchEntity($store, $this->getRequest()->getData());

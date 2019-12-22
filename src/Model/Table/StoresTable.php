@@ -48,31 +48,31 @@ class StoresTable extends Table
 
         $this->belongsTo('ParentStores', [
             'className' => 'Apps.Stores',
-            'foreignKey' => 'parent_id'
+            'foreignKey' => 'parent_id',
         ]);
         $this->hasMany('OptionStores', [
             'className' => 'Apps.OptionStores',
-            'foreignKey' => 'store_id'
+            'foreignKey' => 'store_id',
         ]);
         $this->hasMany('StoreDivisions', [
             'className' => 'Apps.StoreDivisions',
-            'foreignKey' => 'store_id'
+            'foreignKey' => 'store_id',
         ]);
         $this->hasMany('StoreIpMaps', [
             'className' => 'Apps.StoreIpMaps',
-            'foreignKey' => 'store_id'
+            'foreignKey' => 'store_id',
         ]);
         $this->hasMany('StoreReturns', [
             'className' => 'Apps.StoreReturns',
-            'foreignKey' => 'store_id'
+            'foreignKey' => 'store_id',
         ]);
         $this->hasMany('StoreSortFields', [
             'className' => 'Apps.StoreSortFields',
-            'foreignKey' => 'store_id'
+            'foreignKey' => 'store_id',
         ]);
         $this->hasMany('ChildStores', [
             'className' => 'Apps.Stores',
-            'foreignKey' => 'parent_id'
+            'foreignKey' => 'parent_id',
         ]);
     }
 

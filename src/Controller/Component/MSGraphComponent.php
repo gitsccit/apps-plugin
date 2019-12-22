@@ -32,7 +32,6 @@ use Cake\Validation\Validation;
 
 class MSGraphComponent extends Component
 {
-
     /**
      * Reference to the current controller.
      *
@@ -61,7 +60,7 @@ class MSGraphComponent extends Component
         "otherMails",
         "proxyAddresses",
         "userType",
-        "isResourceAccount"
+        "isResourceAccount",
     ];
 
     public function initialize(array $config): void
@@ -89,7 +88,7 @@ class MSGraphComponent extends Component
                 $this->controller->Flash->error("MSGraph service account is not logged in. An administrator must log in <a href=\"https://" . $host . Router::url([
                         'controller' => "Session",
                         'action' => "msgraphauthcode",
-                        'plugin' => 'Apps'
+                        'plugin' => 'Apps',
                     ]) . "\">here</a> using the webmsgraph user.", ['escape' => false]);
             } else {
                 // use the refresh token to get a fresh access token
@@ -106,7 +105,6 @@ class MSGraphComponent extends Component
 
     public function accessToken($code, $refresh = false)
     {
-
         $type = ($refresh ? "refresh_token" : "code");
         $http = new Client();
 
@@ -116,7 +114,8 @@ class MSGraphComponent extends Component
             $redirect = $this->config['redirect_alt_uri'];
         }
 
-        $response = $http->post($this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/token",
+        $response = $http->post(
+            $this->config['auth_url'] . rawurlencode($this->config['tenant']) . "/oauth2/v2.0/token",
             [
                 'client_id' => $this->config['application_id'],
                 'scope' => $this->config['scope'],
@@ -124,7 +123,8 @@ class MSGraphComponent extends Component
                 'redirect_uri' => $redirect,
                 'grant_type' => ($refresh ? "refresh_token" : "authorization_code"),
                 'client_secret' => $this->config['client_secret'],
-            ]);
+            ]
+        );
 
         $json = $response->getJson();
         if (empty($json['access_token']) || empty($json['refresh_token'])) {
@@ -144,7 +144,6 @@ class MSGraphComponent extends Component
             Cache::delete('MSGraphRefreshToken', 'forever');
             throw new ServiceUnavailableException("MSGraph must be logged in as the webmsgraph user");
         }
-
     }
 
     public function getMe()
@@ -152,13 +151,12 @@ class MSGraphComponent extends Component
 
         $fields = ["accountEnabled", "displayName", "mailNickname"];
         $json = $this->get("me?\$select=" . implode(",", $fields));
-        return $json;
 
+        return $json;
     }
 
     private function get($path, $json = true)
     {
-
         if (substr($path, 0, 4) == "http") {
             $url = $path;
         } else {
@@ -185,14 +183,13 @@ class MSGraphComponent extends Component
                 'mimetype' => $headers['Content-Type'][0],
                 'content' => (empty($headers['Location'][0]) ? $response->getStringBody() : file_get_contents($headers['Location'][0])),
             ];
+
             return $file;
         }
-
     }
 
     public function updateUsersDelta()
     {
-
         $url = Cache::read('MSGraphUserDeltaLink', 'forever');
         if ($url === false) {
             $url = "/users/delta?\$select=id";
@@ -214,12 +211,10 @@ class MSGraphComponent extends Component
         }
 
         return $this->updateUsers($users);
-
     }
 
     public function updateUsers($filter = false)
     {
-
         if (is_array($filter) && sizeof($filter) == 0) {
             return 0;
         }
@@ -238,9 +233,15 @@ class MSGraphComponent extends Component
         // walk through the user list and attempt to combine entries
         foreach ($json['value'] as $key => $user) {
             foreach ($json['value'] as $k => $compare) {
-                if ($compare['id'] != $user['id'] && array_search($user['id'],
-                        $json['value'][$k]['match']) === false && $this->userCompare($json['value'][$key],
-                        $json['value'][$k])) {
+                if (
+                    $compare['id'] != $user['id'] && array_search(
+                        $user['id'],
+                        $json['value'][$k]['match']
+                    ) === false && $this->userCompare(
+                        $json['value'][$key],
+                        $json['value'][$k]
+                    )
+                ) {
                     $this->userCombine($json['value'][$key], $json['value'][$k]);
                 }
             }
@@ -264,15 +265,18 @@ class MSGraphComponent extends Component
         }
 
         return $count;
-
     }
 
     private function userCompare($a, $b)
     {
-        if ($this->stringCompare($a['mailNickname'], $b['mailNickname'])
+        if (
+            $this->stringCompare($a['mailNickname'], $b['mailNickname'])
             || $this->stringCompare($a['displayName'], $b['displayName'])
-            || ($this->stringCompare($a['givenName'], $b['givenName']) && $this->stringCompare($a['surname'],
-                    $b['surname']))) {
+            || ($this->stringCompare($a['givenName'], $b['givenName']) && $this->stringCompare(
+                $a['surname'],
+                $b['surname']
+            ))
+        ) {
             return true;
         }
 
@@ -314,9 +318,11 @@ class MSGraphComponent extends Component
 
     private function updateUser($msgraph_user)
     {
-        if (empty($msgraph_user['mailNickname'])
+        if (
+            empty($msgraph_user['mailNickname'])
             || empty($msgraph_user['displayName'])
-            || empty($msgraph_user['givenName'])) {
+            || empty($msgraph_user['givenName'])
+        ) {
             return false;
         }
 
@@ -499,7 +505,6 @@ LIMIT 1", [$user->location . "%"]);
 
     public function authorizationCode()
     {
-
         $state = uniqid();
         Cache::write('MSGraphState', $state, 'MSGraph');
         Cache::write('MSGraphRedirect', $this->controller->referer(), 'MSGraph');
@@ -508,8 +513,10 @@ LIMIT 1", [$user->location . "%"]);
         $redirect = "https://" . $host . Router::url($this->config['redirect_uri']);
         if ($this->oauthForwarding) {
             $conn = ConnectionManager::get('default');
-            $conn->execute("INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
-                [$state, $redirect]);
+            $conn->execute(
+                "INSERT INTO oauth_proxy.oauth2_forwarding (state,forward) VALUES (?,?)",
+                [$state, $redirect]
+            );
             $redirect = $this->config['redirect_alt_uri'];
         }
 
@@ -524,12 +531,10 @@ LIMIT 1", [$user->location . "%"]);
         ];
 
         return $this->controller->redirect($url . "?" . http_build_query($vars));
-
     }
 
     public function authorizationCodeResponse()
     {
-
         // step 1 verify that this is the correct component for this oauth2 response
         $state_orig = Cache::read('MSGraphState', 'MSGraph');
         $state = $this->controller->getRequest()->getQuery('state');
@@ -548,13 +553,12 @@ LIMIT 1", [$user->location . "%"]);
         if ($redirect) {
             return $this->controller->redirect($redirect);
         }
-        return false;
 
+        return false;
     }
 
     public function getDrive($path = "")
     {
-
         if (!empty($path)) {
             $path = "/" . trim($path, "/");
         }
@@ -564,7 +568,6 @@ LIMIT 1", [$user->location . "%"]);
         //$json = $this->get("me/drive/special/approot/children");
 
         return $response;
-
     }
 
     public function addFile($folder = "", $filename, $content)
@@ -619,7 +622,7 @@ LIMIT 1", [$user->location . "%"]);
                     "Authorization" => "Bearer " . $this->accessToken,
                     "Content-Length" => $len,
                     "Content-Range" => "bytes 0-" . ($len - 1) . "/" . $len,
-                ]
+                ],
             ]);
             $response = $http->put($json['uploadUrl'], $content);
             $json = $response->getJson();
@@ -649,8 +652,8 @@ LIMIT 1", [$user->location . "%"]);
         if (!empty($json['error']['message'])) {
             throw new ServiceUnavailableException(__($json['error']['code'] . " : " . $json['error']['message']));
         }
-        return $json;
 
+        return $json;
     }
 
     public function getFolder($path)
@@ -690,16 +693,13 @@ LIMIT 1", [$user->location . "%"]);
         }
 
         return $items;
-
     }
 
     public function getProfileImage($id)
     {
-
         try {
             $result = $this->get("/users/" . $id . "/photo/\$value", false);
         } catch (ServiceUnavailableException $e) {
-
             // user has no profile picture; create a default 1x1 white image
             $image = imagecreate(1, 1);
             $color = imagecolorallocate($image, 255, 255, 255);
@@ -720,7 +720,6 @@ LIMIT 1", [$user->location . "%"]);
                     $result['mimetype'] = $file->mime_type->name;
                 }
             }
-
         }
 
         return $result;
@@ -728,14 +727,12 @@ LIMIT 1", [$user->location . "%"]);
 
     public function getFile($id)
     {
-
         $file = $this->get("/me/drive/items/" . $id . "/content", false);
         if (!empty($file['content'])) {
             return $file;
         }
 
         return false;
-
     }
 
     public function deleteFile($id)
@@ -754,6 +751,7 @@ LIMIT 1", [$user->location . "%"]);
             if ($parentid) {
                 $this->deleteEmptyFolders($parentid);
             }
+
             return true;
         }
 
@@ -775,18 +773,14 @@ LIMIT 1", [$user->location . "%"]);
         }
 
         return false;
-
     }
 
     private function deleteEmptyFolders($id)
     {
-
         $json = $this->get("/me/drive/items/" . $id);
         if (isset($json['folder']['childCount']) && $json['folder']['childCount'] == 0) {
             // delete it! note that deleteFile will recursively check parents and delete empty folders
             $this->deleteFile($id);
         }
-
     }
-
 }

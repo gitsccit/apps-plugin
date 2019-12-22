@@ -9,7 +9,7 @@
 <section class="form-basic">
     <?= $this->Form->create($entity) ?>
     <fieldset>
-        <?php foreach ($accessibleFields as $accessibleField => $option): ?>
+        <?php foreach ($accessibleFields as $accessibleField => $option) : ?>
             <?= $this->Form->control($accessibleField, $option); ?>
         <?php endforeach; ?>
     </fieldset>

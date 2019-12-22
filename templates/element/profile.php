@@ -8,23 +8,26 @@
  * $data 2d array organizing data into columns
  */
 
-if(!empty($subtitle) && is_array($subtitle)) {
-    foreach($subtitle as $key => $value)
-        if(empty($value)) unset($subtitle[$key]);
+if (!empty($subtitle) && is_array($subtitle)) {
+    foreach ($subtitle as $key => $value) {
+        if (empty($value)) {
+            unset($subtitle[$key]);
+        }
+    }
     $subtitle = implode("</span><span>", $subtitle);
 }
 ?>
 <section>
     <div class="width-">
         <div class="flex-row profile">
-            <?php if(!empty($image)): ?>
+            <?php if (!empty($image)) : ?>
             <div>
                 <div class="image" style="background-image:url(<?= $image ?>)"></div>
             </div>
             <?php endif; ?>
             <div>
                 <h2><?= h(empty($title) ? "User Profile" : $title) ?></h2>
-                <?php if(!empty($subtitle)): ?>
+                <?php if (!empty($subtitle)) : ?>
                 <div class="profile-contact"><span><?= $subtitle ?></span></div>
                 <?php endif; ?>
                 <div class="width-">

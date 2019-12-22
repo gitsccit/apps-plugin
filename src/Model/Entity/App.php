@@ -32,7 +32,7 @@ class App extends Entity
         'cake_plugin' => true,
         'route' => true,
         'sort' => true,
-        'app_links' => true
+        'app_links' => true,
     ];
 
     /**
@@ -41,7 +41,7 @@ class App extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
+        'id',
     ];
 
     /**
@@ -51,7 +51,7 @@ class App extends Entity
      */
     public static $filterable = [
         'name',
-        'cake_plugin'
+        'cake_plugin',
     ];
 
     /**
@@ -62,6 +62,6 @@ class App extends Entity
      */
     public static $priority = [
         'cake_plugin',
-        'route'
+        'route',
     ];
 }

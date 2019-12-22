@@ -27,6 +27,6 @@ class FilesStore extends Entity
      */
     protected $_accessible = [
         'file' => true,
-        'store' => true
+        'store' => true,
     ];
 }

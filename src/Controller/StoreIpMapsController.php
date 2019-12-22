@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class StoreIpMapsController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -24,7 +24,7 @@ class StoreIpMapsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Stores', 'Environments']
+            'contain' => ['Stores', 'Environments'],
         ];
         $storeIpMaps = $this->paginate($this->StoreIpMaps);
 
@@ -42,7 +42,7 @@ class StoreIpMapsController extends AppController
     {
         $query = $this->StoreIpMaps->find('all', [
             'contain' => ['Stores', 'Environments'],
-            'conditions' => ['StoreIpMaps.id' => $id]
+            'conditions' => ['StoreIpMaps.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -81,7 +81,7 @@ class StoreIpMapsController extends AppController
     public function edit($id = null)
     {
         $storeIpMap = $this->StoreIpMaps->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $storeIpMap = $this->StoreIpMaps->patchEntity($storeIpMap, $this->getRequest()->getData());

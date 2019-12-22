@@ -30,7 +30,6 @@ use Cake\Event\EventInterface;
  */
 class AppController extends \Skeleton\Controller\AppController
 {
-
     /**
      * Initialization hook method.
      *
@@ -61,7 +60,7 @@ class AppController extends \Skeleton\Controller\AppController
                 'controller' => 'Session',
                 'action' => 'end',
                 'plugin' => 'Apps',
-            ]
+            ],
         ]);
     }
 

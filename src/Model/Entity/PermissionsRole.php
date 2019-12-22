@@ -27,7 +27,7 @@ class PermissionsRole extends Entity
      */
     protected $_accessible = [
         'role' => true,
-        'permission' => true
+        'permission' => true,
     ];
 
     /**

@@ -28,8 +28,10 @@ $data = [
     [
         [
             'Uploaded By',
-            (empty($file->user->display_name) ? "" : $this->Html->link($file->user->display_name,
-                ['controller' => 'users', 'action' => 'view', $file->user->id]))
+            (empty($file->user->display_name) ? "" : $this->Html->link(
+                $file->user->display_name,
+                ['controller' => 'users', 'action' => 'view', $file->user->id]
+            )),
         ],
         ['Uploaded At', $file->created_at->setTimezone($timezone)],
         ['Accessed At', $file->accessed_at->setTimezone($timezone)],

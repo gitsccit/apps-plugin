@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \Apps\View\AppView $this
- * @var User $user
+ * @var \User $user
  * @var \Apps\Model\Entity\Role[]|\Cake\Collection\CollectionInterface $roles
  */
 
@@ -78,9 +78,8 @@ foreach ($roles as $role) {
     echo '<span class="padding-5">' . $this->Form->checkbox('role[]', [
             'value' => $role->id,
             'hiddenField' => false,
-            'checked' => $checked
+            'checked' => $checked,
         ]) . $this->Form->label($role->name) . '</span>';
-
 }
 echo '</div>';
 echo '</div>';

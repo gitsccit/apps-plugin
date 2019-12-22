@@ -21,22 +21,24 @@ echo "<h1>Admin Permissions </h1>";
             <legend><?= __('Edit Permission') ?></legend>
             <?php
             echo '<label><strong>Permission Group</strong></label>';
-            echo $this->Form->control('permission_group_id',
-                ['options' => $permissionGroups, 'empty' => true, 'label' => false]);
+            echo $this->Form->control(
+                'permission_group_id',
+                ['options' => $permissionGroups, 'empty' => true, 'label' => false]
+            );
 
             echo '<label><strong>Permission Name</strong></label>';
             echo $this->Form->text('name', [
                 'style' => 'width:30%',
                 'label' => false,
                 'placeholder' => 'Enter Permission Name',
-                'maxlength' => '30'
+                'maxlength' => '30',
             ]);
             echo '<label><strong>Permission Description </strong></label>';
             echo $this->Form->textarea('description', [
                 'type' => 'textarea',
                 'class' => 'input-textarea',
                 'label' => false,
-                'placeholder' => 'Enter a brief description'
+                'placeholder' => 'Enter a brief description',
             ]);
             ?>
         </fieldset>

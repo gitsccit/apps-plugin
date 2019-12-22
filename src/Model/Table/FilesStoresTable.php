@@ -40,12 +40,12 @@ class FilesStoresTable extends Table
         $this->belongsTo('Files', [
             'className' => 'Apps.Files',
             'foreignKey' => 'file_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Stores', [
             'className' => 'Apps.Stores',
             'foreignKey' => 'store_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 

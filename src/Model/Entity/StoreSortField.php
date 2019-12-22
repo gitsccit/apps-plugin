@@ -28,7 +28,7 @@ class StoreSortField extends Entity
     protected $_accessible = [
         'store_id' => true,
         'sort' => true,
-        'store' => true
+        'store' => true,
     ];
 
     /**
@@ -38,7 +38,7 @@ class StoreSortField extends Entity
      */
     protected $_hidden = [
         'id',
-        'store_id'
+        'store_id',
     ];
 
     /**
@@ -48,7 +48,7 @@ class StoreSortField extends Entity
      */
     public static $filterable = [
         'store' => 'name',
-        'sort'
+        'sort',
     ];
 
     /**

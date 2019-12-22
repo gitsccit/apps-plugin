@@ -19,7 +19,6 @@ use Cake\Routing\Router;
 
 class ConfigureFromDatabaseComponent extends Component
 {
-
     public $paginate = false;
     private $storeid = false;
     private $db = false;
@@ -63,7 +62,6 @@ AND s.active = 'yes'", [$ip, $port])->fetch('assoc');
 
         $this->loadVars("store");
         $this->setLayout();
-
     }
 
     public function loadVars($prefix = "")
@@ -73,19 +71,19 @@ AND s.active = 'yes'", [$ip, $port])->fetch('assoc');
             return false;
         }
 
-        $results = $this->db->execute("SELECT o.name,o.type,IFNULL(os.value,o.value) AS value
+        $results = $this->db->execute(
+            "SELECT o.name,o.type,IFNULL(os.value,o.value) AS value
 FROM `options` o
 LEFT JOIN `option_stores` os ON o.id = os.option_id AND os.store_id = ? AND os.environment_id = ?
 WHERE o.name LIKE ?",
-            [$this->storeid, $this->environmentid, $prefix . (empty($prefix) ? "" : ".") . "%"])->fetchAll('assoc');
+            [$this->storeid, $this->environmentid, $prefix . (empty($prefix) ? "" : ".") . "%"]
+        )->fetchAll('assoc');
         foreach ($results as $result) {
             if ($result['type'] == "hexcolor" && substr($result['value'], 0, 1) !== "#") {
                 $result['value'] = "#" . $result['value'];
             }
             Configure::write($result['name'], $result['value']);
-
         }
-
     }
 
     public function setLayout()
@@ -95,8 +93,8 @@ WHERE o.name LIKE ?",
         $this->_registry->getController()->viewBuilder()->setLayout($layout);
         $this->loadVars($layout);
         $this->paginate = Configure::read($layout . ".paginate");
-        return Configure::read($layout);
 
+        return Configure::read($layout);
     }
 
     public function loadVar($name)
@@ -115,11 +113,11 @@ WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, $name])->fetch('ass
                 $result['value'] = "#" . $result['value'];
             }
             Configure::write($result['name'], $result['value']);
+
             return $result['value'];
         }
 
         return false;
-
     }
 
     public function testVar($name, $value)
@@ -130,8 +128,8 @@ FROM `options` o
 LEFT JOIN `option_stores` os ON o.id = os.option_id AND os.store_id = ? AND os.environment_id = ?
 WHERE o.name LIKE ?
 AND IFNULL(os.value,o.value) LIKE ?", [$this->storeid, $this->environmentid, $name, $value])->fetchAll('assoc');
-        return ($results[0]['COUNT(*)'] > 0);
 
+        return $results[0]['COUNT(*)'] > 0;
     }
 
     public function getCss()
@@ -143,7 +141,7 @@ AND IFNULL(os.value,o.value) LIKE ?", [$this->storeid, $this->environmentid, $na
             return false;
         }
 
-        list(, $layout) = pluginSplit($layout);
+        [, $layout] = pluginSplit($layout);
 
         $results = $this->db->execute("SELECT o.name,o.type,IFNULL(os.value,o.value) AS value
 FROM options o 
@@ -159,7 +157,7 @@ WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, "$layout.%"])->fetc
                     $line['value'] = "background-image:url(" . Router::url([
                             'controller' => 'files',
                             'action' => 'open',
-                            $line['value']
+                            $line['value'],
                         ]) . ")";
                 }
                 $content[] = "--" . substr($line['name'], $length) . ": " . $line['value'] . ";";
@@ -167,7 +165,6 @@ WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, "$layout.%"])->fetc
         }
 
         return ":root{\n" . implode("\n", $content) . "\n}";
-
     }
 
     public function getCssLastModified()
@@ -180,8 +177,10 @@ WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, "$layout.%"])->fetc
 
         $modified = false;
 
-        $result = $this->db->execute("SELECT MAX(timestamp) FROM options WHERE name LIKE ?",
-            [$layout . "%"])->fetch('num');
+        $result = $this->db->execute(
+            "SELECT MAX(timestamp) FROM options WHERE name LIKE ?",
+            [$layout . "%"]
+        )->fetch('num');
         if (!empty($result[0])) {
             $modified = $result[0];
         }
@@ -195,7 +194,5 @@ WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, $layout . "%"])->fe
         }
 
         return $modified;
-
     }
-
 }

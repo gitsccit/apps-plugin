@@ -38,7 +38,7 @@ class PermissionGroupsTable extends Table
 
         $this->hasMany('Permissions', [
             'className' => 'Apps.Permissions',
-            'foreignKey' => 'permission_group_id'
+            'foreignKey' => 'permission_group_id',
         ]);
     }
 

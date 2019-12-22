@@ -8,7 +8,9 @@
         "gitsccit/web-skeleton": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5"
+        "cakephp/cakephp-codesniffer": "^4.0",
+        "phpunit/phpunit": "^8.5",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {

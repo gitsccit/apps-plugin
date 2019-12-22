@@ -29,7 +29,7 @@ class Api extends Entity
     protected $_accessible = [
         'name' => true,
         'ip_address' => true,
-        'token' => true
+        'token' => true,
     ];
 
     /**
@@ -39,7 +39,7 @@ class Api extends Entity
      */
     protected $_hidden = [
         'id',
-        'token'
+        'token',
     ];
 
     /**
@@ -49,7 +49,7 @@ class Api extends Entity
      */
     public static $filterable = [
         'name',
-        'ip_address'
+        'ip_address',
     ];
 
     /**
@@ -59,6 +59,6 @@ class Api extends Entity
      * @var array
      */
     public static $priority = [
-        'ip_address'
+        'ip_address',
     ];
 }

@@ -39,11 +39,11 @@ class TimeZonesTable extends Table
 
         $this->hasMany('LocationTimeZones', [
             'className' => 'Apps.LocationTimeZones',
-            'foreignKey' => 'time_zone_id'
+            'foreignKey' => 'time_zone_id',
         ]);
         $this->hasMany('Users', [
             'className' => 'Apps.Users',
-            'foreignKey' => 'time_zone_id'
+            'foreignKey' => 'time_zone_id',
         ]);
     }
 

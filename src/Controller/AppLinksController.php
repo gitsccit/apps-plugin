@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class AppLinksController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -25,7 +25,7 @@ class AppLinksController extends AppController
     {
         $this->paginate = [
             'contain' => ['Apps', 'ParentLinks', 'Permissions', 'Files'],
-            'order' => ['sort' => 'ASC']
+            'order' => ['sort' => 'ASC'],
         ];
         $appLinks = $this->paginate($this->AppLinks);
 
@@ -43,7 +43,7 @@ class AppLinksController extends AppController
     {
         $query = $this->AppLinks->find('all', [
             'contain' => ['Apps', 'ParentLinks', 'Permissions', 'Files', 'ChildLinks'],
-            'conditions' => ['AppLinks.id' => $id]
+            'conditions' => ['AppLinks.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -84,7 +84,7 @@ class AppLinksController extends AppController
     public function edit($id = null)
     {
         $appLink = $this->AppLinks->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $appLink = $this->AppLinks->patchEntity($appLink, $this->getRequest()->getData());

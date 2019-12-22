@@ -41,10 +41,11 @@ $priority = [
 
 $collection = [];
 foreach ($files as $file) {
-
     $row = $this->Html->tableCells([
-        $this->Html->image(['controller' => 'files', 'action' => 'resize', $file->id, 50, 50],
-            ['class' => 'table-thumb']),
+        $this->Html->image(
+            ['controller' => 'files', 'action' => 'resize', $file->id, 50, 50],
+            ['class' => 'table-thumb']
+        ),
         $this->Html->link(__($file->name), ['action' => 'view', $file->id]),
         (empty($file->mime_type->name) ? "" : h($file->mime_type->name)),
         Number::toReadableSize($file->size),
@@ -52,10 +53,9 @@ foreach ($files as $file) {
         h($file->height),
         h($file->created_at->setTimezone($timezone)),
         (empty($file->user->display_name) ? "" : h($file->user->display_name)),
-        h($file->accessed_at->setTimezone($timezone))
+        h($file->accessed_at->setTimezone($timezone)),
     ]);
     array_push($collection, $row);
-
 }
 
 echo $this->element('Skeleton.table', ['thead' => $header, 'tbody' => $collection, 'priority' => $priority]);

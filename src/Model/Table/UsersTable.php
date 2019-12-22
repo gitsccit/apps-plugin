@@ -47,7 +47,7 @@ class UsersTable extends Table
 
         $this->belongsTo('TimeZones', [
             'className' => 'Apps.TimeZones',
-            'foreignKey' => 'time_zone_id'
+            'foreignKey' => 'time_zone_id',
         ]);
         $this->belongsTo('Managers', [
             'className' => 'Apps.Users',
@@ -55,21 +55,21 @@ class UsersTable extends Table
         ]);
         $this->hasMany('Files', [
             'className' => 'Apps.Files',
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->hasMany('UserContacts', [
             'className' => 'Apps.UserContacts',
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->hasMany('UserLogins', [
             'className' => 'Apps.UserLogins',
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->belongsToMany('Roles', [
             'className' => 'Apps.Roles',
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'role_id',
-            'joinTable' => 'roles_users'
+            'joinTable' => 'roles_users',
         ]);
     }
 

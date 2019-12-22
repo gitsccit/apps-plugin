@@ -30,7 +30,7 @@ class StoreReturn extends Entity
         'store_id' => true,
         'company_code' => true,
         'return_to_address_code' => true,
-        'store' => true
+        'store' => true,
     ];
 
     /**
@@ -40,7 +40,7 @@ class StoreReturn extends Entity
      */
     protected $_hidden = [
         'id',
-        'store_id'
+        'store_id',
     ];
 
     /**
@@ -49,7 +49,7 @@ class StoreReturn extends Entity
      * @var array
      */
     public static $filterable = [
-        'store' => 'name'
+        'store' => 'name',
     ];
 
     /**

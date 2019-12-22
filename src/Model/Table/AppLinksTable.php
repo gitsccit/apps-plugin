@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Apps\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -45,23 +44,23 @@ class AppLinksTable extends Table
         $this->belongsTo('Apps', [
             'className' => 'Apps.Apps',
             'foreignKey' => 'app_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('ParentLinks', [
             'className' => 'Apps.AppLinks',
-            'foreignKey' => 'app_link_id'
+            'foreignKey' => 'app_link_id',
         ]);
         $this->belongsTo('Permissions', [
             'className' => 'Apps.Permissions',
-            'foreignKey' => 'permission_id'
+            'foreignKey' => 'permission_id',
         ]);
         $this->belongsTo('Files', [
             'className' => 'Apps.Files',
-            'foreignKey' => 'file_id'
+            'foreignKey' => 'file_id',
         ]);
         $this->hasMany('ChildLinks', [
             'className' => 'Apps.AppLinks',
-            'foreignKey' => 'app_link_id'
+            'foreignKey' => 'app_link_id',
         ]);
     }
 
@@ -121,7 +120,7 @@ class AppLinksTable extends Table
 
     /**
      * @param $parent_id
-     * @return Query
+     * @return \Cake\ORM\Query
      */
     public function getLinks($parent_id)
     {

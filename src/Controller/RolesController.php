@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class RolesController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -24,7 +24,7 @@ class RolesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'order' => ['Roles.name' => 'ASC']
+            'order' => ['Roles.name' => 'ASC'],
         ];
         $roles = $this->paginate($this->Roles);
 
@@ -42,7 +42,7 @@ class RolesController extends AppController
     {
         $query = $this->Roles->find('all', [
             'contain' => ['Permissions', 'Users'],
-            'conditions' => ['Roles.id' => $id]
+            'conditions' => ['Roles.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -81,7 +81,7 @@ class RolesController extends AppController
     public function edit($id = null)
     {
         $role = $this->Roles->get($id, [
-            'contain' => ['Permissions', 'Users']
+            'contain' => ['Permissions', 'Users'],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $data = $this->getRequest()->getData();
@@ -89,28 +89,28 @@ class RolesController extends AppController
             $new_permissions = array_map(function ($p) {
                 return (int)$p;
             }, $new_permissions);
-            $name = (!empty($data['name'])) ? $data['name'] : $role->name;
+            $name = !empty($data['name']) ? $data['name'] : $role->name;
             $data = [
                 'name' => $name,
                 'permissions' => [
-                    '_ids' => $new_permissions
-                ]
+                    '_ids' => $new_permissions,
+                ],
             ];
             $role = $this->Roles->patchEntity($role, $data);
             if ($this->Roles->save($role)) {
                 $this->Flash->success(__("The role $name has been Updated."));
+
                 return $this->redirect(['action' => 'edit', $id]);
             }
             $this->Flash->error(__('The role could not be updated. Please, try again.'));
         }
         $this->loadModel('Apps.PermissionGroups');
         $permissionGroups = $this->PermissionGroups->find('all', [
-            'contain' => 'permissions'
+            'contain' => 'permissions',
         ])->toArray();
 
         $users = $this->Roles->Users->find('list');
         $this->set(compact('role', 'users', 'permissionGroups'));
-
     }
 
     /**

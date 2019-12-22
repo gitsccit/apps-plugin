@@ -28,7 +28,6 @@ use Cake\ORM\Entity;
  */
 class File extends Entity
 {
-
     private $imagepng = 13; // TODO is is an ugly solution; we should find the key for "image/png" in the database
 
     /**
@@ -53,7 +52,7 @@ class File extends Entity
         'accessed_at' => true,
         'mime_types' => true,
         'user' => true,
-        'app_links' => true
+        'app_links' => true,
     ];
 
     /**
@@ -62,7 +61,7 @@ class File extends Entity
      * @var array
      */
     protected $_hidden = [
-        'id'
+        'id',
     ];
 
     /**
@@ -89,10 +88,12 @@ class File extends Entity
         if ($this->hash === false) {
             $this->hash = md5($this->src . $this->path . $this->mime_type_id . $this->name . $this->size . $this->width . $this->height);
         }
+
         return $this->hash;
     }
 
     // fetches and returns the content body of the file
+
     public function content($drivecomponent, $width = false, $height = false)
     {
 
@@ -101,6 +102,7 @@ class File extends Entity
             if (is_readable($this->path)) {
                 return file_get_contents($this->path);
             }
+
             return false;
         }
 
@@ -127,7 +129,6 @@ class File extends Entity
         }
 
         return $content;
-
     }
 
     private function resize($content, $new_width = false, $new_height = false)
@@ -184,7 +185,5 @@ class File extends Entity
         $this->mime_type->name = "image/png";
 
         return $content;
-
     }
-
 }

@@ -44,21 +44,21 @@ class PermissionsTable extends Table
 
         $this->belongsTo('PermissionGroups', [
             'className' => 'Apps.PermissionGroups',
-            'foreignKey' => 'permission_group_id'
+            'foreignKey' => 'permission_group_id',
         ]);
         $this->hasMany('AppLinks', [
             'className' => 'Apps.AppLinks',
-            'foreignKey' => 'permission_id'
+            'foreignKey' => 'permission_id',
         ]);
         $this->hasMany('Environments', [
             'className' => 'Apps.Environments',
-            'foreignKey' => 'permission_id'
+            'foreignKey' => 'permission_id',
         ]);
         $this->belongsToMany('Roles', [
             'className' => 'Apps.Roles',
             'foreignKey' => 'permission_id',
             'targetForeignKey' => 'role_id',
-            'joinTable' => 'permissions_roles'
+            'joinTable' => 'permissions_roles',
         ]);
     }
 
@@ -113,7 +113,7 @@ class PermissionsTable extends Table
 
     public function findPermissionExists(Query $query, $options = [])
     {
-        $permission_name = ($options['permission']) ? $options['permission'] : null;
+        $permission_name = $options['permission'] ? $options['permission'] : null;
         $query->where(['name' => $permission_name]);
 
         return !empty($query->first()->name);

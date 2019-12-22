@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class MimeTypesController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -25,7 +25,7 @@ class MimeTypesController extends AppController
     {
         $this->paginate = [
             'contain' => ['Thumbnail'],
-            'order' => ['MimeTypes.name' => 'ASC']
+            'order' => ['MimeTypes.name' => 'ASC'],
         ];
         $mimeTypes = $this->paginate($this->MimeTypes);
 
@@ -43,7 +43,7 @@ class MimeTypesController extends AppController
     {
         $query = $this->MimeTypes->find('all', [
             'contain' => ['Thumbnail', 'Files'],
-            'conditions' => ['MimeTypes.id' => $id]
+            'conditions' => ['MimeTypes.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -84,7 +84,7 @@ class MimeTypesController extends AppController
     public function edit($id = null)
     {
         $mimeType = $this->MimeTypes->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $mimeType = $this->MimeTypes->patchEntity($mimeType, $this->getRequest()->getData());

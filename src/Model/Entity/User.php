@@ -58,7 +58,7 @@ class User extends Entity
         'files' => true,
         'user_contacts' => true,
         'user_logins' => true,
-        'roles' => true
+        'roles' => true,
     ];
     /**
      * Fields that are excluded from JSON versions of the entity.
@@ -69,7 +69,7 @@ class User extends Entity
         'id',
         'time_zone_id',
         'manager_id',
-        'ldapid'
+        'ldapid',
     ];
 
     /**
@@ -83,7 +83,7 @@ class User extends Entity
         'title',
         'location',
         'department',
-        'manager' => 'display_name'
+        'manager' => 'display_name',
     ];
 
     /**
@@ -112,7 +112,7 @@ class User extends Entity
         $permissions = [$permission];
 
         if (($components = explode('.', $permission)) && count($components) === 3) {
-            list($plugin, $controller, $action) = $components;
+            [$plugin, $controller, $action] = $components;
             $permissions = array_merge($permissions, ["$plugin.$controller.*", "$plugin.*.$action"]);
         }
 

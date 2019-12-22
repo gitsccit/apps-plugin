@@ -7,8 +7,8 @@
 ?>
 
 <div id="data" class="tile-list">
-    <?php if(!empty($collection)): ?>
-        <?php foreach($collection as $tile): ?>
+    <?php if (!empty($collection)) : ?>
+        <?php foreach ($collection as $tile) : ?>
             <?= $tile ?>
         <?php endforeach; ?>
     <?php endif; ?>

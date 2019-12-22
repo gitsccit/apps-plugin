@@ -4,13 +4,16 @@
 /**
  * @var \Apps\View\AppView $this
  * @var \Apps\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
- * @var boolean $canSynchronizeLDAP
+ * @var bool $canSynchronizeLDAP
  */
 
 $links = [];
 if ($canSynchronizeLDAP) {
-    $links[] = $this->Html->link('Synchronize Active Directory', ['action' => 'synchronizeLdap'],
-        ['class' => 'button']);
+    $links[] = $this->Html->link(
+        'Synchronize Active Directory',
+        ['action' => 'synchronizeLdap'],
+        ['class' => 'button']
+    );
 }
 echo $this->element('Apps.table_filter', ['links' => $links]);
 
@@ -25,7 +28,7 @@ $header = $this->Html->tableHeaders([
     $this->Paginator->sort('department', 'Department'),
     $this->Paginator->sort('Manager.display_name', 'Manager'),
     $this->Paginator->sort('timezone.name', 'Timezone'),
-    $this->Paginator->sort('active', 'Active')
+    $this->Paginator->sort('active', 'Active'),
 ]);
 
 // priority 0 always shows
@@ -45,7 +48,6 @@ $priority = [
 
 $collection = [];
 foreach ($users as $user) {
-
     $ext = $mobile = '';
     foreach ($user->user_contacts as $uc) {
         if ($uc->type == "Ext") {

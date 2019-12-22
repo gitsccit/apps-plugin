@@ -11,5 +11,5 @@ if ($entity->has('id')) {
     $title .= " #$entity->id";
 }
 echo "<h1><span class=\"icon-plus green\"></span> $title</h1><hr>";
-echo ($form = $this->fetch('form')) ? $form :
+echo $form = $this->fetch('form') ? $form :
     $this->element('Apps.basic_form', compact('entity', 'accessibleFields'));

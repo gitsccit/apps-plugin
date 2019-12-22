@@ -48,7 +48,7 @@ class AppLink extends Entity
         'app' => true,
         'app_links' => true,
         'permission' => true,
-        'file' => true
+        'file' => true,
     ];
 
     /**
@@ -61,7 +61,7 @@ class AppLink extends Entity
         'app_id',
         'app_link_id',
         'permission_id',
-        'file_id'
+        'file_id',
     ];
 
     /**
@@ -70,7 +70,7 @@ class AppLink extends Entity
      * @var array
      */
     public static $filterable = [
-        'app' => 'name'
+        'app' => 'name',
     ];
 
     /**

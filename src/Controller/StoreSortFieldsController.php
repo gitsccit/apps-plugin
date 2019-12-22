@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class StoreSortFieldsController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -24,7 +24,7 @@ class StoreSortFieldsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Stores']
+            'contain' => ['Stores'],
         ];
         $storeSortFields = $this->paginate($this->StoreSortFields);
 
@@ -42,7 +42,7 @@ class StoreSortFieldsController extends AppController
     {
         $query = $this->StoreSortFields->find('all', [
             'contain' => ['Stores'],
-            'conditions' => ['StoreSortFields.id' => $id]
+            'conditions' => ['StoreSortFields.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -80,7 +80,7 @@ class StoreSortFieldsController extends AppController
     public function edit($id = null)
     {
         $storeSortField = $this->StoreSortFields->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $storeSortField = $this->StoreSortFields->patchEntity($storeSortField, $this->getRequest()->getData());

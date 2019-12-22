@@ -36,6 +36,6 @@ class UserLogin extends Entity
         'width' => true,
         'height' => true,
         'timestamp' => true,
-        'user' => true
+        'user' => true,
     ];
 }

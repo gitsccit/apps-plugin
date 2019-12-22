@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class StoreDivisionsController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -43,7 +43,7 @@ class StoreDivisionsController extends AppController
     {
         $query = $this->StoreDivisions->find('all', [
             'contain' => ['Stores'],
-            'conditions' => ['StoreDivisions.id' => $id]
+            'conditions' => ['StoreDivisions.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -81,7 +81,7 @@ class StoreDivisionsController extends AppController
     public function edit($id = null)
     {
         $storeDivision = $this->StoreDivisions->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $storeDivision = $this->StoreDivisions->patchEntity($storeDivision, $this->getRequest()->getData());

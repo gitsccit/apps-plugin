@@ -13,7 +13,7 @@ namespace Apps\Controller;
 class ApisController extends AppController
 {
     public $crud = [
-        'fallbackTemplatePath' => 'Admin'
+        'fallbackTemplatePath' => 'Admin',
     ];
 
     /**
@@ -24,7 +24,7 @@ class ApisController extends AppController
     public function index()
     {
         $this->paginate = [
-            'order' => ['Apis.name' => 'ASC']
+            'order' => ['Apis.name' => 'ASC'],
         ];
         $apis = $this->paginate($this->Apis);
 
@@ -42,7 +42,7 @@ class ApisController extends AppController
     {
         $query = $this->Apis->find('all', [
             'contain' => [],
-            'conditions' => ['Apis.id' => $id]
+            'conditions' => ['Apis.id' => $id],
         ]);
 
         $results = $this->Crud->paginateAssociations($query);
@@ -81,7 +81,7 @@ class ApisController extends AppController
     public function edit($id = null)
     {
         $api = $this->Apis->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $api = $this->Apis->patchEntity($api, $this->getRequest()->getData());

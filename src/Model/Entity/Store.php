@@ -42,7 +42,7 @@ class Store extends Entity
         'store_ip_maps' => true,
         'store_returns' => true,
         'store_sort_fields' => true,
-        'child_stores' => true
+        'child_stores' => true,
     ];
 
     /**
@@ -52,7 +52,7 @@ class Store extends Entity
      */
     protected $_hidden = [
         'id',
-        'parent_id'
+        'parent_id',
     ];
 
     /**
@@ -61,7 +61,7 @@ class Store extends Entity
      * @var array
      */
     public static $filterable = [
-        'name'
+        'name',
     ];
 
     /**
@@ -71,6 +71,6 @@ class Store extends Entity
      * @var array
      */
     public static $priority = [
-        'active'
+        'active',
     ];
 }

@@ -39,7 +39,7 @@ class StoreReturnsTable extends Table
 
         $this->belongsTo('Stores', [
             'className' => 'Apps.Stores',
-            'foreignKey' => 'store_id'
+            'foreignKey' => 'store_id',
         ]);
     }
 
