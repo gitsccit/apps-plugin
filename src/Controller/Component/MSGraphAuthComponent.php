@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /*
  * Authenticates a user using microsoft's graph API.
  * Uses the azure app "SCC Intranet Login"
@@ -26,8 +28,11 @@ class MSGraphAuthComponent extends Component
      * @var \Cake\Controller\Controller
      */
     protected $controller;
-    protected $oauthForwarding;
-    private $config;
+
+    /**
+     * @var \Cake\Http\Session
+     */
+    private \Cake\Http\Session $session;
 
     public function initialize(array $config): void
     {

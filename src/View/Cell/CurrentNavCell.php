@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\View\Cell;
 
@@ -11,7 +12,6 @@ use Cake\View\Cell;
  */
 class CurrentNavCell extends Cell
 {
-
     /**
      * List of valid options that can be passed into this
      * cell's constructor.
@@ -25,7 +25,7 @@ class CurrentNavCell extends Cell
      *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->loadModel('Apps.Apps');
         $this->loadModel('Apps.AppLinks');
@@ -37,7 +37,7 @@ class CurrentNavCell extends Cell
      * @return void
      *
      */
-    public function display($appId = null)
+    public function display($appId = null): void
     {
         /**
          * dwere algorithm with session management for nav

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /*
  * Authenticates a user using microsoft's graph API.
  * Uses the azure app "SCC Intranet Login"
@@ -13,15 +15,14 @@ use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Cake\Http\Exception\ServiceUnavailableException;
-use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 
 class ConfigureFromDatabaseComponent extends Component
 {
 
+    public $paginate = false;
     private $storeid = false;
     private $db = false;
-    public $paginate = false;
 
     public function initialize(array $config): void
     {
@@ -65,6 +66,39 @@ AND s.active = 'yes'", [$ip, $port])->fetch('assoc');
 
     }
 
+    public function loadVars($prefix = "")
+    {
+
+        if (empty($this->storeid) || empty($this->environmentid) || empty($this->db)) {
+            return false;
+        }
+
+        $results = $this->db->execute("SELECT o.name,o.type,IFNULL(os.value,o.value) AS value
+FROM `options` o
+LEFT JOIN `option_stores` os ON o.id = os.option_id AND os.store_id = ? AND os.environment_id = ?
+WHERE o.name LIKE ?",
+            [$this->storeid, $this->environmentid, $prefix . (empty($prefix) ? "" : ".") . "%"])->fetchAll('assoc');
+        foreach ($results as $result) {
+            if ($result['type'] == "hexcolor" && substr($result['value'], 0, 1) !== "#") {
+                $result['value'] = "#" . $result['value'];
+            }
+            Configure::write($result['name'], $result['value']);
+
+        }
+
+    }
+
+    public function setLayout()
+    {
+
+        $layout = Configure::read("store.layout");
+        $this->_registry->getController()->viewBuilder()->setLayout($layout);
+        $this->loadVars($layout);
+        $this->paginate = Configure::read($layout . ".paginate");
+        return Configure::read($layout);
+
+    }
+
     public function loadVar($name)
     {
 
@@ -88,28 +122,6 @@ WHERE o.name LIKE ?", [$this->storeid, $this->environmentid, $name])->fetch('ass
 
     }
 
-    public function loadVars($prefix = "")
-    {
-
-        if (empty($this->storeid) || empty($this->environmentid) || empty($this->db)) {
-            return false;
-        }
-
-        $results = $this->db->execute("SELECT o.name,o.type,IFNULL(os.value,o.value) AS value
-FROM `options` o
-LEFT JOIN `option_stores` os ON o.id = os.option_id AND os.store_id = ? AND os.environment_id = ?
-WHERE o.name LIKE ?",
-            [$this->storeid, $this->environmentid, $prefix . (empty($prefix) ? "" : ".") . "%"])->fetchAll('assoc');
-        foreach ($results as $result) {
-            if ($result['type'] == "hexcolor" && substr($result['value'], 0, 1) !== "#") {
-                $result['value'] = "#" . $result['value'];
-            }
-            Configure::write($result['name'], $result['value']);
-
-        }
-
-    }
-
     public function testVar($name, $value)
     {
 
@@ -119,17 +131,6 @@ LEFT JOIN `option_stores` os ON o.id = os.option_id AND os.store_id = ? AND os.e
 WHERE o.name LIKE ?
 AND IFNULL(os.value,o.value) LIKE ?", [$this->storeid, $this->environmentid, $name, $value])->fetchAll('assoc');
         return ($results[0]['COUNT(*)'] > 0);
-
-    }
-
-    public function setLayout()
-    {
-
-        $layout = Configure::read("store.layout");
-        $this->_registry->getController()->viewBuilder()->setLayout($layout);
-        $this->loadVars($layout);
-        $this->paginate = Configure::read($layout . ".paginate");
-        return Configure::read($layout);
 
     }
 

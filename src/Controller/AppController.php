@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -15,9 +17,7 @@
 
 namespace Apps\Controller;
 
-use Cake\Event\Event;
 use Cake\Event\EventInterface;
-use Cake\Http\Response;
 
 /**
  * Application Controller
@@ -87,6 +87,11 @@ class AppController extends \Skeleton\Controller\AppController
         $session->write('BrowsingHistory', $history);
     }
 
+    public function trackHistory()
+    {
+        return true;
+    }
+
     public function beforeRender(EventInterface $event)
     {
         parent::beforeRender($event);
@@ -112,10 +117,5 @@ class AppController extends \Skeleton\Controller\AppController
         $action = $this->getRequest()->getParam('action');
 
         return $user->hasPermission("$plugin.$controller.$action");
-    }
-
-    public function trackHistory()
-    {
-        return true;
     }
 }

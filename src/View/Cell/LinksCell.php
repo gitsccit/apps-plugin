@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\View\Cell;
 
@@ -22,7 +23,7 @@ class LinksCell extends Cell
      *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->loadModel('Apps.AppLinks');
         $this->loadModel('Apps.Users');
@@ -33,7 +34,7 @@ class LinksCell extends Cell
      *
      * @return void
      */
-    public function display($id)
+    public function display($id): void
     {
         $links = $this->AppLinks->getLinks($id);
         $this->set('links', $links);

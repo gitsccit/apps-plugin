@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -21,7 +23,7 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Exception\ServiceUnavailableException;
 use Cake\View\Exception\MissingTemplateException;*/
 
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\ORM\TableRegistry;
 use Cake\View\Exception\UnexpectedValueException;
 
@@ -35,13 +37,13 @@ use Cake\View\Exception\UnexpectedValueException;
 class SessionController extends AppController
 {
 
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->loadComponent('Apps.MSGraphAuth');
     }
 
-    public function beforeFilter(Event $event)
+    public function beforeFilter(EventInterface $event)
     {
         // sets the index, start, and end actions to not require login
         $this->Auth->allow(["index", "start", "end"]);

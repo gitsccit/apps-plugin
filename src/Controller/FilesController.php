@@ -1,11 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\Controller;
 
-use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
 
@@ -25,7 +25,7 @@ class FilesController extends AppController
     // TODO is is an ugly solution; we should find the key for "image/png" in the database
     protected $imagepng = 13;
 
-    public function beforeFilter(Event $event)
+    public function beforeFilter(EventInterface $event)
     {
         $this->Auth->allow(["open", "download", "resize", "css"]);
     }

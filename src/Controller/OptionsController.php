@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\Controller;
 
-use Apps\Controller\ClassRegistry;
 use Cake\ORM\TableRegistry;
 
 /**

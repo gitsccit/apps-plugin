@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\Model\Table;
 
@@ -33,7 +34,7 @@ class AppLinksTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -70,7 +71,7 @@ class AppLinksTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->nonNegativeInteger('id')
@@ -108,7 +109,7 @@ class AppLinksTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['app_id'], 'Apps'));
         $rules->add($rules->existsIn(['app_link_id'], 'ParentLinks'));
@@ -152,7 +153,7 @@ class AppLinksTable extends Table
      *
      * @return string
      */
-    public static function defaultConnectionName()
+    public static function defaultConnectionName(): string
     {
         return 'apps';
     }

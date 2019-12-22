@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\View\Cell;
 
@@ -22,7 +23,7 @@ class NavCell extends Cell
      *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->loadModel('Apps.Apps');
         $this->loadModel('Apps.Users');
@@ -33,7 +34,7 @@ class NavCell extends Cell
      *
      * @return void
      */
-    public function display()
+    public function display(): void
     {
         $apps = $this->Apps->find();
         $this->set(compact('apps'));
