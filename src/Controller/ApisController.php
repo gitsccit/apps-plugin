@@ -56,7 +56,7 @@ class ApisController extends AppController
      */
     public function add()
     {
-        $api = $this->Apis->newEntity();
+        $api = $this->Apis->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $api = $this->Apis->patchEntity($api, $this->getRequest()->getData());
             if ($this->Apis->save($api)) {

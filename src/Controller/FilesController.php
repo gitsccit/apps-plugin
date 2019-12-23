@@ -84,7 +84,7 @@ class FilesController extends AppController
      */
     public function add()
     {
-        $file = $this->Files->newEntity();
+        $file = $this->Files->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $file = $this->Files->patchEntity($file, $this->getRequest()->getData());
             if ($this->Files->save($file)) {
@@ -371,7 +371,7 @@ class FilesController extends AppController
         }
 
         // save the file!
-        $file = $this->Files->newEntity();
+        $file = $this->Files->newEmptyEntity();
         $file->mime_type_id = $mime_type->id;
         $file->name = $filename;
         $file->size = strlen($content);

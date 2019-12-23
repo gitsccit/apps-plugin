@@ -57,7 +57,7 @@ class AppLinksController extends AppController
      */
     public function add()
     {
-        $appLink = $this->AppLinks->newEntity();
+        $appLink = $this->AppLinks->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $appLink = $this->AppLinks->patchEntity($appLink, $this->getRequest()->getData());
             if ($this->AppLinks->save($appLink)) {

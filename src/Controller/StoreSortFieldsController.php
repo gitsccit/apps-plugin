@@ -56,7 +56,7 @@ class StoreSortFieldsController extends AppController
      */
     public function add()
     {
-        $storeSortField = $this->StoreSortFields->newEntity();
+        $storeSortField = $this->StoreSortFields->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $storeSortField = $this->StoreSortFields->patchEntity($storeSortField, $this->getRequest()->getData());
             if ($this->StoreSortFields->save($storeSortField)) {

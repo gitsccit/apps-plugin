@@ -53,7 +53,7 @@ class PermissionGroupsController extends AppController
      */
     public function add()
     {
-        $permissionGroup = $this->PermissionGroups->newEntity();
+        $permissionGroup = $this->PermissionGroups->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $permissionGroup = $this->PermissionGroups->patchEntity($permissionGroup, $this->getRequest()->getData());
             if ($this->PermissionGroups->save($permissionGroup)) {

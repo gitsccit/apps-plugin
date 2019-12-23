@@ -56,7 +56,7 @@ class LocationTimeZonesController extends AppController
      */
     public function add()
     {
-        $locationTimeZone = $this->LocationTimeZones->newEntity();
+        $locationTimeZone = $this->LocationTimeZones->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $locationTimeZone = $this->LocationTimeZones->patchEntity($locationTimeZone, $this->getRequest()->getData());
             if ($this->LocationTimeZones->save($locationTimeZone)) {

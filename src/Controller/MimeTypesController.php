@@ -57,7 +57,7 @@ class MimeTypesController extends AppController
      */
     public function add()
     {
-        $mimeType = $this->MimeTypes->newEntity();
+        $mimeType = $this->MimeTypes->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $mimeType = $this->MimeTypes->patchEntity($mimeType, $this->getRequest()->getData());
             if ($this->MimeTypes->save($mimeType)) {

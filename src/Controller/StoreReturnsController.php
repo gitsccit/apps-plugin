@@ -56,7 +56,7 @@ class StoreReturnsController extends AppController
      */
     public function add()
     {
-        $storeReturn = $this->StoreReturns->newEntity();
+        $storeReturn = $this->StoreReturns->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $storeReturn = $this->StoreReturns->patchEntity($storeReturn, $this->getRequest()->getData());
             if ($this->StoreReturns->save($storeReturn)) {

@@ -56,7 +56,7 @@ class AppsController extends AppController
      */
     public function add()
     {
-        $app = $this->Apps->newEntity();
+        $app = $this->Apps->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $app = $this->Apps->patchEntity($app, $this->getRequest()->getData());
             if ($this->Apps->save($app)) {
@@ -116,7 +116,7 @@ class AppsController extends AppController
                             if ($temp) {
                                 $applink = $this->AppLinks->get($temp);
                             } else {
-                                $applink = $this->AppLinks->newEntity();
+                                $applink = $this->AppLinks->newEmptyEntity();
                                 unset($val['id']);
                             }
 

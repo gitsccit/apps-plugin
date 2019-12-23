@@ -57,7 +57,7 @@ class EnvironmentsController extends AppController
      */
     public function add()
     {
-        $environment = $this->Environments->newEntity();
+        $environment = $this->Environments->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $environment = $this->Environments->patchEntity($environment, $this->getRequest()->getData());
             if ($this->Environments->save($environment)) {

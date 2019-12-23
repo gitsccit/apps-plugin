@@ -57,7 +57,7 @@ class StoreDivisionsController extends AppController
      */
     public function add()
     {
-        $storeDivision = $this->StoreDivisions->newEntity();
+        $storeDivision = $this->StoreDivisions->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $storeDivision = $this->StoreDivisions->patchEntity($storeDivision, $this->getRequest()->getData());
             if ($this->StoreDivisions->save($storeDivision)) {

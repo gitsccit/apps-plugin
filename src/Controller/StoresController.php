@@ -65,7 +65,7 @@ class StoresController extends AppController
      */
     public function add()
     {
-        $store = $this->Stores->newEntity();
+        $store = $this->Stores->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $store = $this->Stores->patchEntity($store, $this->getRequest()->getData());
             if ($this->Stores->save($store)) {

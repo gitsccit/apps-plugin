@@ -333,7 +333,7 @@ class MSGraphComponent extends Component
 
         // insert a new user if not found
         if (is_null($user)) {
-            $user = $users->newEntity();
+            $user = $users->newEmptyEntity();
             $user->username = "";
             $user->display_name = "";
             $user->first_name = "";
@@ -493,7 +493,7 @@ LIMIT 1", [$user->location . "%"]);
         }
 
         foreach ($user_contacts as $c) {
-            $contact = $contacts->newEntity();
+            $contact = $contacts->newEmptyEntity();
             $contact->user_id = $user['id'];
             $contact->type = $c[0];
             $contact->contact = $c[1];

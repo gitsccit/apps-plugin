@@ -53,7 +53,7 @@ class TimeZonesController extends AppController
      */
     public function add()
     {
-        $timeZone = $this->TimeZones->newEntity();
+        $timeZone = $this->TimeZones->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $timeZone = $this->TimeZones->patchEntity($timeZone, $this->getRequest()->getData());
             if ($this->TimeZones->save($timeZone)) {

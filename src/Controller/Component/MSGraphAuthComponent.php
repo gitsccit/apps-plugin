@@ -154,7 +154,7 @@ class MSGraphAuthComponent extends Component
 
         // insert a new user if not found
         if (is_null($user)) {
-            $user = $users->newEntity();
+            $user = $users->newEmptyEntity();
             $user->ldapid = $msgraph_user['id'];
             $user->active = "no";
             $users->save($user);
@@ -184,7 +184,7 @@ class MSGraphAuthComponent extends Component
     {
 
         $user_logins = TableRegistry::getTableLocator()->get('Apps.UserLogins');
-        $user_login = $user_logins->newEntity();
+        $user_login = $user_logins->newEmptyEntity();
         $user_login->user_id = $user['id'];
         $user_login->ip_address = $_SERVER['REMOTE_ADDR'];
         $user_login->browser = $_SERVER['HTTP_USER_AGENT'];

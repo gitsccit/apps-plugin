@@ -57,7 +57,7 @@ class PermissionsController extends AppController
      */
     public function add()
     {
-        $permission = $this->Permissions->newEntity();
+        $permission = $this->Permissions->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $permission = $this->Permissions->patchEntity($permission, $this->getRequest()->getData());
             if ($this->Permissions->save($permission)) {

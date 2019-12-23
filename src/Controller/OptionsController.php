@@ -63,7 +63,7 @@ class OptionsController extends AppController
      */
     public function add()
     {
-        $option = $this->Options->newEntity();
+        $option = $this->Options->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $data = $this->getRequest()->getData();
             if ($this->validate($data['type'], $data['value'])) {
@@ -133,7 +133,7 @@ class OptionsController extends AppController
                                 $store_id = (int)substr($key[1], 1);
                                 $environment_id = (int)substr($key[2], 1);
 
-                                $optionstore = $this->OptionStores->newEntity();
+                                $optionstore = $this->OptionStores->newEmptyEntity();
                                 $optionstore->option_id = $id;
                                 $optionstore->store_id = $store_id;
                                 $optionstore->environment_id = $environment_id;

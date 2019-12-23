@@ -56,7 +56,7 @@ class StoreIpMapsController extends AppController
      */
     public function add()
     {
-        $storeIpMap = $this->StoreIpMaps->newEntity();
+        $storeIpMap = $this->StoreIpMaps->newEmptyEntity();
         if ($this->getRequest()->is('post')) {
             $storeIpMap = $this->StoreIpMaps->patchEntity($storeIpMap, $this->getRequest()->getData());
             if ($this->StoreIpMaps->save($storeIpMap)) {
