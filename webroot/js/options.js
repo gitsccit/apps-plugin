@@ -1,17 +1,15 @@
 window.addEventListener("load", optionInitialize);
 
-function optionInitialize()
-{
+function optionInitialize() {
     let elm = document.getElementById('type');
     if (elm) {
-        elm.addEventListener('change',optionValue);
+        elm.addEventListener('change', optionValue);
         let event = new Event('change');
         elm.dispatchEvent(event);
     }
 }
 
-function optionValue()
-{
+function optionValue() {
 
     let type = this.options[this.selectedIndex].value;
     let value = document.getElementById('value');

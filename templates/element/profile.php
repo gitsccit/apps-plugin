@@ -21,24 +21,24 @@ if (!empty($subtitle) && is_array($subtitle)) {
     <div class="width-">
         <div class="flex-row profile">
             <?php if (!empty($image)) : ?>
-            <div>
-                <div class="image" style="background-image:url(<?= $image ?>)"></div>
-            </div>
+                <div>
+                    <div class="image" style="background-image:url(<?= $image ?>)"></div>
+                </div>
             <?php endif; ?>
             <div>
-                <h2><?= h(empty($title) ? "User Profile" : $title) ?></h2>
+                <h2><?= $this->Utils->display($title) ?></h2>
                 <?php if (!empty($subtitle)) : ?>
-                <div class="profile-contact"><span><?= $subtitle ?></span></div>
+                    <div class="profile-contact"><span><?= $this->Utils->display($subtitle) ?></span></div>
                 <?php endif; ?>
                 <div class="width-">
                     <div class="flex-row">
-                        <?php foreach ($data as $table) { ?>
+                        <?php foreach ($data as $table) : ?>
                             <div>
                                 <table class="table-data">
                                     <?= $this->Html->tableCells($table) ?>
                                 </table>
                             </div>
-                        <?php } ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

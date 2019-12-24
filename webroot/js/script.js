@@ -1,5 +1,4 @@
-function app_nav_toggle()
-{
+function app_nav_toggle() {
     document.body.classList.toggle('collapsed');
     let collapsed = false;
     if (document.body.classList.contains('collapsed')) {
@@ -11,8 +10,7 @@ function app_nav_toggle()
     }
 }
 
-function app_nav_select(elm, appid, title)
-{
+function app_nav_select(elm, appid, title) {
     // add highlight
     document.querySelector('#apps-navcolumn-1 .active').classList.remove('active');
     elm.parentNode.classList.add('active');
@@ -27,8 +25,7 @@ function app_nav_select(elm, appid, title)
 
 var app_global_search_xhr = false;
 
-function app_global_search_handler(event)
-{
+function app_global_search_handler(event) {
 
     event.preventDefault();
 
@@ -69,8 +66,7 @@ function app_global_search_handler(event)
 
 }
 
-function app_global_search_keyup(obj)
-{
+function app_global_search_keyup(obj) {
 
     let value = obj.value.trim();
     if (value.length == 0) {
@@ -79,8 +75,7 @@ function app_global_search_keyup(obj)
 
 }
 
-function app_global_search_start(query)
-{
+function app_global_search_start(query) {
 
     var html = '<h6><div class="lds-dual-ring"></div>searching...</h6>';
     document.getElementById('global-search-results').innerHTML = html;
@@ -88,8 +83,7 @@ function app_global_search_start(query)
 
 }
 
-function app_global_search_finish(response)
-{
+function app_global_search_finish(response) {
 
     // close the search if response is false
     if (response === false) {
@@ -126,8 +120,7 @@ function app_global_search_finish(response)
 window.addEventListener("resize", priorityTableCalculate);
 window.addEventListener("load", priorityTableCalculate);
 
-function priorityTableCalculate()
-{
+function priorityTableCalculate() {
 
     var container = document.getElementById('priority-table');
     if (container == null) {
@@ -163,8 +156,7 @@ function priorityTableCalculate()
 }
 
 // gets the lowest priority non-hidden col object
-function priorityTableGetLowestPriority()
-{
+function priorityTableGetLowestPriority() {
 
     var temp = document.querySelectorAll('#priority-table col');
 
@@ -187,8 +179,7 @@ function priorityTableGetLowestPriority()
 
 }
 
-function priorityTableGetColumn(obj)
-{
+function priorityTableGetColumn(obj) {
 
     var temp = document.querySelectorAll('#priority-table col');
     for (var i = 0; i < temp.length; i++) {
@@ -201,8 +192,7 @@ function priorityTableGetColumn(obj)
 
 }
 
-function priorityTableGetColumnWidth(obj)
-{
+function priorityTableGetColumnWidth(obj) {
 
     var col = priorityTableGetColumn(obj);
     if (col) {
@@ -215,8 +205,7 @@ function priorityTableGetColumnWidth(obj)
 
 }
 
-function priorityTableApplyToCells(obj)
-{
+function priorityTableApplyToCells(obj) {
 
     var display = "table-cell";
     if (obj.style.visibility == "collapse") {
@@ -242,8 +231,7 @@ function priorityTableApplyToCells(obj)
 /** TAB LISTS **/
 window.addEventListener("load", tabListInitialize);
 
-function tabListInitialize()
-{
+function tabListInitialize() {
 
     // set all tab-link to default display
     var temp = document.querySelectorAll('.tab-link');
@@ -265,8 +253,7 @@ function tabListInitialize()
 
 }
 
-function tabListSelect(obj)
-{
+function tabListSelect(obj) {
 
     // do nothing if this tab is currently active
     if (obj.classList.contains('active')) {
@@ -298,16 +285,14 @@ function tabListSelect(obj)
 }
 
 //https://www.w3schools.com/js/js_cookies.asp
-function setCookie(cname, cvalue, exdays)
-{
+function setCookie(cname, cvalue, exdays) {
     let d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function getCookie(cname)
-{
+function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -326,8 +311,7 @@ function getCookie(cname)
 }
 
 /** LIGHTBOX **/
-function lightbox(url)
-{
+function lightbox(url) {
 
     lightboxOrigin = this;
 
@@ -369,8 +353,7 @@ function lightbox(url)
 }
 
 // replaces all links with references to reload the lightbox
-function lightboxUrlHandler()
-{
+function lightboxUrlHandler() {
 
     var links = document.body.querySelectorAll('.lightbox-content a');
     for (var i = 0; i < links.length; i++) {
@@ -389,16 +372,14 @@ function lightboxUrlHandler()
 
 }
 
-function lightboxLink()
-{
+function lightboxLink() {
 
     var link = this.getAttribute('data-href');
     lightbox(link);
 
 }
 
-function lightboxForm(event)
-{
+function lightboxForm(event) {
     event.preventDefault();
 
     // proceed with background ajax form submit
@@ -433,8 +414,7 @@ function lightboxForm(event)
 /** Textarea maxlength counter **/
 window.addEventListener("load", textareaMaxLengthInitialize);
 
-function textareaMaxLengthInitialize()
-{
+function textareaMaxLengthInitialize() {
     let elements = document.getElementsByTagName('textarea');
     for (let i = 0; i < elements.length; i++) {
         let max = elements[i].getAttribute('maxlength');
@@ -451,15 +431,13 @@ function textareaMaxLengthInitialize()
     }
 }
 
-function textareaMaxLength()
-{
+function textareaMaxLength() {
     let max = this.getAttribute('maxlength');
     let length = this.value.length;
     this.nextElementSibling.childNodes[0].innerText = length + " of " + max;
 }
 
-function url_fix(controller, action)
-{
+function url_fix(controller, action) {
     let url = window.location.toString();
     let pos = url.indexOf('/' + controller + '/');
     if (pos) {

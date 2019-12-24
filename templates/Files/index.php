@@ -6,8 +6,6 @@
  * @var \Apps\Model\Entity\File[]|\Cake\Collection\CollectionInterface $files
  */
 
-use Cake\I18n\Number;
-
 $timezone = $this->request->getSession()->read('Auth.User.time_zone.name');
 
 echo $this->element('Apps.table_filter', [
@@ -48,9 +46,9 @@ foreach ($files as $file) {
         ),
         $this->Html->link(__($file->name), ['action' => 'view', $file->id]),
         (empty($file->mime_type->name) ? "" : h($file->mime_type->name)),
-        Number::toReadableSize($file->size),
-        h($file->width),
-        h($file->height),
+        $this->Number->toReadableSize($file->size),
+        (string)$file->width,
+        (string)$file->height,
         h($file->created_at->setTimezone($timezone)),
         (empty($file->user->display_name) ? "" : h($file->user->display_name)),
         h($file->accessed_at->setTimezone($timezone)),

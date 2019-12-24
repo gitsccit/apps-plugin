@@ -15,7 +15,7 @@ if ($entities->count() === 0) {
 <hr>
 
 <?= $this->element('Apps.table_filter', [
-    'links' => [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
+    'links' => $links ?? [$this->Html->link('Add', ['action' => 'add'], ['class' => 'button add'])],
 ]) ?>
 
 <?= $this->Utils->createTable($entities) ?>

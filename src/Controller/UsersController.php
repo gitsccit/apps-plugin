@@ -46,10 +46,14 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $id = $id ?? $this->getRequest()->getSession()->read('Auth.User.id');
-        $user = $this->Users->get($id, ['contain' => ['Managers', 'Roles', 'UserContacts', 'UserLogins', 'TimeZones']]);
+        $id = $id ?? $this->Auth->user('id');
+        $query = $this->Users->find('all', [
+            'contain' => ['Managers', 'Roles', 'UserContacts', 'UserLogins', 'TimeZones'],
+            'conditions' => ['Users.id' => $id],
+        ]);
 
-        $this->set(compact('user'));
+        $results = $this->Crud->paginateAssociations($query);
+        $this->set($results);
 
         $canSynchronizeLDAP = $this->Auth->user()->hasPermission('admin.users.synchronizeldap');
         $canLoginAs = $this->Auth->user()->hasPermission('admin.session.loginas');

@@ -1,7 +1,6 @@
 var navmenueditActiveElement = false;
 
-function navmenueditSelect(obj)
-{
+function navmenueditSelect(obj) {
 
     if (navmenueditActiveElement) {
         navmenueditActiveElement.classList.remove('active');
@@ -21,8 +20,7 @@ function navmenueditSelect(obj)
 
 }
 
-function navmenueditEditor(display)
-{
+function navmenueditEditor(display) {
 
     let parent = navmenueditActiveElement;
     while (parent.classList.contains('navmenu-edit') === false) {
@@ -50,14 +48,14 @@ function navmenueditEditor(display)
         let colheight = obj.parentNode.offsetHeight;
         let elmheight = obj.offsetHeight;
 
-        obj.style.marginTop = Math.min(hdiff,colheight - elmheight) + "px";
+        obj.style.marginTop = Math.min(hdiff, colheight - elmheight) + "px";
     }
 
 }
 
-window.addEventListener('keydown',navmenueditKeyDown);
-function navmenueditKeyDown()
-{
+window.addEventListener('keydown', navmenueditKeyDown);
+
+function navmenueditKeyDown() {
 
     if (navmenueditActiveElement === false) {
         return;
@@ -90,8 +88,7 @@ function navmenueditKeyDown()
 
 }
 
-function navmenueditIndent(direction)
-{
+function navmenueditIndent(direction) {
 
     let min = 0;
     let max = 0;
@@ -119,7 +116,7 @@ function navmenueditIndent(direction)
         }
         margin = parseInt(e.getAttribute('data-margin'));
 
-        navmenueditActiveElement.setAttribute('data-indent',indent);
+        navmenueditActiveElement.setAttribute('data-indent', indent);
         navmenueditActiveElement.style.marginLeft = (indent * margin) + "px";
 
         // update json string
@@ -131,8 +128,7 @@ function navmenueditIndent(direction)
 
 }
 
-function navmenueditSort(direction)
-{
+function navmenueditSort(direction) {
 
     if (direction > 0) {
         if (navmenueditActiveElement.nextElementSibling) {
@@ -149,20 +145,20 @@ function navmenueditSort(direction)
 }
 
 var navmenueditDefer = false;
-function navmenueditKeyDefer()
-{
+
+function navmenueditKeyDefer() {
 
     if (navmenueditDefer) {
         clearTimeout(navmenueditDefer);
     }
 
-    navmenueditDefer = setTimeout(navmenueditSaveJson,300);
+    navmenueditDefer = setTimeout(navmenueditSaveJson, 300);
 
 }
 
 var navmenueditAddPosition = 0;
-function navmenueditAdd()
-{
+
+function navmenueditAdd() {
 
     let data = new Object();
     data.id = false;
@@ -174,7 +170,7 @@ function navmenueditAdd()
     data.file_id = null;
 
     var html = '<div class="navmenu-item" data-indent="0" style="margin-left:0px" onclick="navmenueditSelect(this)"><span>NEW</span><input type="hidden" name="applinkNEW' + navmenueditAddPosition + '" value=""></div>';
-    var items = document.querySelector('.navmenu-items').insertAdjacentHTML('afterbegin',html);
+    var items = document.querySelector('.navmenu-items').insertAdjacentHTML('afterbegin', html);
     document.querySelector('.navmenu-items .navmenu-item:first-child input').value = JSON.stringify(data);
     navmenueditAddPosition++;
 
@@ -182,8 +178,7 @@ function navmenueditAdd()
 
 }
 
-function navmenueditRemove()
-{
+function navmenueditRemove() {
 
     let input = navmenueditActiveElement.querySelector('input');
     input = JSON.parse(input.value);
@@ -192,7 +187,7 @@ function navmenueditRemove()
         while (form.tagName.toLowerCase() != 'form') {
             form = form.parentNode;
         }
-        form.insertAdjacentHTML('beforeend','<input type="hidden" name="applinkdelete[]" value="' + input.id + '">');
+        form.insertAdjacentHTML('beforeend', '<input type="hidden" name="applinkdelete[]" value="' + input.id + '">');
     }
 
     let temp = navmenueditActiveElement;
@@ -210,8 +205,7 @@ function navmenueditRemove()
 
 }
 
-function navmenueditSaveJson()
-{
+function navmenueditSaveJson() {
 
     if (navmenueditDefer) {
         clearTimeout(navmenueditDefer);

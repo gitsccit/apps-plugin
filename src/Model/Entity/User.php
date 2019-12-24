@@ -32,15 +32,7 @@ use Cake\ORM\TableRegistry;
  */
 class User extends Entity
 {
-    /**
-     * Fields that can be mass assigned using newEntity() or patchEntity().
-     *
-     * Note that when '*' is set to true, this allows all unspecified fields to
-     * be mass assigned. For security purposes, it is advised to set '*' to false
-     * (or remove it), and explicitly make individual fields accessible as needed.
-     *
-     * @var array
-     */
+
     protected $_accessible = [
         'ldapid' => true,
         'username' => true,
@@ -60,11 +52,9 @@ class User extends Entity
         'user_logins' => true,
         'roles' => true,
     ];
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
+
+    protected $_virtual = ['direct', 'extension', 'mobile'];
+
     protected $_hidden = [
         'id',
         'time_zone_id',
@@ -102,8 +92,41 @@ class User extends Entity
         'email',
         'mobile',
         'manager',
-        'timezone',
+        'time_zone',
     ];
+
+    protected function _getDirect()
+    {
+        foreach ($this->user_contacts ?? [] as $contact) {
+            if ($contact->type == "Direct") {
+                return formatPhoneNumber($contact->contact);
+            }
+        }
+
+        return null;
+    }
+
+    protected function _getExtension()
+    {
+        foreach ($this->user_contacts ?? [] as $contact) {
+            if ($contact->type == "Ext") {
+                return $contact->contact;
+            }
+        }
+
+        return null;
+    }
+
+    protected function _getMobile()
+    {
+        foreach ($this->user_contacts ?? [] as $contact) {
+            if ($contact->type == "Mobile") {
+                return formatPhoneNumber($contact->contact);
+            }
+        }
+
+        return null;
+    }
 
     public function hasPermission($permission)
     {

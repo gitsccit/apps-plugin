@@ -1,11 +1,10 @@
-window.addEventListener('load',fileUploadInit);
-document.addEventListener("dragover",fileUploadDragStart);
-document.addEventListener("dragend",fileUploadDragStop);
-document.addEventListener("dragleave",fileUploadDragStop);
-document.addEventListener("mouseout",fileUploadDragStop);
+window.addEventListener('load', fileUploadInit);
+document.addEventListener("dragover", fileUploadDragStart);
+document.addEventListener("dragend", fileUploadDragStop);
+document.addEventListener("dragleave", fileUploadDragStop);
+document.addEventListener("mouseout", fileUploadDragStop);
 
-function fileUploadInit()
-{
+function fileUploadInit() {
 
     var uploads = document.getElementsByClassName('file-upload');
     for (var i = 0; i < uploads.length; i++) {
@@ -19,8 +18,7 @@ function fileUploadInit()
     }
 }
 
-function fileUploadClear(obj)
-{
+function fileUploadClear(obj) {
 
     // clear the input box
     var target = fileUploadTarget(obj);
@@ -37,8 +35,7 @@ function fileUploadClear(obj)
 
 }
 
-function fileUploadDragStart()
-{
+function fileUploadDragStart() {
 
     event.preventDefault();
     event.stopPropagation();
@@ -49,7 +46,7 @@ function fileUploadDragStart()
     // add the upload "screen" element if it does not exist; this fades the screen
     var elements = document.getElementsByClassName('file-upload-screen');
     if (elements.length == 0) {
-        document.body.insertAdjacentHTML('beforeend','<div class="file-upload-screen" ondrop="fileUploadDragNoDrop(event)"></div>');
+        document.body.insertAdjacentHTML('beforeend', '<div class="file-upload-screen" ondrop="fileUploadDragNoDrop(event)"></div>');
     }
 
     // set the file uploads to active, which pushes their z-index to the top
@@ -61,12 +58,12 @@ function fileUploadDragStart()
 }
 
 var fileuploaddragstop = false;
-function fileUploadDragStop()
-{
-    fileuploaddragstop = setTimeout(fileUploadDragStopActual,50);
+
+function fileUploadDragStop() {
+    fileuploaddragstop = setTimeout(fileUploadDragStopActual, 50);
 }
-function fileUploadDragStopActual()
-{
+
+function fileUploadDragStopActual() {
     var elements = document.getElementsByClassName('file-upload-screen');
     for (var i = 0; i < elements.length; i++) {
         elements[i].parentNode.removeChild(elements[i]);
@@ -77,8 +74,7 @@ function fileUploadDragStopActual()
     }
 }
 
-function fileUploadDragNoDrop(event)
-{
+function fileUploadDragNoDrop(event) {
 
     event.preventDefault();
     event.stopPropagation();
@@ -86,8 +82,7 @@ function fileUploadDragNoDrop(event)
 
 }
 
-function fileUploadContainer(obj)
-{
+function fileUploadContainer(obj) {
 
     var parent = obj;
     while (parent.classList.contains('file-upload') === false) {
@@ -98,8 +93,7 @@ function fileUploadContainer(obj)
 
 }
 
-function fileUploadTarget(obj)
-{
+function fileUploadTarget(obj) {
 
     var parent = fileUploadContainer(obj);
 
@@ -115,8 +109,7 @@ function fileUploadTarget(obj)
 
 }
 
-function fileUploadLimit(obj)
-{
+function fileUploadLimit(obj) {
 
     var target = fileUploadTarget(obj);
     if (target) {
@@ -130,8 +123,7 @@ function fileUploadLimit(obj)
 
 }
 
-function fileUploadDragDrop(event,object)
-{
+function fileUploadDragDrop(event, object) {
 
     fileUploadDragNoDrop(event);
 
@@ -141,24 +133,23 @@ function fileUploadDragDrop(event,object)
         return;
     }
 
-    if ( event.dataTransfer.items ) {
+    if (event.dataTransfer.items) {
         for (var i = 0; i < event.dataTransfer.items.length; i++) {
             var file = event.dataTransfer.items[i].getAsFile();
-            fileUploadHandler(file,object);
+            fileUploadHandler(file, object);
         }
     }
 
 }
 
 var fileUploadOrigin = false;
-function fileUploadLightbox(obj,url)
-{
+
+function fileUploadLightbox(obj, url) {
     fileUploadOrigin = obj;
     lightbox(url);
 }
 
-function fileUploadBrowse(object)
-{
+function fileUploadBrowse(object) {
 
     if (fileUploadLimit(object) == 1 && object.files.length > 1) {
         alert("This form does not support uploading multiple files. Please select a single file and try again.");
@@ -166,23 +157,22 @@ function fileUploadBrowse(object)
         return;
     }
 
-    if ( object.files ) {
+    if (object.files) {
         for (var i = 0; i < object.files.length; i++) {
             var file = object.files[i];
-            fileUploadHandler(file,object);
+            fileUploadHandler(file, object);
         }
     }
 
 }
 
-function fileUploadHandler(file,object)
-{
+function fileUploadHandler(file, object) {
 
     var progressBar = document.createElement('div');
-    progressBar.insertAdjacentHTML('beforeEnd','<progress value="0" max="' + file.size + '"></progress><span>' + file.name + '</span>');
+    progressBar.insertAdjacentHTML('beforeEnd', '<progress value="0" max="' + file.size + '"></progress><span>' + file.name + '</span>');
 
     var progress = fileUploadContainer(object).querySelector('.file-progress');
-    progress.insertAdjacentElement('beforeEnd',progressBar);
+    progress.insertAdjacentElement('beforeEnd', progressBar);
 
 
     var xhr = new XMLHttpRequest();
@@ -198,7 +188,7 @@ function fileUploadHandler(file,object)
             } else {
                 // response text should contain the ID of the uploaded file
                 this.progressBar.parentNode.removeChild(this.progressBar);
-                fileAttachFileId(fileId,file.name,object);
+                fileAttachFileId(fileId, file.name, object);
             }
         }
     };
@@ -207,26 +197,25 @@ function fileUploadHandler(file,object)
     fileUpload.progressBar = progressBar;
     fileUpload.onprogress = function (e) {
         if (e.lengthComputable) {
-            this.progressBar.querySelector('progress').setAttribute('value',e.loaded);
+            this.progressBar.querySelector('progress').setAttribute('value', e.loaded);
         }
     };
 
     var formData = new FormData();
-    formData.append("upfile",file);
-    xhr.open("POST",fileUploadContainer(object).getAttribute('data-upload-url'),true);
-    xhr.setRequestHeader("Cache-Control","no-cache");
-    xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
-    xhr.setRequestHeader("X-File-Name",encodeURIComponent(file.name));
-    xhr.setRequestHeader("X-File-Size",file.size);
+    formData.append("upfile", file);
+    xhr.open("POST", fileUploadContainer(object).getAttribute('data-upload-url'), true);
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.setRequestHeader("X-File-Name", encodeURIComponent(file.name));
+    xhr.setRequestHeader("X-File-Size", file.size);
     // xhr.setRequestHeader("X-File-Related",listElm.getAttribute('data-related'));
-    xhr.setRequestHeader("X-CSRF-Token",fileUploadContainer(object).getAttribute('data-csrf'));
-    xhr.setRequestHeader("Content-Type","application/octet-stream");
+    xhr.setRequestHeader("X-CSRF-Token", fileUploadContainer(object).getAttribute('data-csrf'));
+    xhr.setRequestHeader("Content-Type", "application/octet-stream");
     xhr.send(formData);
 
 }
 
-function fileAttachFileId(id,name,object)
-{
+function fileAttachFileId(id, name, object) {
 
     if (object == false) {
         if (fileUploadOrigin === false) {
@@ -250,11 +239,11 @@ function fileAttachFileId(id,name,object)
     } else { // multi-input
         var target = fileUploadTarget(object);
         var html = '<input type="hidden" name="' + target.name + '" value="' + id + '">';
-        target.insertAdjacentHTML('afterEnd',html);
+        target.insertAdjacentHTML('afterEnd', html);
     }
 
     // add entry to the file progress container
     var html = '<div class="file-complete"><span>' + name + '</span></div>';
-    fileUploadContainer(object).querySelector('.file-progress').insertAdjacentHTML('beforeEnd',html);
+    fileUploadContainer(object).querySelector('.file-progress').insertAdjacentHTML('beforeEnd', html);
 
 }

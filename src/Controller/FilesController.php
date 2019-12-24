@@ -70,11 +70,13 @@ class FilesController extends AppController
      */
     public function view($id = null)
     {
-        $file = $this->Files->get($id, [
+        $query = $this->Files->find('all', [
             'contain' => ['Users', 'MimeType', 'MimeTypes', 'AppLinks'],
+            'conditions' => ['Files.id' => $id],
         ]);
 
-        $this->set('file', $file);
+        $results = $this->Crud->paginateAssociations($query);
+        $this->set($results);
     }
 
     /**
