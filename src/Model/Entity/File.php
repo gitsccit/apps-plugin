@@ -85,7 +85,7 @@ class File extends Entity
 
     public function generateHash()
     {
-        if ($this->hash === false) {
+        if (!$this->hash) {
             $this->hash = md5($this->src . $this->path . $this->mime_type_id . $this->name . $this->size . $this->width . $this->height);
         }
 
@@ -107,7 +107,7 @@ class File extends Entity
         }
 
         // cloud drive; check local cache for the file
-        $cachekey = $this->src . "_" . $this->path . "_" . strtotime($this->created_at) . "_" . $this->generateHash();
+        $cachekey = $this->src . "_" . $this->path . "_" . $this->created_at->timestamp . "_" . $this->generateHash();
         if ($width === false && $height === false) {
             $cachecfg = "files";
         } else {
