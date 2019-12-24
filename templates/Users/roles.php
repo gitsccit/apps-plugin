@@ -35,7 +35,7 @@ foreach ($user->user_contacts as $contact) {
     }
 }
 
-$image = $this->Url->build(['action' => 'profileimage', $user->ldapid]);
+$image = $this->Url->build(['action' => 'profileImage', $user->ldapid]);
 $title = $user->display_name;
 $subtitle = [$user->title, $user->department];
 $data = [

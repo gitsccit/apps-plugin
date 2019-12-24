@@ -13,7 +13,7 @@ $username = $this->request->getSession()->read('Auth.User.display_name');
         <ul id="header-actions" class="navmenu">
             <li><a href="javascript:void(0)" title="SCC Intranet"><span class="icon-home"></span></a></li>
             <li><a href="javascript:void(0)" title="Support"><span class="icon-help-circled"></span></a></li>
-            <li><a href="<?= $this->Url->build('/apps/users/view') ?>"><span id="user-profile" style="background-image:url(<?= $this->Url->build(['controller' => 'users','action' => 'profileimage','plugin' => 'Apps',$userldapid]) ?>)"></span></a>
+            <li><a href="<?= $this->Url->build('/apps/users/view') ?>"><span id="user-profile" style="background-image:url(<?= $this->Url->build(['controller' => 'users','action' => 'profileImage','plugin' => 'Apps',$userldapid]) ?>)"></span></a>
                 <?php if ($userldapid) : ?>
                 <ul>
                     <li><?= $this->Html->link("Profile " . $username, ['controller' => 'users','action' => 'view','plugin' => 'Apps']) ?></li>
