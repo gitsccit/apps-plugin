@@ -640,6 +640,8 @@ LIMIT 1", [$user->location . "%"]);
 
     private function post($path, $post)
     {
+        $path = $path ?? '';
+
         if (substr($path, 0, 4) == "http") {
             $url = $path;
         } else {
