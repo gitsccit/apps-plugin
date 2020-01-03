@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\Test\Fixture;
 
@@ -16,46 +17,10 @@ class UserContactsFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'id' => [
-            'type' => 'integer',
-            'length' => 10,
-            'unsigned' => true,
-            'null' => false,
-            'default' => null,
-            'comment' => '',
-            'autoIncrement' => true,
-            'precision' => null
-        ],
-        'user_id' => [
-            'type' => 'integer',
-            'length' => 10,
-            'unsigned' => true,
-            'null' => false,
-            'default' => null,
-            'comment' => '',
-            'precision' => null,
-            'autoIncrement' => null
-        ],
-        'type' => [
-            'type' => 'string',
-            'length' => null,
-            'null' => false,
-            'default' => null,
-            'collate' => 'utf8mb4_general_ci',
-            'comment' => '',
-            'precision' => null,
-            'fixed' => null
-        ],
-        'contact' => [
-            'type' => 'string',
-            'length' => 80,
-            'null' => false,
-            'default' => null,
-            'collate' => 'utf8mb4_general_ci',
-            'comment' => '',
-            'precision' => null,
-            'fixed' => null
-        ],
+        'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'user_id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'type' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'contact' => ['type' => 'string', 'length' => 80, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         '_indexes' => [
             'user_id' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
         ],
@@ -68,20 +33,19 @@ class UserContactsFixture extends TestFixture
         ],
     ];
     // @codingStandardsIgnoreEnd
-
     /**
      * Init method
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->records = [
             [
                 'id' => 1,
                 'user_id' => 1,
                 'type' => 'Lorem ipsum dolor sit amet',
-                'contact' => 'Lorem ipsum dolor sit amet'
+                'contact' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();

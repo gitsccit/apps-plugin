@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\Test\Fixture;
 
@@ -16,28 +17,12 @@ class RolesFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'id' => [
-            'type' => 'integer',
-            'length' => 10,
-            'unsigned' => true,
-            'null' => false,
-            'default' => null,
-            'comment' => '',
-            'autoIncrement' => true,
-            'precision' => null
-        ],
-        'name' => [
-            'type' => 'string',
-            'length' => 30,
-            'null' => false,
-            'default' => null,
-            'collate' => 'utf8mb4_general_ci',
-            'comment' => '',
-            'precision' => null,
-            'fixed' => null
-        ],
+        'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'name' => ['type' => 'string', 'length' => 30, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'manager_assign' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => 'no', 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+            'name_UNIQUE' => ['type' => 'unique', 'columns' => ['name'], 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -45,18 +30,18 @@ class RolesFixture extends TestFixture
         ],
     ];
     // @codingStandardsIgnoreEnd
-
     /**
      * Init method
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->records = [
             [
                 'id' => 1,
-                'name' => 'Lorem ipsum dolor sit amet'
+                'name' => 'Lorem ipsum dolor sit amet',
+                'manager_assign' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();

@@ -25,9 +25,11 @@ $profileData = array_map(function ($fieldChunk) use ($entity) {
     }, $fieldChunk);
 }, $fieldChunks);
 
-$tabs = [];
-foreach ($associations as $association => $resultSet) {
-    $tabs[humanize($association)] = $this->Utils->createTable($resultSet);
+if (!isset($tabs)) {
+    $tabs = [];
+    foreach ($associations as $association => $resultSet) {
+        $tabs[humanize($association)] = $this->Utils->createTable($resultSet);
+    }
 }
 ?>
 

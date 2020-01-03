@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Apps\Test\Fixture;
 
@@ -16,59 +17,17 @@ class StoresFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'id' => [
-            'type' => 'integer',
-            'length' => 10,
-            'unsigned' => true,
-            'null' => false,
-            'default' => null,
-            'comment' => '',
-            'autoIncrement' => true,
-            'precision' => null
-        ],
-        'name' => [
-            'type' => 'string',
-            'length' => 30,
-            'null' => false,
-            'default' => null,
-            'collate' => 'utf8mb4_general_ci',
-            'comment' => '',
-            'precision' => null,
-            'fixed' => null
-        ],
-        'active' => [
-            'type' => 'string',
-            'length' => null,
-            'null' => false,
-            'default' => null,
-            'collate' => 'utf8mb4_general_ci',
-            'comment' => '',
-            'precision' => null,
-            'fixed' => null
-        ],
-        'parent_id' => [
-            'type' => 'integer',
-            'length' => 10,
-            'unsigned' => true,
-            'null' => true,
-            'default' => null,
-            'comment' => '',
-            'precision' => null,
-            'autoIncrement' => null
-        ],
+        'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'name' => ['type' => 'string', 'length' => 30, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'active' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'parent_id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'parent_id' => ['type' => 'index', 'columns' => ['parent_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'stores_ibfk_1' => [
-                'type' => 'foreign',
-                'columns' => ['parent_id'],
-                'references' => ['stores', 'id'],
-                'update' => 'noAction',
-                'delete' => 'noAction',
-                'length' => []
-            ],
+            'name_UNIQUE' => ['type' => 'unique', 'columns' => ['name'], 'length' => []],
+            'stores_ibfk_1' => ['type' => 'foreign', 'columns' => ['parent_id'], 'references' => ['stores', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -76,20 +35,19 @@ class StoresFixture extends TestFixture
         ],
     ];
     // @codingStandardsIgnoreEnd
-
     /**
      * Init method
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->records = [
             [
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'active' => 'Lorem ipsum dolor sit amet',
-                'parent_id' => 1
+                'parent_id' => 1,
             ],
         ];
         parent::init();

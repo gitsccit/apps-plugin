@@ -30,4 +30,9 @@ $links = array_merge($links, [
     $this->Html->link('Edit Time Zone', ['action' => 'edit', $user->id], ['class' => 'button']),
 ]);
 
-$this->set(compact('image', 'subtitle', 'links'));
+$tabs = [];
+foreach ($associations as $association => $resultSet) {
+    $tabs[humanize($association)] = $this->Utils->createTable($resultSet, ['actions' => ['view']]);
+}
+
+$this->set(compact('image', 'subtitle', 'links', 'tabs'));

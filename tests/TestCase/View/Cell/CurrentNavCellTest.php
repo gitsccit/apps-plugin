@@ -1,0 +1,89 @@
+<?php
+declare(strict_types=1);
+
+namespace Apps\Test\TestCase\View\Cell;
+
+use Apps\View\Cell\CurrentNavCell;
+use Cake\TestSuite\TestCase;
+
+/**
+ * Apps\View\Cell\CurrentNavCell Test Case
+ */
+class CurrentNavCellTest extends TestCase
+{
+    /**
+     * Request mock
+     *
+     * @var \Cake\Http\ServerRequest|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $request;
+
+    /**
+     * Response mock
+     *
+     * @var \Cake\Http\Response|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $response;
+
+    /**
+     * Test subject
+     *
+     * @var \Apps\View\Cell\CurrentNavCell
+     */
+    protected $CurrentNav;
+
+    /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->request = $this->getMockBuilder('Cake\Http\ServerRequest')->getMock();
+        $this->response = $this->getMockBuilder('Cake\Http\Response')->getMock();
+        $this->CurrentNav = new CurrentNavCell($this->request, $this->response);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown(): void
+    {
+        unset($this->CurrentNav);
+
+        parent::tearDown();
+    }
+
+    /**
+     * Test initialize method
+     *
+     * @return void
+     */
+    public function testInitialize(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test display method
+     *
+     * @return void
+     */
+    public function testDisplay(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test undefined method
+     *
+     * @return void
+     */
+    public function testUndefined(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+}
